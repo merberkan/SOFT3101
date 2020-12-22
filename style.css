@@ -1,0 +1,171 @@
+@import "https://fonts.googleapis.com/css?family=Montserrat:300, 400, 700&display=swap";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+a {
+  text-decoration: none;
+}
+::selection {
+  background: gray;
+}
+.container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Welcome Section */
+#welcome {
+  background-image: url(./images/concert_performance_smoke_136716_3840x2160.jpg);
+  max-width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+#welcome::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100;
+  background-color: black;
+  opacity: 0.8;
+  z-index: -1;
+}
+#welcome .welcome {
+  max-width: 160rem;
+  margin: 0 auto;
+  padding: 0 50px;
+  justify-content: flex-start;
+}
+#welcome h1 {
+  display: block;
+  width: fit-content;
+  font-size: 3rem;
+  position: relative;
+  color: transparent;
+  animation: text_showback 0.5s ease forwards;
+  animation-delay: 1s;
+}
+#welcome h1 span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: rgb(24, 24, 172);
+  animation: text_display 1s ease;
+  animation-delay: 0.5s;
+}
+#welcome h3 {
+  display: block;
+  width: fit-content;
+  font-size: 2rem;
+  position: relative;
+  color: transparent;
+  animation: text_showback 1.5s ease forwards;
+  animation-delay: 1.5s;
+}
+#welcome h3 span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: rgb(24, 24, 172);
+  animation: text_display 1s ease;
+  animation-delay: 1s;
+}
+.cta {
+  background-position: center;
+  transition: background 0.8s;
+}
+#welcome .cta:hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+    center/15000%;
+}
+
+#welcome .cta:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}
+#welcome .cta {
+  border: none;
+  display: inline-block;
+  padding: 10px 30px;
+  color: white;
+  background-color: #1b73bb;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  margin-top: 2rem;
+  border-radius: 1.1875rem;
+  transition: 0.3s ease;
+  transition-property: background-color, color;
+}
+/* End Welcome Section */
+
+/* Category Section */
+/* #category {
+}
+#category .category {
+  flex-direction: column;
+  text-align:start;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 100px 0;
+}
+#category .section-title span {
+  color: crimson;
+}
+#category .category-top p {
+  text-align: start;
+  font: size 1.4rem;
+  margin-top: 5px;
+  line-height: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.05rem;
+}
+#category .category-bottom {
+  display: flex;
+  align-content: flex-start;
+  justify-content: center;
+  flex-flow: column wrap;
+}
+#category .category-item {
+  flex-basis: 80%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 10px;
+  background-image: url(./images/m-4_M8uIfPEZw-unsplash.jpg);
+  background-size: cover;
+  margin: 10px 5%;
+} */
+/* keyframes */
+@keyframes text_display {
+  50% {
+    width: 100%;
+    left: 0;
+  }
+  100% {
+    width: 0;
+    left: 100%;
+  }
+}
+@keyframes text_showback {
+  100% {
+    color: white;
+  }
+}
