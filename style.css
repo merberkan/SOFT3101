@@ -105,7 +105,7 @@ a {
   z-index: -1;
 }
 
-input[type="text"] {
+input[type="search"] {
   width: 300px;
   box-sizing: border-box;
   border: none;
@@ -120,7 +120,7 @@ input[type="text"] {
   transition: width 0.4s ease-in-out;
 }
 
-input[type="text"]:focus {
+input[type="search"]:focus {
   width: 400px;
   color: white;
 }
