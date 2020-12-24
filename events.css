@@ -25,7 +25,7 @@
     justify-content: center;
     grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
     grid-gap: 20px 20px;
-    margin: 3% 15% 2% 15%;
+    margin: 3% 10% 2% 5%;
 }
 
 .event{
@@ -48,10 +48,36 @@
 
 .img-event{
     width: 100%;
-    object-fit: cover;
-    height: 30rem;
+    object-fit: fill;
+    height: 15rem;
 }
 
 .link-text{
     color: #22395c;
+}
+.fae{
+    display: flex;
+}
+.filter{
+    margin-left: 50px;
+}
+.etkinlik-arama{
+    display: flex;
+    flex-direction: column;
+    padding-top: 5px;
+}
+.sehir-secme{
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+}
+.tarih-secme{
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+}
+.kategori-secme{
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
 }
