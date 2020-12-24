@@ -15,14 +15,10 @@ a {
 ::selection {
   background: gray;
 }
-.container {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
+ul {
+  list-style-type: none;
+}
 .logo h1 {
   font-size: 4rem;
   color: white;
@@ -42,8 +38,7 @@ a {
 }
 #header .header {
   min-height: 7vh;
-  background-color: rgba(43, 43, 43, 0.24);
-  transition: 0.5s ease background-color;
+  background-color: #22395c;
 }
 .header .logo {
   margin-left: 4rem;
@@ -104,7 +99,6 @@ a {
   background-color: white;
   z-index: -1;
 }
-
 input[type="text"] {
   width: 300px;
   box-sizing: border-box;
@@ -125,130 +119,51 @@ input[type="text"]:focus {
   color: white;
 }
 /* End Header Section */
-/* Welcome Section */
-#welcome {
-  background-image: url(./images/concert_performance_smoke_136716_3840x2160.jpg);
-  max-width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  z-index: 1;
-}
-#welcome::after {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100;
-  background-color: black;
-  opacity: 0.8;
-  z-index: -1;
-}
-#welcome .welcome {
-  max-width: 160rem;
-  margin: 0 auto;
-  padding: 0 50px;
-  justify-content: flex-start;
-}
-#welcome h1 {
-  display: block;
-  width: fit-content;
-  font-size: 3rem;
-  position: relative;
-  color: transparent;
-  animation: text_showback 0.5s ease forwards;
-  animation-delay: 1s;
-}
-#welcome h1 span {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0;
-  background-color: #063366;
-  animation: text_display 1s ease;
-  animation-delay: 0.5s;
-}
-#welcome h3 {
-  display: block;
-  width: fit-content;
-  font-size: 2rem;
-  position: relative;
-  color: transparent;
-  animation: text_showback 1.5s ease forwards;
-  animation-delay: 1.5s;
-}
-#welcome h3 span {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0;
-  background-color: #063366;
-  animation: text_display 1s ease;
-  animation-delay: 1s;
-}
-.cta {
-  background-position: center;
-  transition: background 0.8s;
-}
-#welcome .cta:hover {
-  background-image: linear-gradient(60deg, #18416f 40%, #18416f 85%);
-}
+/* User Agreement Section */
 
-#welcome .cta {
-  border: none;
-  display: inline-block;
-  padding: 10px 30px;
-  color: white;
-  background-image: linear-gradient(60deg, #063366 0%, #485564 100%);
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1rem;
-  margin-top: 2rem;
-  border-radius: 1.18rem;
+#Useragreement {
+  background-color: rgb(255, 255, 255);
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
-/* End Welcome Section */
-
-/* Category Section */
-/* #category {
-}
-#category .category {
-  flex-direction: column;
-  text-align:start;
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 100px 0;
-}
-#category .section-title span {
-  color: crimson;
-}
-#category .category-top p {
-  text-align: start;
-  font: size 1.4rem;
-  margin-top: 5px;
-  line-height: 2.5rem;
-  font-weight: 300;
-  letter-spacing: 0.05rem;
-}
-#category .category-bottom {
+.containeragreement {
+  margin-top: 10rem;
+  padding-top: 5rem;
+  margin-left: 15rem;
+  margin-right: 15rem;
+  min-height: 80vh;
   display: flex;
-  align-content: flex-start;
   justify-content: center;
-  flex-flow: column wrap;
+  background-color: rgb(255, 255, 255);
 }
-#category .category-item {
-  flex-basis: 80%;
-  display: flex;
-  align-items: flex-start;
+#Useragreement h1 {
+  text-align: center;
+  align-items: center;
   justify-content: center;
-  flex-direction: column;
-  padding: 30px;
-  border-radius: 10px;
-  background-image: url(./images/m-4_M8uIfPEZw-unsplash.jpg);
-  background-size: cover;
-  margin: 10px 5%;
-} */
+  color: rgb(196, 194, 194);
+  letter-spacing: 0.5px;
+  font-size: 30px;
+}
+#Useragreement h3 {
+  letter-spacing: 0.5px;
+  font-size: 18px;
+  color: #142744;
+}
+#Useragreement p {
+  letter-spacing: 0.3px;
+  padding: 5px;
+}
+#Useragreement .listA {
+  padding-top: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#Useragreement .title {
+  background-color: #266ab8;
+  padding: 20px;
+}
+/* End User Agreement Section */
 /* Footer */
 #footer {
   background-image: linear-gradient(60deg, #063366 0%, #485564 100%);
