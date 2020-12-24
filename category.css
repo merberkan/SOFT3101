@@ -1,43 +1,43 @@
-#upcomingevents{
-    background-image: url(./images/konser.png);
-    width: 100%;
-    height: 400px;
-    background-size: contain;
-    background-position: center;
-    object-fit: contain;
+#upcomingevents {
+  background-image: url(./images/konser.png);
+  width: 100%;
+  height: 400px;
+  background-size: contain;
+  background-position: center;
+  object-fit: contain;
 }
-.yazı{
-    text-align: center;
-    padding-top: 90px;
-    font-weight: bold;
-    font-size: 25px;
+.yazı {
+  text-align: center;
+  padding-top: 90px;
+  font-weight: bold;
+  font-size: 25px;
 }
-.yaklaşan{
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(21%,1fr));
-    border-style: dotted;
-    border-color: black;
+.yaklaşan {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(21%, 1fr));
+  border-style: dotted;
+  border-color: black;
 }
-#upcomingevents .upcomingevents{
-    max-width: 160rem;
-    margin: 0 auto;
-    padding: 0 50px;
-    justify-content: flex-start;
+#upcomingevents .upcomingevents {
+  max-width: 160rem;
+  margin: 0 auto;
+  padding: 0 50px;
+  justify-content: flex-start;
 }
-.genelaktivite{
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(40%,1fr));
-    grid-gap: 20px 20px;
-    margin: 3% 15% 2% 15%;
+.genelaktivite {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  grid-gap: 20px 20px;
+  margin: 3% 15% 2% 15%;
 }
-.aktivite{
-    display: flex; 
+.aktivite {
+  display: flex;
 }
 .container2 {
-    display: flex;
+  display: flex;
 }
-.resimWrite{
-    font-size: 50px;
-    position: absolute;
-    font-weight:bold;
+.resimWrite {
+  font-size: 50px;
+  position: absolute;
+  font-weight: bold;
 }
