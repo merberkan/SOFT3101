@@ -211,76 +211,96 @@ input[type="search"]:focus {
 
 /* End Welcome Section */
 /* Category Section */
-#category{
+#category {
   display: flex;
   flex-direction: column;
   width: 100%;
   padding-left: 20rem;
   padding-right: 20rem;
-  
 }
-.categorytext{
+.categorytext {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  border-top: 2px solid;
 }
-.containermid{
+.containermid {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 10px;
+  padding: 30px 0;
   justify-content: center;
   text-align: center;
   background-color: rgb(248, 248, 248);
   border: 2px solid #555;
-  margin: 30px 0;
+  border-bottom: 0;
+  border-top: 0;
 }
-.categorypart{
+.categorypart {
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(40%,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
   grid-gap: 20px 20px;
   margin: 3% 15% 2% 15%;
-  
 }
-.citypart{
+.citypart {
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(40%,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
   grid-gap: 20px 20px;
   margin: 3% 15% 2% 15%;
-  
 }
-.activity{
+.activity {
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: center;
 }
-.activity img{
-  width: 100%;
+.activity img {
+  width: 40%;
   opacity: 1;
-  -webkit-transition: .3s ease-in-out;
-  transition: .3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
   height: 30rem;
   object-fit: cover;
+  border-radius: 35%;
+  border: 5px solid rgb(0, 0, 0);
 }
 .activity:hover img {
-  opacity: .8;
-  
+  opacity: 0.8;
+  border-radius: 0;
+  width: 100%;
 }
-.containermid h3{
+.containermid h3 {
   font-size: 48px;
   letter-spacing: 3px;
-  font-family: 'Sacramento', cursive;
+
   color: #062952;
 }
-.activity p{
+.activity p {
   font-size: 24px;
   letter-spacing: 1px;
-  font-family: 'Sacramento', cursive;
-  
+  font-weight: 600;
 }
-.citytext{
-  margin-top: 10rem;
+.row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.rowcontainer img {
+  width: 30rem;
+  border: 5px solid black;
+  opacity: 1;
+  margin-right: 5px;
+  max-height: 17rem;
+}
+.rowcontainer:hover img {
+  opacity: 0.8;
+  border-radius: 0;
+  width: 60%;
+  max-height: 25rem;
+}
+.rowtext {
+  border-top: 2px solid black;
 }
 /* Footer */
 #footer {
