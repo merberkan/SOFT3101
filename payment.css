@@ -18,27 +18,22 @@
 .name{
     display: flex;
     flex-direction: column;
-    width: 200%;
 }
 .mail{
     display: flex;
     flex-direction: column;
-    width: 200%;
 }
 .card{
     display: flex;
     flex-direction: column;
-    width: 200%;
 }
 .card-owner{
     display: flex;
     flex-direction: column;
-    width: 200%;
 }
 .card-no{
     display: flex;
     flex-direction: column;
-    width: 200%;
 }
 .ay{
     display: flex;
