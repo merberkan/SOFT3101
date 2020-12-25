@@ -221,8 +221,6 @@ input[type="search"]:focus {
   flex-flow: row wrap;
   padding: 50px;
   color: #fff;
-  position: fixed;
-  bottom: 0;
 }
 .footer > * {
   flex: 1 100%;
