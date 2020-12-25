@@ -11,7 +11,6 @@
     flex-direction: column;
     width: 100%;
     margin-top: 5%;
-    padding-bottom: 16rem;
 }
 .title{
     display: flex;
@@ -22,7 +21,7 @@
 .events{
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
     grid-gap: 20px 20px;
     margin: 3% 10% 2% 5%;
 }

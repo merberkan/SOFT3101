@@ -51,6 +51,12 @@
 }
 .aktivite{
   display: flex; 
+  opacity: 1;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+.aktivite:hover{
+  opacity: 0.8;
 }
 .container2 {
   display: flex;

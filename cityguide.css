@@ -58,8 +58,13 @@
   width: 100%;
   object-fit: cover;
   height: 30rem;
+  opacity: 1;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
-
+.img-city:hover {
+  opacity: 0.8;
+}
 .link-text {
   color: #22395c;
 }

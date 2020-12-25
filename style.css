@@ -211,9 +211,78 @@ input[type="search"]:focus {
 
 /* End Welcome Section */
 /* Category Section */
-#category {
+#category{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 30px;
+  padding-left: 20rem;
+  padding-right: 20rem;
+  margin-bottom: 30px;
+  
 }
-
+.categorytext{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.containermid{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
+  justify-content: center;
+  text-align: center;
+  background-color: rgb(248, 248, 248);
+  border: 2px solid #555;
+}
+.categorypart{
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(40%,1fr));
+  grid-gap: 20px 20px;
+  margin: 3% 15% 2% 15%;
+  
+}
+.citypart{
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(40%,1fr));
+  grid-gap: 20px 20px;
+  margin: 3% 15% 2% 15%;
+  
+}
+.activity{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+}
+.activity img{
+  width: 100%;
+  opacity: 1;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+  height: 30rem;
+  object-fit: cover;
+}
+.activity:hover img {
+  opacity: .8;
+  
+}
+.containermid h3{
+  font-size: 48px;
+  letter-spacing: 3px;
+  font-family: 'Sacramento', cursive;
+  color: #062952;
+}
+.activity p{
+  font-size: 24px;
+  letter-spacing: 1px;
+  font-family: 'Sacramento', cursive;
+  
+}
+.citytext{
+  margin-top: 10rem;
+}
 /* Footer */
 #footer {
   background-image: linear-gradient(60deg, #063366 0%, #485564 100%);
