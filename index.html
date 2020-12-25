@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Website</title>
+  <title>MainPage</title>
+  <script src="./mainspageslider.js"></script>
 </head>
 
 <body>
@@ -28,7 +29,7 @@
           <ul>
 
             <li style="padding: 8px;"><a href="index.html">Anasayfa</a></li>
-            <li style="padding: 8px;"><a href="events.html" >Etkinlikler</a></li>
+            <li style="padding: 8px;"><a href="events.html">Etkinlikler</a></li>
             <li style="padding: 8px;"><a href="category.html">Kategoriler</a></li>
             <li style="padding: 8px;"><a href="cityguide.html">Şehir Turu</a></li>
             <li style="padding: 20px;"><a href="aboutus.html">Hakkımızda</a></li>
@@ -43,32 +44,85 @@
   <!-- End Header -->
   <!-- Welcome Section  -->
   <section id="welcome">
-    <div class="welcome container slider">
-      <div>
-        <div>
-          <h1>Senin Dünyan Senin Kuralların <span></span></h1>
-          <h3>En sevdiğin etkinlikler Snollda <span></span></h3>
-        </div>
-        <a href="events.html" type="button" class="cta">Etkinlik Ara</a>
+    <div class="container slider">
+      <img class="img-slider" src="" id="slide-image">
+     <div class="slidertext">
+      <div id="deneme">
+        <h1 id="tet" class="tett">Senin Dünyan Senin Kuralların<span></span></h1>
+        <h3>En sevdiğin etkinlikler Snollda <span></span></h3>
       </div>
+      <a href="events.html" type="button" class="cta">Etkinlik Ara</a>
+     </div>
     </div>
   </section>
   <!-- End Welcome Section  -->
   <!-- Category Section -->
-  <section id="category">
-    <div class="category container">
-      <div class="category-top">
-        <h1 class="category-title">Kategoriler</h1>
-        <h3 class="category-title">En çılgın konserlerden en eğlenceli tiyatrolara senin zevkine uyan kategorini seç
-        </h3>
-      </div>
-      <div class="category-bottom">
-        <div class="category-item">
-          <h2>Konserler</h2>
+  <section id="mid">
+   <div class="category">
+     <div class="titlec">
+       <div class="titleicon">
+
+       </div>
+       <div class="texttitle">
+         <h3>Kategoriler</h3>
+       </div>
+     </div>
+     <div class="categorypart">
+      
+      <div class="categories">
+         <div class="categoryimage">
+              <a href="#">  
+                <img class="categoryimg" src="images/müzik.png">
+              </a>
+         </div>
+         <div class="categorytext">
+           <a href="#">
+             <h5>Müzik</h5>
+           </a>
+         </div>
+       </div>
+
+       <div class="categories">
+        <div class="categoryimage">
+             <a href="#">  
+               <img class="categoryimg" src="images/tiyatro.png">
+             </a>
+        </div>
+        <div class="categorytext">
+          <a href="#">
+            <h5>Tiyatro</h5>
+          </a>
         </div>
       </div>
 
-    </div>
+      <div class="categories">
+        <div class="categoryimage">
+             <a href="#">  
+               <img class="categoryimg" src="images/spor.jpg">
+             </a>
+        </div>
+        <div class="categorytext">
+          <a href="#">
+            <h5>Spor</h5>
+          </a>
+        </div>
+      </div>
+
+      <div class="categories">
+        <div class="categoryimage">
+             <a href="#">  
+               <img class="categoryimg" src="images/teknoloji.png">
+             </a>
+        </div>
+        <div class="categorytext">
+          <a href="">
+            <h5>Teknoloji</h5>
+          </a>
+        </div>
+      </div>
+
+     </div>
+   </div>
   </section>
   <!-- End Category Section -->
   <!-- Footer -->
