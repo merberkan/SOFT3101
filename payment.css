@@ -9,6 +9,7 @@
 .payment{
     display: flex;
     flex-direction: column;
+    padding-right: 20rem;
 }
 .fatura{
     display: flex;
@@ -68,9 +69,11 @@
     padding: 15px;
 }
 .öde{
-    padding-top: 10px;
+    padding-top: 15px;
     display: flex;
     flex-direction: column;
+    width: 15rem;
+    height: 10rem;
 }
 .ay-yıl-cvv{
     display: flex;
