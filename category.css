@@ -55,6 +55,7 @@
   -webkit-transition: .3s ease-in-out;
   transition: .3s ease-in-out;
 }
+
 .aktivite:hover{
   opacity: 0.8;
 }

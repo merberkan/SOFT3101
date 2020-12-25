@@ -11,6 +11,7 @@
     flex-direction: column;
     width: 100%;
     margin-top: 5%;
+    padding-bottom: 16rem;  
 }
 .title{
     display: flex;

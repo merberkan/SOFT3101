@@ -215,10 +215,8 @@ input[type="search"]:focus {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 30px;
   padding-left: 20rem;
   padding-right: 20rem;
-  margin-bottom: 30px;
   
 }
 .categorytext{
@@ -235,6 +233,7 @@ input[type="search"]:focus {
   text-align: center;
   background-color: rgb(248, 248, 248);
   border: 2px solid #555;
+  margin: 30px 0;
 }
 .categorypart{
   display: grid;
