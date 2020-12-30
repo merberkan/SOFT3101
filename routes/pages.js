@@ -50,6 +50,13 @@ router.get('/category', (req,res) =>{
 router.get('/cityguide', (req,res) =>{
     res.render('cityguide',{email : req.session.emailAddress , loginn : req.session.loggedinUser} );
 }); 
+router.get('/adminPanel', (req,res) =>{
+    res.render('adminPanel',{email : req.session.emailAddress , loginn : req.session.loggedinUser} );
+}); 
+router.get('/profile', (req,res) =>{
+    res.render('profile',{email : req.session.emailAddress , loginn : req.session.loggedinUser} );
+}); 
+
 
 
 module.exports = router;
