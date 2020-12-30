@@ -95,12 +95,12 @@ a {
   background-color: white;
   z-index: -1;
 }
-input[type="text"] {
+input[type="search"] {
   width: 300px;
   box-sizing: border-box;
   border: none;
   border-radius: 25px;
-  border-bottom: 3px solid rgb(5, 5, 5);
+  box-shadow: 2px 2px rgb(5, 5, 5);
   outline: none;
   font-size: 16px;
   background-color: rgba(43, 43, 43, 0.24);
@@ -112,7 +112,7 @@ input[type="text"] {
   transition: width 0.4s ease-in-out;
 }
 
-input[type="text"]:focus {
+input[type="search"]:focus {
   width: 400px;
   color: white;
 }
