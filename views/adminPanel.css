@@ -1,0 +1,106 @@
+#adminPanel {
+  position: relative;
+  min-height: 100vh;
+  padding: 110px 10% 20px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-size: cover;
+  background-image: linear-gradient(60deg, #313131 0%, #adadad 100%);
+}
+.eventspart {
+  position: relative;
+  background-image: linear-gradient(60deg, #063366 0%, #485564 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  border-radius: 1.175rem;
+  width: 33%;
+  height: 50rem;
+}
+.userpart {
+  position: relative;
+  background-image: linear-gradient(60deg, #063366 0%, #485564 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  border-radius: 1.175rem;
+  width: 25%;
+  height: 50rem;
+}
+.citypart {
+  position: relative;
+  background-image: linear-gradient(60deg, #063366 0%, #485564 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  border-radius: 1.175rem;
+  width: 33%;
+  height: 50rem;
+}
+.buttonpart {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+button[type="button"] {
+  font-size: 18px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 2rem;
+  border: none;
+  border-radius: 1rem;
+  padding: 2px;
+  outline: none;
+}
+button[type="button"]:hover {
+  background-color: black;
+  color: white;
+}
+.showpart {
+  margin: 5px;
+  display: flex;
+  justify-content: start;
+  text-align: start;
+  align-items: flex-start;
+}
+.showpart table {
+  position: relative;
+  font-size: 16px;
+}
+.showpart th {
+  padding: 3px 15px 2px 15px;
+  text-align: center;
+  color: rgb(182, 182, 182);
+}
+.showpart td {
+  padding: 3px 15px 2px 15px;
+  text-align: center;
+  color: white;
+}
+@media screen and (max-width: 1200px) {
+  #adminPanel {
+    display: flex;
+    flex-direction: column;
+  }
+  .eventspart {
+    width: 40rem;
+    margin-bottom: 10px;
+  }
+  .userpart {
+    width: 40rem;
+    margin-bottom: 10px;
+  }
+  .citypart {
+    width: 40rem;
+    margin-bottom: 10px;
+  }
+  
+}
+@media screen and (min-width: 1200px) {
+   
+  }
+  
