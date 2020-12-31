@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--Deneme-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <title>Biletler</title>
+    <link rel="stylesheet" href="footernavbar.css">
+    <link rel="stylesheet" href="./ticket.css">
+</head>
+<body>
+    <div class="page-container">
+<!--    NAVBAR  Start-->
+<section id="header">
+    <div class="header container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="/">
+                    <h1><span>S</span>noll</h1>
+                </a>
+            </div>
+            <div class="searchbar">
+                <input type="search" placeholder="Etkinlik Ara">
+            </div>
+            <div class="navlist">
+                <div class="hb">
+                    <div class="bar"></div>
+                </div>
+                <ul>
+
+                    <li style="padding: 8px;"><a href="/">Anasayfa</a></li>
+                    <li style="padding: 8px;"><a href="/events">Etkinlikler</a></li>
+                    <li style="padding: 8px;"><a href="/category">Kategoriler</a></li>
+                    <li style="padding: 8px;"><a href="/cityguide">Şehir Turu</a></li>
+                    <li style="padding: 20px;"><a href="/aboutus">Hakkımızda</a></li>
+                    <% if(loginn){ %> 
+                        <li class="entrance" style="margin-right:20px ;"><a href="/profile">Profilim</a></li>
+                        <li class="entrance" style="margin-right:20px ;"><a href="/logout">Çıkış Yap</a></li>
+                        <% } else{ %>
+                    <li class="entrance" style="margin-right:20px ;"><a href="/login">Giriş Yap</a></li>
+                    <li class="entrance" style="margin-right:20px ;"><a href="/register">Üye Ol</a></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--    NAVBAR  End-->
+
+<!--    Mid-Part    -->
+<div class="mid-part">
+    <div class="top-part">
+        <div class="title">Ezhel</div>
+        <div class="top-top">
+            <div class="img-part">
+                <img src="./images/ezhel.jpg" class="img">
+            </div>
+            <div class="place-part">
+                <div class="place-name">
+                    <div class="icon">
+                        <i class="fas fa-map-pin"></i>
+                    </div>
+                    <div class="place">DasDas</div>
+                </div>
+                <div class="place-city">
+                    <div class="icon">
+                        <i class="fas fa-map-marker"></i>
+                    </div>
+                    <div class="city">İstanbul</div>
+                </div>
+            </div>
+        </div>
+        <div class="top-bottom">
+            <div class="detail">Ezhel Konser Bileti Snoll'dan alınır, Canlı Dinlenir...</div>
+        </div>
+    </div>
+    <div class="bottom-part">
+        <div class="bottom-left">
+            <div class="title2">BİLET ARA</div>
+            <div class="date">
+                <div class="date-left">Tarih Seçiniz</div>
+                <div class="date-right">
+                    <select id="date-choose">
+                    <option selected>03.01.2020 23:59</option>
+                    </select>
+                </div>
+            </div>
+            <div class="title2">Bilet Seçimi</div>
+            <div class="amount">
+                <div class="amount-left">TAM</div>
+                <div class="amount-right">
+                    <select id="amoung-choose">
+                    <option selected>0</option>
+                    <option selected>1</option>
+                    <option selected>2</option>
+                    <option selected>3</option>
+                    <option selected>4</option>
+                    <option selected>5</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="border"></div>
+        <div class="bottom-right">
+            <div class="title2">Biletleriniz</div>
+            <div class="ticket-amount-part">
+                <div class="text2">Bilet Adedi:</div>
+                <div class="ticket-amount"> 1</div>
+            </div>
+            <div class="ticket-detail">
+                <div class="detail">
+                    <div class="detail-left">Bilet Tipi:</div>
+                    <div class="detail-right">Tam</div>
+                </div>
+                <div class="detail">
+                    <div class="detail-left">Fiyatı:</div>
+                    <div class="detail-right">100 </div>
+                </div>
+                <div class="detail">
+                    <div class="detail-left">Adet:</div>
+                    <div class="detail-right">1</div>
+                </div>
+            </div>
+
+            <div class="button">
+                <a href="/payment">  <button class="confirm"> Devam Et</button></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--    Mid-End     -->
+
+    <!-- Footer -->
+    <section id="footer">
+        <div class="footerleft">
+            <a href="/">
+                <h1 style="color:white; font-size: 3rem;"><span
+                        style="color: rgb(73, 89, 230)  ;font-size: 4rem;">S</span>noll
+                </h1>
+            </a>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam distinctio pariatur placeat
+                consequuntur
+                vel laborum molestiae, eos incidunt est! Doloremque ea illo ratione sunt porro, earum voluptas eum
+                quaerat est.
+                Velit, nostrum quae officia odio veniam animi
+                exercitationem. Nobis, hic. Praesentium provident eaque, dolorum dolore rem ullam id delectus quae?</p>
+            <div class="socialmedia">
+                <div class="socialitem">
+                    <a href="#"><img src="https://img.icons8.com/plasticine/48/000000/facebook-new.png" /></a>
+                </div>
+                <div class="socialitem">
+                    <a href="#"><img src="https://img.icons8.com/doodle/48/000000/twitter--v1.png" /></a>
+                </div>
+                <div class="socialitem">
+                    <a href="#"><img src="https://img.icons8.com/plasticine/50/000000/instagram-new.png" /></a>
+                </div>
+            </div>
+        </div>
+        <ul class="footerright">
+            <li>
+                <h2>Kurumsal</h2>
+                <ul class="box">
+                    <li><a href="/aboutus">Hakkımızda</a></li>
+                    <li><a href="/privacypolicy">Gizlilik Politikası</a></li>
+                    <li><a href="/Useragreement">Kullanım Sözleşmesi</a></li>
+                    <li><a href="/contactus">İletişim&Kariyer</a></li>
+                </ul>
+            </li>
+            <li class="Find">
+                <h2>Keşfet</h2>
+                <ul class="box hbox">
+                    <li><a href="/events">Etkinlikler</a></li>
+                    <li><a href="/category">Kategoriler</a></li>
+                    <li><a href="/cityguide">Şehirler</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+
+        <div class="footerbottom">
+            <p>Copyright © 2020 Snoll</p>
+        </div>
+    </section>
+    <!--    FOOTER END  -->
+    <script src="/hb.js"></script>
+    </div>
+</body>
+</html>

@@ -3,6 +3,7 @@
   min-height: 100vh;
   padding: 110px 10% 20px 10%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background-size: cover;
@@ -16,8 +17,8 @@
   justify-content: start;
   align-items: center;
   border-radius: 1.175rem;
-  width: 33%;
-  height: 50rem;
+
+  margin-bottom: 5rem;
 }
 .userpart {
   position: relative;
@@ -27,8 +28,7 @@
   justify-content: start;
   align-items: center;
   border-radius: 1.175rem;
-  width: 25%;
-  height: 50rem;
+  margin-bottom: 5rem;
 }
 .citypart {
   position: relative;
@@ -38,8 +38,7 @@
   justify-content: start;
   align-items: center;
   border-radius: 1.175rem;
-  width: 33%;
-  height: 50rem;
+  margin-bottom: 5rem;
 }
 .buttonpart {
   width: 100%;
@@ -87,20 +86,12 @@ button[type="button"]:hover {
     flex-direction: column;
   }
   .eventspart {
-    width: 40rem;
     margin-bottom: 10px;
   }
   .userpart {
-    width: 40rem;
     margin-bottom: 10px;
   }
   .citypart {
-    width: 40rem;
     margin-bottom: 10px;
   }
-  
 }
-@media screen and (min-width: 1200px) {
-   
-  }
-  

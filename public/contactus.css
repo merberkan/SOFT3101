@@ -15,8 +15,8 @@
   text-align: center;
 }
 
-.button{
-  font-family: "Open Sans", sans-serif; 
+.button {
+  font-family: "Open Sans", sans-serif;
   color: #ffffff;
   background: #3187e9;
   cursor: pointer;
@@ -25,7 +25,7 @@
   border-radius: 1.12rem;
 }
 
-.button:hover{
+.button:hover {
   background-color: #094c97;
   color: #ffffff;
 }
@@ -51,12 +51,12 @@
   align-items: center;
 }
 
-.container2{
+.container2 {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Open Sans", sans-serif; 
+  font-family: "Open Sans", sans-serif;
   color: #ffffff;
 }
 
@@ -67,7 +67,7 @@
   max-width: 15%;
   margin-right: 7%;
 }
-.box {
+.boxc {
   position: relative;
   padding: 20px 0;
   display: flex;
@@ -102,7 +102,7 @@
   border-radius: 1.12rem;
 }
 
-.form-part{
+.form-part {
   width: 100%;
 }
 .contactForm h2 {
@@ -157,23 +157,23 @@
     padding: 50px;
   }
 
-  .content{
+  .content {
     margin-top: 10%;
   }
   .container {
     flex-direction: column;
   }
 
-  .container2{
+  .container2 {
     flex-direction: column;
   }
 
-  .contactInfo{
-  max-width: none;  
-  margin-right: 0;
+  .contactInfo {
+    max-width: none;
+    margin-right: 0;
   }
 
-  .box{
+  .box {
     display: flex;
     flex: 1;
     margin-bottom: 2%;

@@ -1,4 +1,4 @@
-#upcomingevents{
+#upcomingevents {
   background-image: url(./images/550656.jpg);
   width: 100%;
   height: 400px;
@@ -8,13 +8,13 @@
   padding-top: 10rem;
   padding-left: 150px;
 }
-.arama{
+.arama {
   display: flex;
   flex-direction: column;
 }
-.başlık{
-  color: white; 
-  text-align: center;   
+.başlık {
+  color: white;
+  text-align: center;
   font-weight: bold;
   font-size: 25px;
 }
@@ -24,53 +24,53 @@
   font-weight: bold;
   font-size: 25px;
 } */
-.yaklaşan{
+.yaklaşan {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fill,minmax(20%,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
   margin: 0% 15% 2% 15%;
   grid-gap: 20px 20px;
 }
-.yaklaşan img{
+.yaklaşan img {
   max-height: auto;
   max-width: 300px;
-  object-fit:cover;
-  
+  object-fit: cover;
 }
-#upcomingevents .upcomingevents{
+#upcomingevents .upcomingevents {
   max-width: 160rem;
   margin: 0 auto;
   padding: 0 50px;
   justify-content: flex-start;
 }
-.genelaktivite{
+.genelaktivite {
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(40%,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
   grid-gap: 20px 20px;
   margin: 3% 15% 2% 15%;
 }
-.aktivite{
-  display: flex; 
+.aktivite {
+  display: flex;
   opacity: 1;
-  -webkit-transition: .3s ease-in-out;
-  transition: .3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
-.aktivite:hover{
+.aktivite:hover {
   opacity: 0.8;
 }
 .container2 {
   display: flex;
+  justify-content: center;
 }
-.resimWrite{
+.resimWrite {
   font-size: 50px;
   position: absolute;
-  font-weight:bold;
+  font-weight: bold;
 }
-.event-image{
+.event-image {
   display: flex;
 }
-.img-events{
+.img-events {
   width: 100%;
   object-fit: cover;
   height: 30rem;

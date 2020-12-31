@@ -1,145 +1,144 @@
 body {
-    font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
-    background: #e9e9e9;
+  font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
+  background: #e9e9e9;
 }
 
 a,
 [type="submit"] {
-    transition: all .25s ease-in;
+  transition: all 0.25s ease-in;
 }
 
 .signup__container {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    left: 0;
-    margin-right: auto;
-    margin-left: auto;
-    transform: translateY(-50%);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  transform: translateY(-50%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .signup__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .76);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.76);
 }
 
 .container__child {
-    width: 100%;
-    height: 100%;
-    color: #fff;
+  width: 100%;
+  height: 100%;
+  color: #fff;
 }
 
 .signup__thumbnail {
-    position: relative;
-    padding: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    background: url(images/338ae79818694cf101bd60e0c8f8f367.jpg);
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: cover;
-    height: 400px;
-    width: 400px;
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background: url(images/338ae79818694cf101bd60e0c8f8f367.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  height: 400px;
+  width: 400px;
 }
 
 .thumbnail__content {
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
 .thumbnail__content {
-    align-self: center;
+  align-self: center;
 }
 
-h1,
 h2 {
-    font-weight: 300;
-    color: rgba(255, 255, 255, 1);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 1);
 }
 
 .heading--primary {
-    font-size: 2.100rem;
+  font-size: 2.1rem;
 }
 
 .heading--secondary {
-    font-size: 1.414rem;
+  font-size: 1.414rem;
 }
 
 .signup__form {
-    padding: 2.5rem;
-    background: #fafafa;
-    height: 400px;
-    width: 400px;
+  padding: 2.5rem;
+  background: #fafafa;
+  height: 400px;
+  width: 400px;
 }
 
 .signup__form form {
-    margin-top: 33px;
+  margin-top: 33px;
 }
 
 label {
-    font-size: .85rem;
-    text-transform: uppercase;
-    color: #ccc;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #ccc;
 }
 
 .form-control {
-    background-color: transparent;
-    margin-top: 5px;
-    border-top: 0;
-    border-right: 0;
-    border-left: 0;
-    border-radius: 0;
+  background-color: transparent;
+  margin-top: 5px;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
 }
 
 [type="text"] {
-    color: #111;
+  color: #111;
 }
 
 [type="password"] {
-    color: #111;
+  color: #111;
 }
 
 .btn--form {
-    padding: .5rem 2.5rem;
-    font-size: .95rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #fff;
-    background: #111;
-    border-radius: remy(35px);
-    margin-top: 10px;
+  padding: 0.5rem 2.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #fff;
+  background: #111;
+  border-radius: remy(35px);
+  margin-top: 10px;
 }
 
 .signup__link {
-    font-size: .8rem;
-    font-weight: 600;
-    text-decoration: underline;
-    color: #999;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: underline;
+  color: #999;
 }
 
 #category {
-    background-image: url(./images/pngtree-3d-stage-bright-stadium-arena-lighting-spotlight-vector-illustration-image_319893.jpg);
-    max-width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
+  background-image: url(./images/pngtree-3d-stage-bright-stadium-arena-lighting-spotlight-vector-illustration-image_319893.jpg);
+  max-width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
 }
 
 .form-group {
-    margin-top: 10px;
-    width: 80px;
+  margin-top: 10px;
+  width: 80px;
 }
 
 .form-group label {
-    color: darkgray;
+  color: darkgray;
 }

@@ -232,7 +232,7 @@ input[type="search"]:focus {
   justify-content: center;
   text-align: center;
   background-color: rgb(248, 248, 248);
-  border: 2px solid #555;
+  border: 1px solid #555;
   border-bottom: 0;
   border-top: 0;
 }
@@ -255,7 +255,7 @@ input[type="search"]:focus {
   justify-content: center;
 }
 .activity img {
-  width: 40%;
+  width: 60%;
   opacity: 1;
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
@@ -287,16 +287,16 @@ input[type="search"]:focus {
   flex-direction: row;
 }
 .rowcontainer img {
-  width: 30rem;
+  width: 20rem;
   border: 5px solid black;
   opacity: 1;
   margin-right: 5px;
-  max-height: 17rem;
+  max-height: 11rem;
 }
 .rowcontainer:hover img {
   opacity: 0.8;
   border-radius: 0;
-  width: 60%;
+  width: 80%;
   max-height: 25rem;
 }
 .rowtext {
@@ -389,6 +389,7 @@ input[type="search"]:focus {
     color: white;
   }
 }
+
 @media screen and (min-width: 768px) {
   .footerright > * {
     flex: 1;

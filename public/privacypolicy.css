@@ -3,12 +3,15 @@
   min-height: 100vh;
   width: 100%;
   overflow: hidden;
+  background-image: linear-gradient(60deg, #606468 0%, #7a8da3 100%);
 }
 .containerpolicy {
-  width: 90%;
-  display: block;
-  margin: 20rem 80px 0 auto;
-  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  text-align: start;
+  margin: 20rem 20rem 20rem 20rem;
+  background-color: white;
+  border-radius: 1.175rem;
 }
 #Policy h1 {
   text-align: center;
@@ -17,11 +20,9 @@
 }
 /* Policy Section */
 #Policy .title {
-  margin-bottom: 5rem;
-  color: rgb(196, 194, 194);
+  margin: 5rem 0 5rem 0;
   letter-spacing: 1px;
-  font-size: 20px;
-  background-color: #266ab8;
+  font-size: 24px;
 }
 #Policy .PrivacyP {
   padding-left: 10px;
@@ -30,11 +31,22 @@
 #Policy .Subtitle {
   margin-bottom: 2rem;
   margin-top: 1rem;
-  color: crimson;
+  color: rgb(114, 12, 32);
   letter-spacing: 0.5px;
-  font-size: 12px;
+  font-size: 20px;
   padding-left: 10px;
   padding-right: 5px;
+  justify-content: center;
+  text-align: center;
+}
+.content p {
+  font-size: 18px;
+  padding: 0 5rem 5rem 5rem;
+  line-height: 30px;
+}
+.content ol {
+  padding: 3.5rem;
+  font-size: 18px;
 }
 #Policy .title span {
   font-style: italic;
@@ -46,6 +58,9 @@
   letter-spacing: 0.5px;
   padding-left: 10px;
   padding-right: 5px;
+  font-size: 18px;
 }
-
+.content {
+  border-radius: 1.175rem;
+}
 /* End Policy Section */

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="stylesheet" href="teknoloji.css">
+    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <title>Website</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <section id="header">
+        <div class="header container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="/">
+                        <h1><span>S</span>noll</h1>
+                    </a>
+                </div>
+                <div class="searchbar">
+                    <input type="search" placeholder="Etkinlik Ara">
+                </div>
+                <div class="navlist">
+                    <div class="hb">
+                        <div class="bar"></div>
+                    </div>
+                    <ul>
+
+                        <li style="padding: 8px;"><a href="/">Anasayfa</a></li>
+                        <li style="padding: 8px;"><a href="/events">Etkinlikler</a></li>
+                        <li style="padding: 8px;"><a href="/category">Kategoriler</a></li>
+                        <li style="padding: 8px;"><a href="/cityguide">Şehir Turu</a></li>
+                        <li style="padding: 20px;"><a href="/aboutus">Hakkımızda</a></li>
+                        <% if(loginn){ %> 
+                            <li class="entrance" style="margin-right:20px ;"><a href="/profile">Profilim</a></li>
+                            <li class="entrance" style="margin-right:20px ;"><a href="/logout">Çıkış Yap</a></li>
+                            <% } else{ %>
+                        <li class="entrance" style="margin-right:20px ;"><a href="/login">Giriş Yap</a></li>
+                        <li class="entrance" style="margin-right:20px ;"><a href="/register">Üye Ol</a></li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Header -->
+    <!-- Category Section -->
+    <section id="category">
+        <div class="category container">
+            <div class="teknoloji-part">
+                <div class="title">
+                    <div class="title-icon" style="margin-right: 1%; color: #22395c;">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="title-text">
+                        <p>Teknoloji Etkinlikleri</p>
+                    </div>
+                </div>
+                <div class="events">
+                    <% if(Teknoloji.length >0){%>
+                        <%Teknoloji.forEach(events => { %>
+                    <div class="event">
+                        <div class="event-image">
+                            <a href="/ticket">
+                                <img class="img-event" src="./images/tedx.png">
+                            </a>
+                        </div>
+                        <div class="event-text">
+                            <a href="/ticket" class="link-text">
+                                <p><%=events.PerformerName%></p>
+                            </a>
+                        </div>
+                    </div>
+                    <% }) %> 
+                    <% } %>  
+        </div>
+    </section>
+    <!-- Footer -->
+    <section id="footer">
+        <div class="footerleft">
+            <a href="/">
+                <h1 style="color:white; font-size: 3rem;"><span
+                        style="color: rgb(73, 89, 230)  ;font-size: 4rem;">S</span>noll</h1>
+            </a>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam distinctio pariatur placeat
+                consequuntur
+                vel laborum molestiae, eos incidunt est! Doloremque ea illo ratione sunt porro, earum voluptas eum
+                quaerat est.
+                Velit, nostrum quae officia odio veniam animi
+                exercitationem. Nobis, hic. Praesentium provident eaque, dolorum dolore rem ullam id delectus quae?</p>
+            <div class="socialmedia">
+                <div class="socialitem">
+                    <a href="https://tr-tr.facebook.com"><img
+                            src="https://img.icons8.com/plasticine/48/000000/facebook-new.png" /></a>
+                </div>
+                <div class="socialitem">
+                    <a href="https://twitter.com"><img
+                            src="https://img.icons8.com/doodle/48/000000/twitter--v1.png" /></a>
+                </div>
+                <div class="socialitem">
+                    <a href="https://www.instagram.com/?hl=tr"><img
+                            src="https://img.icons8.com/plasticine/50/000000/instagram-new.png" /></a>
+                </div>
+            </div>
+        </div>
+        <ul class="footerright">
+            <li>
+                <h2>Kurumsal</h2>
+                <ul class="box">
+                    <li><a href="/aboutus">Hakkımızda</a></li>
+                    <li><a href="/privacypolicy">Gizlilik Politikası</a></li>
+                    <li><a href="/Useragreement">Kullanım Sözleşmesi</a></li>
+                    <li><a href="/contactus">İletişim&Kariyer</a></li>
+                </ul>
+            </li>
+            <li class="Find">
+                <h2>Keşfet</h2>
+                <ul class="box hbox">
+                    <li><a href="/events">Etkinlikler</a></li>
+                    <li><a href="/category">Kategoriler</a></li>
+                    <li><a href="/cityguide">Şehirler</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+
+        <div class="footerbottom">
+            <p>Copyright © 2020 Snoll</p>
+        </div>
+    </section>
+    <!-- End Footer Section -->
+    <script src="/hb.js"></script>
+</body>
+
+</html>

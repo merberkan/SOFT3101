@@ -15,7 +15,7 @@
         <div class="header container">
             <div class="navbar">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="/">
                         <h1><span>S</span>noll</h1>
                     </a>
                 </div>
@@ -75,22 +75,22 @@
     <section id="category">
         <div class="category container2">
             <div class="genelaktivite"> 
+                <% if(Category.length >0){%>
+                    <%Category.forEach(events => { %>
                 <div class="aktivite">
-                <a href="tiyatro.html" style="width: 100%;"><img src="images/tiyatro.png" style="width: 100%; object-fit: cover;"></a>
-                <p class="resimWrite" style="color: white;">Tiyatro</p>
+            
+                <a href="/category/<%=events.EventCategory%>" 
+                    style="width: 100%;">
+                    <img src="./images/istanbul2.jpg"  style="width: 100%; object-fit: cover;">
+                </a>
+              
+   
+                <p class="resimWrite" style="color: white;"><%=events.EventCategory%></p>
+           
+               
             </div>
-            <div class="aktivite">
-                <a href="müzik.html" style="width: 100%;"><img src="images/müzik.png" style="width: 100%; object-fit: cover;"></a>
-                <p class="resimWrite" style="color: white;">Müzik</p>
-            </div>
-            <div class="aktivite">
-                <a href="teknoloji.html" style="width: 100%;"><img src="images/teknoloji.png" style="height: 75%; width: 100%; object-fit: cover;"></a>
-                <p class="resimWrite" style="color: white;">Teknoloji</p>
-            </div>
-            <div class="aktivite">
-                <a href="spor.html" style="width: 100%;"><img src="images/spor.jpg" style="width: 100%; object-fit: cover;"></a>
-                <p class="resimWrite" style="color: white;">Spor</p>
-        </div>
+            <% }) %> 
+    <% } %> 
     </div>
         </div>
     </section>
@@ -98,7 +98,7 @@
     <!-- Footer -->
     <section id="footer">
         <div class="footerleft">
-            <a href="index.html">
+            <a href="/">
                 <h1 style="color:white; font-size: 3rem;"><span
                         style="color: rgb(73, 89, 230)  ;font-size: 4rem;">S</span>noll</h1>
             </a>
