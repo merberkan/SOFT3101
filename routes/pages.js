@@ -110,7 +110,7 @@ router.get("/category/Tiyatro", (req, res) => {
     async (err, result) => {
       const Tiyatro = [];
       for (var i = 0; i < result.length; i++) {
-        var a = { PerformerName: result[i].PerformerName };
+        var a = { EventName: result[i].EventName };
         Tiyatro.push(a);
       }
       res.render("Tiyatro", {
@@ -127,7 +127,7 @@ router.get("/category/M%C3%BCzik", (req, res) => {
     async (err, result) => {
       const Music = [];
       for (var i = 0; i < result.length; i++) {
-        var a = { PerformerName: result[i].PerformerName };
+        var a = { EventName: result[i].EventName };
         Music.push(a);
       }
       res.render("Müzik", {
@@ -145,7 +145,7 @@ router.get("/category/Teknoloji", (req, res) => {
     async (err, result) => {
       const Teknoloji = [];
       for (var i = 0; i < result.length; i++) {
-        var a = { PerformerName: result[i].PerformerName };
+        var a = { EventName: result[i].EventName };
         Teknoloji.push(a);
       }
       res.render("Teknoloji", {
@@ -162,7 +162,7 @@ router.get("/category/Spor", (req, res) => {
     async (err, result) => {
       const Spor = [];
       for (var i = 0; i < result.length; i++) {
-        var a = { PerformerName: result[i].PerformerName };
+        var a = { EventName: result[i].EventName };
         Spor.push(a);
       }
       res.render("Spor", {
