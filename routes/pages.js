@@ -131,11 +131,6 @@ router.get("/cityguide/:name", (req,res) => {
       })
 });
 
-
-
-// var a = {CityName: result[i].CityName, HistoryPlaces: result[i].HistoryPlaces, BeautyPlaces: result[i].BeautyPlaces, ArtPlaces: result[i].ArtPlaces,
-//   EatPlaces: result[i].EatPlaces, CitySummary: result[i].CitySummary};
-
 router.get("/ticket", (req, res) => {
   res.render("ticket", {
     email: req.session.emailAddress,
@@ -212,10 +207,25 @@ router.get("/category/Spor", (req, res) => {
   );
 });
 router.get("/profile", (req, res) => {
-  res.render("profile", {
-    email: req.session.emailAddress,
-    loginn: req.session.loggedinUser,
+  db.query('SELECT * FROM Snoll.Users Where email = ?', [req.session.emailAddress], (err, result) => {
+    if(err){
+      console.log(err);
+    }else{
+      const User = [{
+        firstname: result[0].firstname,
+        lastname: result[0].lastname,
+        email: result[0].email,
+        role: result[0].role
+      }];
+      console.log(User);
+      res.render("profile", {
+        User,
+        email: req.session.emailAddress,
+        loginn: req.session.loggedinUser
+      });
+    }
   });
+
 });
 router.get("/adminPanel", (req, res) => {
   res.render("adminPanel", {

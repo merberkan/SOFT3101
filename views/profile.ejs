@@ -47,6 +47,8 @@
   <!-- End Header -->
   <!-- MidPage -->
   <section id="midpage">
+    <% if(User.length >0){%>
+      <%User.forEach(user => { %>
      <div class="profilecontainer">
        <div class="profilepart">
            <div class="profileimage">
@@ -55,15 +57,15 @@
            <div class="information">
                <div class="boxp">
                 <h3>İsim</h3> 
-                <h4>Mert Berkan Akdeniz</h4>
+                <h4><%= user.firstname %></h4>
                </div>
                <div class="boxp">
                 <h3>Email</h3>
-                <h4>mertakdeniz@outlook.com</h4>
+                <h4><%= email %></h4>
                </div>
                <div class="boxp">
                 <h3>Role</h3>
-                <h4>Admin</h4>
+                <h4><%= user.role %></h4>
                </div>
 
            </div>
@@ -117,6 +119,8 @@
        </div>
     
      </div>
+     <% }) %> 
+     <% } %> 
 </section>
   <!-- End MidPage -->
 
