@@ -92,12 +92,50 @@ router.get("/category", (req, res) => {
     });
   });
 });
+
 router.get("/cityguide", (req, res) => {
-  res.render("cityguide", {
-    email: req.session.emailAddress,
-    loginn: req.session.loggedinUser,
-  });
+  db.query('SELECT * FROM Snoll.City', async (err, result) => {
+    const City = [];
+    if(err){
+      console.log(err);
+    }else{
+      for(var i = 0; i<result.length; i++){
+        var a = {CityName: result[i].CityName};
+        City.push(a);
+      }
+      res.render("cityguide", {
+        City,
+        email: req.session.emailAddress,
+        loginn: req.session.loggedinUser
+      });
+      console.log(City);
+    }
+  })
 });
+
+router.get("/cityguide/:name", (req,res) => {
+      var path = req.params.name;
+      db.query("SELECT * FROM Snoll.city WHERE Snoll.city.CityName= ? ", [path],  (err,result) => {
+        if(err){
+          console.log(err);
+        }else{
+          const City = [{CityName: result[0].CityName, HistoryPlaces: result[0].HistoryPlaces, BeautyPlaces: result[0].BeautyPlaces, ArtPlaces: result[0].ArtPlaces,
+          EatPlace: result[0].EatPlace, CitySummary: result[0].CitySummary}];
+          console.log(City);
+          res.render("city",{
+            City,
+            email: req.session.emailAddress,
+            loginn: req.session.loggedinUser
+          });
+        }
+      })
+});
+
+
+
+// var a = {CityName: result[i].CityName, HistoryPlaces: result[i].HistoryPlaces, BeautyPlaces: result[i].BeautyPlaces, ArtPlaces: result[i].ArtPlaces,
+//   EatPlaces: result[i].EatPlaces, CitySummary: result[i].CitySummary};
+
 router.get("/ticket", (req, res) => {
   res.render("ticket", {
     email: req.session.emailAddress,
