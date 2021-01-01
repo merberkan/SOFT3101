@@ -55,10 +55,22 @@ router.get("/Useragreement", (req, res) => {
   });
 });
 router.get("/events", (req, res) => {
-  res.render("events", {
-    email: req.session.emailAddress,
-    loginn: req.session.loggedinUser,
-  });
+  db.query('SELECT * FROM Snoll.Events', async (err, result) => {
+    const Events = [];
+    if(err){
+      console.log(err);
+    }else{
+      for(var i = 0; i<result.length; i++){
+        var a = {EventName: result[i].EventName};
+        Events.push(a);
+      }
+      res.render("events", {
+        Events,
+        email: req.session.emailAddress,
+        loginn: req.session.loggedinUser
+      });
+    }
+  })
 });
 router.get("/aboutus", (req, res) => {
   res.render("aboutus", {
@@ -131,11 +143,24 @@ router.get("/cityguide/:name", (req,res) => {
       })
 });
 
-router.get("/ticket", (req, res) => {
-  res.render("ticket", {
-    email: req.session.emailAddress,
-    loginn: req.session.loggedinUser,
-  });
+router.get("/events/:name", (req, res) => {
+  var path = req.params.name;
+  db.query("SELECT * FROM Snoll.Events WHERE Snoll.Events.EventName= ? ", [path],  (err,result) => {
+    if(err){
+      console.log(err);
+    }else{
+      const Event = [{EventName: result[0].EventName, EventDate: result[0].EventDate, EventPrice: result[0].EventPrice,
+                      PerformerName: result[0].PerformerName, EventCategory: result[0].EventCategory,
+                      EventCapacity: result[0].EventCapacity, EventAddress: result[0].EventAddress,
+                      EventCity: result[0].EventCity, EventPlace: result[0].EventPlace}];
+      console.log(Event);
+      res.render("ticket",{
+        Event,
+        email: req.session.emailAddress,
+        loginn: req.session.loggedinUser
+      });
+    }
+  })
 });
 router.get("/category/Tiyatro", (req, res) => {
   db.query(
