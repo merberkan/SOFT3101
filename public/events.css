@@ -1,82 +1,88 @@
-#category {
-  background-image: url(./images/soft.jpg);
-  max-width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  z-index: 1;
+.mid-part{
+  display: flex;
+  flex-direction: column;
+
 }
-.event-part {
+.event-part{
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 5%;
+  padding-top: 5%;
+  background-image: url(./images/soft.jpg);
+  background-size: cover;
 }
 
-.title {
+.title{
   display: flex;
   justify-content: center;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 40px;
 }
 
-.events {
+.events{
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
   grid-gap: 20px 20px;
   margin: 3% 10% 2% 5%;
 }
-
-.event {
+.flex{
+  flex: 4;
   display: flex;
   flex-direction: column;
 }
 
-.event-image {
+.event{
+  display: flex;
+  flex-direction: column;
+}
+
+.event-image{
   display: flex;
 }
 
-.event-image a {
+.event-image a{
   max-height: 30rem;
 }
 
-.event-text {
+.event-text{
   display: flex;
   font-size: 30px;
 }
 
-.img-event {
+.img-event{
   width: 100%;
-  object-fit: fill;
+  object-fit: cover;
   height: 15rem;
 }
 
-.link-text {
+.link-text{
   color: #22395c;
 }
-.fae {
+.fae{
   display: flex;
 }
-.filter {
+.filter{
   margin-left: 50px;
+  display: flex;
+  flex: 1;
 }
-.etkinlik-arama {
+.etkinlik-arama{
   display: flex;
   flex-direction: column;
   padding-top: 5px;
 }
-.sehir-secme {
+.sehir-secme{
   display: flex;
   flex-direction: column;
   padding-top: 15px;
 }
-.tarih-secme {
+.tarih-secme{
   display: flex;
   flex-direction: column;
   padding-top: 15px;
 }
-.kategori-secme {
+.kategori-secme{
   display: flex;
   flex-direction: column;
   padding-top: 15px;
@@ -90,3 +96,7 @@
   justify-content: center;
   flex-direction: column;
 }
+
+@media screen and (max-width: 800px) {
+  .events{grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));}
+  }
