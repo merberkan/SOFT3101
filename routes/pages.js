@@ -69,7 +69,7 @@ router.get("/events", (req, res) => {
       console.log(err);
     } else {
       for (var i = 0; i < result.length; i++) {
-        var a = { EventName: result[i].EventName };
+        var a = { EventName: result[i].EventName, EventPhotoUrl: result[i].EventPhotoUrl };
         Events.push(a);
       }
       res.render("events", {
@@ -120,7 +120,7 @@ router.get("/cityguide", (req, res) => {
       console.log(err);
     } else {
       for (var i = 0; i < result.length; i++) {
-        var a = { CityName: result[i].CityName };
+        var a = { CityName: result[i].CityName, CityPhoto: result[i].CityPhoto };
         City.push(a);
       }
       res.render("cityguide", {
@@ -150,7 +150,8 @@ router.get("/cityguide/:name", (req, res) => {
             ArtPlaces: result[0].ArtPlaces,
             EatPlace: result[0].EatPlace,
             CitySummary: result[0].CitySummary,
-          },
+            CityPhoto: result[0].CityPhoto
+          }
         ];
         console.log(City);
         res.render("city", {
@@ -183,6 +184,7 @@ router.get("/events/:name", (req, res) => {
             EventAddress: result[0].EventAddress,
             EventCity: result[0].EventCity,
             EventPlace: result[0].EventPlace,
+            EventPhotoUrl: result[0].EventPhotoUrl
           },
         ];
         console.log(Event);
