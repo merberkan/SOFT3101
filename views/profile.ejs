@@ -57,7 +57,7 @@
            <div class="information">
                <div class="boxp">
                 <h3>İsim</h3> 
-                <h4><%= user.firstname %></h4>
+                <h4><%= user[0].firstname %></h4>
                </div>
                <div class="boxp">
                 <h3>Email</h3>
@@ -65,15 +65,18 @@
                </div>
                <div class="boxp">
                 <h3>Role</h3>
-                <h4><%= user.role %></h4>
+                <h4><%= user[0].role %></h4>
                </div>
 
            </div>
        </div>
+       <% }) %> 
+       <% } %> 
        <div class="ticketpart">
        
-        <h3>Geçmiş Biletlerim</h3>
-           
+        <h3>Biletlerim</h3>
+        <% if(Detail.length >0){%>
+          <%Detail.forEach(detail => { %>
         <div class="boughtickets">
            
         
@@ -81,46 +84,19 @@
                     <img src="./images/aleyna.png" alt="">
                 </div>
                <div class="ticketinfo">
-                  <h4>Etkinlik Adı: Aleyna Tilki </h4>
-                  <h4>Bilet No: 21453424523</h4>
+                  <h4>Etkinlik Adı: <%= detail.event_name %></h4>
+                  <h4>Bilet No: <%= detail.ticket_id %></h4>
                   <h4>Event No: 3123</h4>
                   <h4>Koltuk No: 23 </h4>
                   <h4>Rezerve Durumu: Evet</h4>
                </div>
             </div>
-            <div class="boughtickets">
-           
-        
-                <div class="ticketimg">
-                    <img src="./images/aleyna.png" alt="">
-                </div>
-               <div class="ticketinfo">
-                <h4>Etkinlik Adı:</h4>
-                <h4>Bilet No:</h4>
-                <h4>Event No:</h4>
-                <h4>Koltuk No:</h4>
-                <h4>Rezerve Durumu: Hayır</h4>
-               </div>
-            </div>
-            <div class="boughtickets" style="border-bottom: none;">
-           
-        
-                <div class="ticketimg">
-                    <img src="./images/aleyna.png" alt="">
-                </div>
-               <div class="ticketinfo">
-                <h4>Etkinlik Adı:</h4>
-                <h4>Bilet No:</h4>
-                <h4>Event No:</h4>
-                <h4>Koltuk No:</h4>
-                <h4>Rezerve Durumu: Hayır</h4>
-               </div>
-            </div>
+            <% }) %> 
+            <% } %> 
        </div>
     
      </div>
-     <% }) %> 
-     <% } %> 
+
 </section>
   <!-- End MidPage -->
 

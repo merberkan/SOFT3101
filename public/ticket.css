@@ -1,15 +1,18 @@
-html {
+/* body {
   background: url(/images/bg1.jpg) no-repeat center center fixed;
   /* -webkit-background-size: cover;
       -moz-background-size: cover;
-      -o-background-size: cover; */
+      -o-background-size: cover; 
   background-size: 100% 100%;
-}
+} */
 
-.page-container {
-  z-index: 2;
-  color: white;
-}
+/* .page-container {
+  /* position: absolute; */
+  /* background: url(/images/ezhel-bg2.jpeg) no-repeat center center fixed; */
+  /* -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover; 
+} */
 .mid-part {
   display: flex;
   margin: 8% 0 2% 0;

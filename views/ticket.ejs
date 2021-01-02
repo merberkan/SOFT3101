@@ -10,7 +10,12 @@
     <link rel="stylesheet" href="/ticket.css">
 </head>
 <body>
-    <div class="page-container">
+    <% if(Event.length >0){%>
+        <%Event.forEach(event => { %>
+    <div class="page-container" style="position: absolute; background: url(/<%=event.EventPhotoBackground%>) no-repeat center center fixed;
+    background-size: 100% 100%; z-index: 2;color: white; ">
+        <% }) %> 
+        <% } %> 
 <!--    NAVBAR  Start-->
 <section id="header">
     <div class="header container">

@@ -184,7 +184,8 @@ router.get("/events/:name", (req, res) => {
             EventAddress: result[0].EventAddress,
             EventCity: result[0].EventCity,
             EventPlace: result[0].EventPlace,
-            EventPhotoUrl: result[0].EventPhotoUrl
+            EventPhotoUrl: result[0].EventPhotoUrl,
+            EventPhotoBackground: result[0].EventPhotoBackground
           },
         ];
         console.log(Event);
@@ -267,24 +268,41 @@ router.get("/category/Spor", (req, res) => {
   );
 });
 router.get("/profile", (req, res) => {
-  db.query(
-    "SELECT * FROM Snoll.Users Where email = ?",
+  const Detail = [];
+  const User = [];
+  db.query("SELECT * FROM Users join Ticket ON Users.email = Ticket.user_email",
     [req.session.emailAddress],
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        const User = [
-          {
-            firstname: result[0].firstname,
-            lastname: result[0].lastname,
-            email: result[0].email,
-            role: result[0].role,
-          },
-        ];
-        console.log(User);
+        for(var i = 0; i<result.length; i++){
+          if(result[i].email == req.session.emailAddress){
+            var x = [
+              {
+                firstname: result[i].firstname,
+                lastname: result[i].lastname,
+                email: result[i].email,
+                role: result[i].role,
+              },
+            ];
+            var a ={
+              ticket_id: result[i].ticket_id,
+              event_name: result[i].event_name
+            }
+            User.push(x);
+            Detail.push(a);
+          }
+        }
+        for(var j=0; j<User.length-1; j++){
+          User.pop();
+        }
+        console.log(User.length);
+        console.log(Detail);
+
         res.render("profile", {
           User,
+          Detail,
           email: req.session.emailAddress,
           loginn: req.session.loggedinUser,
         });
