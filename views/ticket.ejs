@@ -126,7 +126,9 @@
             </div>
 
             <div class="button">
-                <a href="/payment">  <button class="confirm"> Devam Et</button></a>
+                <% if(loginn){ %> 
+                <a href="/payment/<%=event.EventNo%>">  <button class="confirm"> Devam Et</button></a>
+                <%}%>
             </div>
         </div>
     </div>

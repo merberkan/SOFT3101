@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
 
+
 const db = mysql.createConnection({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
@@ -80,18 +81,83 @@ router.get("/events", (req, res) => {
     }
   });
 });
+
+router.get("/events/:name", (req, res) => {
+  var path = req.params.name;
+  db.query(
+    "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventName= ? ",
+    [path],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        const Event = [
+          {
+            EventName: result[0].EventName,
+            EventDate: result[0].EventDate,
+            EventPrice: result[0].EventPrice,
+            PerformerName: result[0].PerformerName,
+            EventCategory: result[0].EventCategory,
+            EventCapacity: result[0].EventCapacity,
+            EventAddress: result[0].EventAddress,
+            EventCity: result[0].EventCity,
+            EventPlace: result[0].EventPlace,
+            EventPhotoUrl: result[0].EventPhotoUrl,
+            EventPhotoBackground: result[0].EventPhotoBackground,
+            EventNo: result[0].EventNo
+          },
+        ];
+        console.log(Event);
+        res.render("ticket", {
+          Event,
+          email: req.session.emailAddress,
+          loginn: req.session.loggedinUser,
+        });
+      }
+    }
+  );
+});
+
+router.get("/payment/:id", (req, res) => {
+  var path = req.params.id;
+  
+  db.query('SELECT * FROM Events WHERE Events.EventNo =?',[path], async (err, result) => {
+    if(err){
+      console.log(err);
+    }
+
+    if(result.length > 0){
+      var Event = [{
+        EventNo: result[0].EventNo,
+        EventName: result[0].EventName
+      }]
+    }
+    db.query('INSERT INTO Ticket SET ?',{
+      ticket_id: "14",
+      user_email: req.session.emailAddress,
+      event_name: Event[0].EventName
+    }, (error,result2) => {
+      if(error){
+        console.log(error);
+      }else{
+        return res.render('payment',{
+          email: req.session.emailAddress,
+          loginn: req.session.loggedinUser
+        })
+      }
+    })
+  })
+  
+
+});
+
 router.get("/aboutus", (req, res) => {
   res.render("aboutus", {
     email: req.session.emailAddress,
     loginn: req.session.loggedinUser,
   });
 });
-router.get("/payment", (req, res) => {
-  res.render("payment", {
-    email: req.session.emailAddress,
-    loginn: req.session.loggedinUser,
-  });
-});
+
 router.get("/privacypolicy", (req, res) => {
   res.render("privacypolicy", {
     email: req.session.emailAddress,
@@ -164,40 +230,7 @@ router.get("/cityguide/:name", (req, res) => {
   );
 });
 
-router.get("/events/:name", (req, res) => {
-  var path = req.params.name;
-  db.query(
-    "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventName= ? ",
-    [path],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        const Event = [
-          {
-            EventName: result[0].EventName,
-            EventDate: result[0].EventDate,
-            EventPrice: result[0].EventPrice,
-            PerformerName: result[0].PerformerName,
-            EventCategory: result[0].EventCategory,
-            EventCapacity: result[0].EventCapacity,
-            EventAddress: result[0].EventAddress,
-            EventCity: result[0].EventCity,
-            EventPlace: result[0].EventPlace,
-            EventPhotoUrl: result[0].EventPhotoUrl,
-            EventPhotoBackground: result[0].EventPhotoBackground
-          },
-        ];
-        console.log(Event);
-        res.render("ticket", {
-          Event,
-          email: req.session.emailAddress,
-          loginn: req.session.loggedinUser,
-        });
-      }
-    }
-  );
-});
+
 router.get("/category/Tiyatro", (req, res) => {
   db.query(
     "SELECT * FROM snoll.events WHERE EventCategory='Tiyatro' ",
@@ -267,7 +300,8 @@ router.get("/category/Spor", (req, res) => {
     }
   );
 });
-router.get("/profile", (req, res) => {
+router.get("/profile", async (req, res) => {
+  console.log("--------------")
   const Detail = [];
   const User = [];
   db.query("SELECT * FROM Users join Ticket ON Users.email = Ticket.user_email",
@@ -294,9 +328,14 @@ router.get("/profile", (req, res) => {
             Detail.push(a);
           }
         }
-        for(var j=0; j<User.length-1; j++){
+        console.log(User);
+        console.log(User.length);
+        var length = User.length;
+        for(var j=0; j<length-1; j++){
+          console.log(j,User.length);
           User.pop();
         }
+        console.log("---------")
         console.log(User.length);
         console.log(Detail);
 
