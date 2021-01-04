@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="footernavbarwotransition.css">
+    <link rel="stylesheet" href="footernavbar.css">
     <link rel="stylesheet" href="events.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <title>Website</title>
@@ -34,7 +34,7 @@
                         <li style="padding: 8px;"><a href="/category">Kategoriler</a></li>
                         <li style="padding: 8px;"><a href="/cityguide">Şehir Turu</a></li>
                         <li style="padding: 20px;"><a href="/aboutus">Hakkımızda</a></li>
-                        <% if(loginn){ %> 
+                        <% if(loginn){ %>
                         <li class="entrance" style="margin-right:20px ; "><a href="/profile">Profilim</a></li>
                         <li class="entrance" style="margin-right:20px ;"><a href="/logout">Çıkış Yap</a></li>
                         <% } else{ %>
@@ -61,68 +61,68 @@
                 </div>
             </div>
             <div class="fae">
-            <div class="filter">
-                <form action="#" method="#" style="border: solid 2px #d2d2d2;
+                <div class="filter">
+                    <form action="#" method="#" style="border: solid 2px #d2d2d2;
                 border-radius: 40px; height: 25rem;">
-                <div class="etkinlik-arama">
-                <label><b>Etkinlik ara</b></label>
-                <input type="text" placeholder="Etkinlik ara">
-            </div>
-            <div class="tarih-secme">
-                <laber><b>Tarih seçiniz</b></laber>
-                <input type="date">
-            </div>
-            <div class="sehir-secme">
-                <b>Şehir seçiniz</b>
-            <select>
-                <label for="city"></label>
-                <option>--</option>
-                <option>İstanbul</option>
-                <option>Denizli</option>
-                <option>Sivas</option>
-                <option>Kars</option>
-                <option>Nevşehir</option>
-                <option>İzmir</option>
-            </select>
-        </div>
-        <div class="sehir-secme">
-            <b>Kategori seçiniz</b>
-            <select>
-                <label for="kategori"></label>
-                <option>--</option>
-                <option>Müzik</option>
-                <option>Spor</option>
-                <option>Tiyatro</option>
-                <option>Teknoloji</option>
-            </select>
-        </div>
-        <br>
-            <button type="submit">
-                Filtrele
-            </button>
-            </form>
-            </div>
-            <div class="flex">
-            <div class="events">
-                <% if(Events.length >0){%>
-                    <%Events.forEach(event => { %>
-                <div class="event">
-                    <div class="event-image">
-                        <a href="/events/<%=event.EventName%>">
-                            <img class="img-event" src="./<%=event.EventPhotoUrl%>">
-                        </a>
-                    </div>
-                    <div class="event-text">
-                        <a href="/events/<%=event.EventName%>" class="link-text">
-                            <p><%=event.EventName%></p>
-                        </a>
+                        <div class="etkinlik-arama">
+                            <label><b>Etkinlik ara</b></label>
+                            <input type="text" placeholder="Etkinlik ara">
+                        </div>
+                        <div class="tarih-secme">
+                            <laber><b>Tarih seçiniz</b></laber>
+                            <input type="date">
+                        </div>
+                        <div class="sehir-secme">
+                            <b>Şehir seçiniz</b>
+                            <select>
+                                <label for="city"></label>
+                                <option>--</option>
+                                <option>İstanbul</option>
+                                <option>Denizli</option>
+                                <option>Sivas</option>
+                                <option>Kars</option>
+                                <option>Nevşehir</option>
+                                <option>İzmir</option>
+                            </select>
+                        </div>
+                        <div class="sehir-secme">
+                            <b>Kategori seçiniz</b>
+                            <select>
+                                <label for="kategori"></label>
+                                <option>--</option>
+                                <option>Müzik</option>
+                                <option>Spor</option>
+                                <option>Tiyatro</option>
+                                <option>Teknoloji</option>
+                            </select>
+                        </div>
+                        <br>
+                        <button type="submit">
+                            Filtrele
+                        </button>
+                    </form>
+                </div>
+                <div class="flex">
+                    <div class="events">
+                        <% if(Events.length >0){%>
+                        <%Events.forEach(event => { %>
+                        <div class="event">
+                            <div class="event-image">
+                                <a href="/events/<%=event.EventName%>">
+                                    <img class="img-event" src="./<%=event.EventPhotoUrl%>">
+                                </a>
+                            </div>
+                            <div class="event-text">
+                                <a href="/events/<%=event.EventName%>" class="link-text">
+                                    <p><%=event.EventName%></p>
+                                </a>
+                            </div>
+                        </div>
+                        <% }) %>
+                        <% } %>
                     </div>
                 </div>
-                <% }) %> 
-                <% } %> 
-    </div>
-</div>
-</div>
+            </div>
         </div>
     </section>
     <!-- End events Section -->
@@ -156,20 +156,20 @@
             <li>
                 <h2>Kurumsal</h2>
                 <ul class="box">
-                  <li><a href="/aboutus">Hakkımızda</a></li>
-                  <li><a href="/privacypolicy">Gizlilik Politikası</a></li>
-                  <li><a href="/Useragreement">Kullanıcı Sözleşmesi</a></li>
-                  <li><a href="/contactus">İletişim&Kariyer</a></li>
+                    <li><a href="/aboutus">Hakkımızda</a></li>
+                    <li><a href="/privacypolicy">Gizlilik Politikası</a></li>
+                    <li><a href="/Useragreement">Kullanıcı Sözleşmesi</a></li>
+                    <li><a href="/contactus">İletişim&Kariyer</a></li>
                 </ul>
-              </li>
-              <li class="Find">
+            </li>
+            <li class="Find">
                 <h2>Keşfet</h2>
                 <ul class="box hbox">
-                  <li><a href="/events">Etkinlikler</a></li>
-                  <li><a href="/category">Kategoriler</a></li>
-                  <li><a href="/cityguide">Şehirler</a></li>
+                    <li><a href="/events">Etkinlikler</a></li>
+                    <li><a href="/category">Kategoriler</a></li>
+                    <li><a href="/cityguide">Şehirler</a></li>
                 </ul>
-              </li>
+            </li>
 
         </ul>
 

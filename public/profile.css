@@ -126,3 +126,13 @@
 .tabs button {
   margin: 5px;
 }
+.rez-but{
+  width: 10rem;
+  height: 5rem;
+  color: white;
+  background-color: rgb(5, 5, 14);
+  border: 2px solid black;
+  border-radius: 1.175rem;
+  padding: 5px;
+  cursor: pointer;
+}

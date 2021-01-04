@@ -229,8 +229,6 @@ router.get("/cityguide/:name", (req, res) => {
     }
   );
 });
-
-
 router.get("/category/Tiyatro", (req, res) => {
   db.query(
     "SELECT * FROM snoll.events WHERE EventCategory='Tiyatro' ",

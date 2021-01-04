@@ -44,8 +44,9 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 10px;
 }
-button[type="button"] {
+button[type="submit"] {
   font-size: 18px;
   text-decoration: none;
   cursor: pointer;
@@ -55,7 +56,7 @@ button[type="button"] {
   padding: 2px;
   outline: none;
 }
-button[type="button"]:hover {
+button[type="submit"]:hover {
   background-color: black;
   color: white;
 }
@@ -94,4 +95,36 @@ button[type="button"]:hover {
   .citypart {
     margin-bottom: 10px;
   }
+}
+.cities-text{
+  display: flex;
+  flex-direction: row;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.cities-top{
+  display: flex;
+  flex-direction: column;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+.event-text{
+  display: flex;
+  flex-direction: row;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.event-top{
+  display: flex;
+  flex-direction: column;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+.event-text label{
+  font-size: 20px;
+  text-align: center;
+}
+.cities-text label{
+  font-size: 20px;
+  text-align: center;
 }

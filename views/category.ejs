@@ -75,22 +75,34 @@
     <section id="category">
         <div class="category container2">
             <div class="genelaktivite"> 
-                <% if(Category.length >0){%>
-                    <%Category.forEach(events => { %>
                 <div class="aktivite">
             
-                <a href="/category/<%=events.EventCategory%>" 
-                    style="width: 100%;">
-                    <img src="./images/istanbul2.jpg"  style="width: 100%; object-fit: cover;">
+                <a href="/category/Müzik" style="width: 100%;">
+                    <img src="./images/müzik.png"  style="width: 100%; object-fit: cover;">
                 </a>
-              
-   
-                <p class="resimWrite" style="color: white;"><%=events.EventCategory%></p>
-           
-               
+                <p class="resimWrite" style="color: white;">Müzik</p> 
             </div>
-            <% }) %> 
-    <% } %> 
+            <div class="aktivite">
+            
+                <a href="/category/Tiyatro" style="width: 100%;">
+                    <img src="./images/tiyatro.png"  style="width: 100%; object-fit: cover;">
+                </a>
+                <p class="resimWrite" style="color: white;">Tiyatro</p> 
+            </div>
+            <div class="aktivite">
+            
+                <a href="/category/Teknoloji" style="width: 100%;">
+                    <img src="./images/teknoloji.png"  style="width: 100%; height: 75%; object-fit: cover;">
+                </a>
+                <p class="resimWrite" style="color: white;">Teknoloji</p> 
+            </div>
+            <div class="aktivite">
+            
+                <a href="/category/Spor" style="width: 100%;">
+                    <img src="./images/spor.jpg"  style="width: 100%; object-fit: cover;">
+                </a>
+                <p class="resimWrite" style="color: white;">Spor</p> 
+            </div>
     </div>
         </div>
     </section>
