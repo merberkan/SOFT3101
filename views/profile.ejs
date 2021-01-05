@@ -80,26 +80,26 @@
       <div class="ticketpart">
 
         <h3>Biletlerim</h3>
-
+        <% if(Detail.length >0){%>
+          <%Detail.forEach(detail => { %>
         <div class="boughtickets">
-
           <div class="ticketimg">
             <img src="./images/aleyna.png" alt="">
           </div>
           <div class="ticketinfo">
-            <% if(Detail.length >0){%>
-            <%Detail.forEach(detail => { %>
+
             <h4>Etkinlik Adı: <%= detail.event_name %></h4>
             <h4>Bilet No: <%= detail.ticket_id %></h4>
             <h4>Event No: 3123</h4>
             <h4>Koltuk No: 23 </h4>
             <h4>Rezerve Durumu: Evet</h4>
-            <button type="button" class="rez-but">Rezervasyon İptali</button>
-            <% }) %>
-            <% } %>
+            <a href="cancelticket/<%= detail.ticket_id %>"><button type="button" class="rez-but">Bileti İptal Et</button></a>
+
           </div>
 
         </div>
+        <% }) %>
+        <% } %>
 
       </div>
 

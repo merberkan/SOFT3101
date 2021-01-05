@@ -199,6 +199,18 @@ router.get("/cityguide", (req, res) => {
   });
 });
 
+
+router.get("/cancelticket/:id", (req, res) => {
+  var path = req.params.id;
+  db.query( "DELETE FROM Ticket Where ticket_id = ?", [path], (err, result) => {
+      if(err){
+        console.log(err);
+      }
+      res.redirect("/profile")
+    }
+  );
+})
+
 router.get("/cityguide/:name", (req, res) => {
   var path = req.params.name;
   db.query(
@@ -299,7 +311,6 @@ router.get("/category/Spor", (req, res) => {
   );
 });
 router.get("/profile", async (req, res) => {
-  console.log("--------------")
   const Detail = [];
   const User = [];
   db.query("SELECT * FROM Users join Ticket ON Users.email = Ticket.user_email",
@@ -326,8 +337,6 @@ router.get("/profile", async (req, res) => {
             Detail.push(a);
           }
         }
-        console.log(User);
-        console.log(User.length);
         var length = User.length;
         for(var j=0; j<length-1; j++){
           console.log(j,User.length);
@@ -347,6 +356,8 @@ router.get("/profile", async (req, res) => {
     }
   );
 });
+
+
 router.get("/adminPanel", (req, res) => {
   res.render("adminPanel", {
     email: req.session.emailAddress,
