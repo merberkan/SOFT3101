@@ -3,7 +3,6 @@ const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
 
-
 const db = mysql.createConnection({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
@@ -12,9 +11,20 @@ const db = mysql.createConnection({
 });
 
 router.get("/", (req, res) => {
-  res.render("index", {
-    email: req.session.emailAddress,
-    loginn: req.session.loggedinUser,
+  db.query("SELECT * FROM Snoll.Events", async (err, result) => {
+    const Events = [];
+    for (var i = 0; i < 6; i++) {
+      var a = {
+        EventName: result[i].EventName,
+        EventPhotoUrl: result[i].EventPhotoUrl,
+      };
+      Events.push(a);
+    }
+    res.render("index", {
+      Events,
+      email: req.session.emailAddress,
+      loginn: req.session.loggedinUser,
+    });
   });
 });
 router.get("/register", (req, res) => {
@@ -70,7 +80,10 @@ router.get("/events", (req, res) => {
       console.log(err);
     } else {
       for (var i = 0; i < result.length; i++) {
-        var a = { EventName: result[i].EventName, EventPhotoUrl: result[i].EventPhotoUrl };
+        var a = {
+          EventName: result[i].EventName,
+          EventPhotoUrl: result[i].EventPhotoUrl,
+        };
         Events.push(a);
       }
       res.render("events", {
@@ -104,7 +117,7 @@ router.get("/events/:name", (req, res) => {
             EventPlace: result[0].EventPlace,
             EventPhotoUrl: result[0].EventPhotoUrl,
             EventPhotoBackground: result[0].EventPhotoBackground,
-            EventNo: result[0].EventNo
+            EventNo: result[0].EventNo,
           },
         ];
         console.log(Event);
@@ -120,35 +133,43 @@ router.get("/events/:name", (req, res) => {
 
 router.get("/payment/:id", (req, res) => {
   var path = req.params.id;
-  
-  db.query('SELECT * FROM Events WHERE Events.EventNo =?',[path], async (err, result) => {
-    if(err){
-      console.log(err);
-    }
 
-    if(result.length > 0){
-      var Event = [{
-        EventNo: result[0].EventNo,
-        EventName: result[0].EventName
-      }]
-    }
-    db.query('INSERT INTO Ticket SET ?',{
-      ticket_id: "14",
-      user_email: req.session.emailAddress,
-      event_name: Event[0].EventName
-    }, (error,result2) => {
-      if(error){
-        console.log(error);
-      }else{
-        return res.render('payment',{
-          email: req.session.emailAddress,
-          loginn: req.session.loggedinUser
-        })
+  db.query(
+    "SELECT * FROM Events WHERE Events.EventNo =?",
+    [path],
+    async (err, result) => {
+      if (err) {
+        console.log(err);
       }
-    })
-  })
-  
 
+      if (result.length > 0) {
+        var Event = [
+          {
+            EventNo: result[0].EventNo,
+            EventName: result[0].EventName,
+          },
+        ];
+      }
+      db.query(
+        "INSERT INTO Ticket SET ?",
+        {
+          ticket_id: "14",
+          user_email: req.session.emailAddress,
+          event_name: Event[0].EventName,
+        },
+        (error, result2) => {
+          if (error) {
+            console.log(error);
+          } else {
+            return res.render("payment", {
+              email: req.session.emailAddress,
+              loginn: req.session.loggedinUser,
+            });
+          }
+        }
+      );
+    }
+  );
 });
 
 router.get("/aboutus", (req, res) => {
@@ -166,13 +187,7 @@ router.get("/privacypolicy", (req, res) => {
 });
 router.get("/category", (req, res) => {
   db.query("SELECT * FROM snoll.events", async (err, result) => {
-    const Category = [];
-    for (var i = 0; i < result.length; i++) {
-      var a = { EventCategory: result[i].EventCategory };
-      Category.push(a);
-    }
     res.render("category", {
-      Category,
       email: req.session.emailAddress,
       loginn: req.session.loggedinUser,
     });
@@ -186,7 +201,10 @@ router.get("/cityguide", (req, res) => {
       console.log(err);
     } else {
       for (var i = 0; i < result.length; i++) {
-        var a = { CityName: result[i].CityName, CityPhoto: result[i].CityPhoto };
+        var a = {
+          CityName: result[i].CityName,
+          CityPhoto: result[i].CityPhoto,
+        };
         City.push(a);
       }
       res.render("cityguide", {
@@ -199,17 +217,15 @@ router.get("/cityguide", (req, res) => {
   });
 });
 
-
 router.get("/cancelticket/:id", (req, res) => {
   var path = req.params.id;
-  db.query( "DELETE FROM Ticket Where ticket_id = ?", [path], (err, result) => {
-      if(err){
-        console.log(err);
-      }
-      res.redirect("/profile")
+  db.query("DELETE FROM Ticket Where ticket_id = ?", [path], (err, result) => {
+    if (err) {
+      console.log(err);
     }
-  );
-})
+    res.redirect("/profile");
+  });
+});
 
 router.get("/cityguide/:name", (req, res) => {
   var path = req.params.name;
@@ -228,8 +244,8 @@ router.get("/cityguide/:name", (req, res) => {
             ArtPlaces: result[0].ArtPlaces,
             EatPlace: result[0].EatPlace,
             CitySummary: result[0].CitySummary,
-            CityPhoto: result[0].CityPhoto
-          }
+            CityPhoto: result[0].CityPhoto,
+          },
         ];
         console.log(City);
         res.render("city", {
@@ -247,7 +263,10 @@ router.get("/category/Tiyatro", (req, res) => {
     async (err, result) => {
       const Tiyatro = [];
       for (var i = 0; i < result.length; i++) {
-        var a = { EventName: result[i].EventName };
+        var a = {
+          EventName: result[i].EventName,
+          EventPhotoUrl: result[i].EventPhotoUrl,
+        };
         Tiyatro.push(a);
       }
       res.render("Tiyatro", {
@@ -264,7 +283,10 @@ router.get("/category/M%C3%BCzik", (req, res) => {
     async (err, result) => {
       const Music = [];
       for (var i = 0; i < result.length; i++) {
-        var a = { EventName: result[i].EventName };
+        var a = {
+          EventName: result[i].EventName,
+          EventPhotoUrl: result[i].EventPhotoUrl,
+        };
         Music.push(a);
       }
       res.render("Müzik", {
@@ -282,7 +304,10 @@ router.get("/category/Teknoloji", (req, res) => {
     async (err, result) => {
       const Teknoloji = [];
       for (var i = 0; i < result.length; i++) {
-        var a = { EventName: result[i].EventName };
+        var a = {
+          EventName: result[i].EventName,
+          EventPhotoUrl: result[i].EventPhotoUrl,
+        };
         Teknoloji.push(a);
       }
       res.render("Teknoloji", {
@@ -299,7 +324,10 @@ router.get("/category/Spor", (req, res) => {
     async (err, result) => {
       const Spor = [];
       for (var i = 0; i < result.length; i++) {
-        var a = { EventName: result[i].EventName };
+        var a = {
+          EventName: result[i].EventName,
+          EventPhotoUrl: result[i].EventPhotoUrl,
+        };
         Spor.push(a);
       }
       res.render("Spor", {
@@ -313,14 +341,15 @@ router.get("/category/Spor", (req, res) => {
 router.get("/profile", async (req, res) => {
   const Detail = [];
   const User = [];
-  db.query("SELECT * FROM Users join Ticket ON Users.email = Ticket.user_email",
+  db.query(
+    "SELECT * FROM Users join Ticket ON Users.email = Ticket.user_email",
     [req.session.emailAddress],
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        for(var i = 0; i<result.length; i++){
-          if(result[i].email == req.session.emailAddress){
+        for (var i = 0; i < result.length; i++) {
+          if (result[i].email == req.session.emailAddress) {
             var x = [
               {
                 firstname: result[i].firstname,
@@ -329,20 +358,20 @@ router.get("/profile", async (req, res) => {
                 role: result[i].role,
               },
             ];
-            var a ={
+            var a = {
               ticket_id: result[i].ticket_id,
-              event_name: result[i].event_name
-            }
+              event_name: result[i].event_name,
+            };
             User.push(x);
             Detail.push(a);
           }
         }
         var length = User.length;
-        for(var j=0; j<length-1; j++){
-          console.log(j,User.length);
+        for (var j = 0; j < length - 1; j++) {
+          console.log(j, User.length);
           User.pop();
         }
-        console.log("---------")
+        console.log("---------");
         console.log(User.length);
         console.log(Detail);
 
@@ -356,7 +385,6 @@ router.get("/profile", async (req, res) => {
     }
   );
 });
-
 
 router.get("/adminPanel", (req, res) => {
   res.render("adminPanel", {

@@ -65,12 +65,12 @@
                         <%Spor.forEach(events => { %>
                     <div class="event">
                         <div class="event-image">
-                            <a href="/ticket">
-                                <img class="img-event" src="./images/anadoluefes.png">
+                            <a href="/events/<%=events.EventName%>">
+                                <img class="img-event" src="./<%=events.EventPhotoUrl%>">
                             </a>
                         </div>
                         <div class="event-text">
-                            <a href="/ticket" class="link-text">
+                            <a href="/events/<%=events.EventName%>" class="link-text">
                                 <p><%=events.EventName%></p>
                             </a>
                         </div>

@@ -262,7 +262,7 @@ input[type="search"]:focus {
   height: 30rem;
   object-fit: cover;
   border-radius: 35%;
-  border: 5px solid rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
 }
 .activity:hover img {
   opacity: 0.8;
@@ -296,8 +296,9 @@ input[type="search"]:focus {
 .rowcontainer:hover img {
   opacity: 0.8;
   border-radius: 0;
-  width: 80%;
-  max-height: 25rem;
+  width: 40rem;
+  min-height: 20rem;
+  margin: 0 10rem 0 10rem;
 }
 .rowtext {
   border-top: 2px solid black;
