@@ -7,12 +7,10 @@ var nodemailer = require("nodemailer");
 mysql.createConnection({ multipleStatements: true });
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "Snoll",
-  socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
-  port: "8889" 
+  host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE
 });
 
 exports.login = async (req, res) => {
@@ -155,3 +153,37 @@ exports.register = (req, res) => {
   });
   // res.send("Form submitted")
 };
+
+exports.contactus = (req, res) => {
+  console.log('çalıştı');
+
+  const {nameS, contactmail} = req.body;
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "snolldestek@gmail.com",
+      pass: "snoll123",
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  var mailOptions = {
+    from: "snolldestek@gmail.com",
+    to: contactmail,
+    subject: "Destek Talebi",
+    text:
+      "Merhabalar Sayın " +nameS+" Gönderdiğiniz mesaj destek ekiplerimiz tarafından incelemeye"
+      + " alınmıştır. En kısa sürede tarafınızla iletişime geçilecektir."
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+  res.redirect('/contactus');
+};
+
