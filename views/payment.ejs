@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylee.css">
+    <link rel="stylesheet" href="/payment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <title>Website</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <section id="header">
+        <div class="header container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="/">
+                        <h1><span>S</span>noll</h1>
+                    </a>
+                </div>
+                <div class="searchbar">
+                    <input type="search" placeholder="Etkinlik Ara">
+                </div>
+                <div class="navlist">
+                    <div class="hb">
+                        <div class="bar"></div>
+                    </div>
+                    <ul>
+
+                        <li style="padding: 8px;"><a href="/">Anasayfa</a></li>
+                        <li style="padding: 8px;"><a href="/events">Etkinlikler</a></li>
+                        <li style="padding: 8px;"><a href="/category">Kategoriler</a></li>
+                        <li style="padding: 8px;"><a href="/cityguide">Şehir Turu</a></li>
+                        <li style="padding: 20px;"><a href="/aboutus">Hakkımızda</a></li>
+                        <% if(loginn){ %> 
+                            <li class="entrance" style="margin-right:20px ;"><a href="/profile">Profilim</a></li>
+                            <li class="entrance" style="margin-right:20px ;"><a href="/logout">Çıkış Yap</a></li>
+                            <% } else{ %>
+                        <li class="entrance" style="margin-right:20px ;"><a href="/login">Giriş Yap</a></li>
+                        <li class="entrance" style="margin-right:20px ;"><a href="/register">Üye Ol</a></li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Header -->
+
+    <!-- Upcoming payment Section  -->
+    <section id="category">
+        <div class="category container">
+            <!-- <form action="#"> -->
+                <div class="container">
+                    <div class="payment">
+                        <div class="fatura-icon">
+                            <div class="fatura">
+                                <h1 class="info">Fatura</h1>
+                            </div>
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <div class="name">
+                            <label class="font">Adınız</label>
+                            <input type="text" name="name" style="padding-top:7px" placeholder="Adınız">
+                        </div>
+                        <div class="mail" style="margin-bottom: 2rem;">
+                            <label class="font">Mail Adresiniz</label>
+                            <input type="text" name="email" style="padding-top:7px" placeholder="Mail adresiniz">
+                        </div>
+                        <div class="icon-card">
+                            <div class="card">
+                                <h1 class="info">Kart Bilgileri</h1>
+                            </div>
+                            <i class="far fa-credit-card"></i>
+                        </div>
+                        <div class="card-owner">
+                            <label class="font">Kart Sahibinin İsmi</label>
+                            <input type="text" name="card-owner" style="padding-top:7px"
+                                placeholder="Kart sahibinin ismi" required>
+                        </div>
+                        <div class="card-no">
+                            <label class="font">Kart numaranız</label>
+                            <input type="number" name="card-no" style="padding-top:7px" placeholder="Kart numaranız"
+                                required>
+                        </div>
+                        <div class="ay-yıl-cvv">
+                            <div class="ay">
+                                <label class="font">Ay</label>
+                                <input type="text" name="ay" style="padding-top:7px" placeholder="Ay" required>
+                            </div>
+                            <div class="yıl">
+                                <label class="font">Yıl</label>
+                                <input type="text" name="yıl" style="padding-top:7px" placeholder="Yıl" required>
+                            </div>
+                            <div class="cvv">
+                                <label class="font">CVV</label>
+                                <input type="number" name="cvv" style="padding-top:7px" placeholder="CVV" required>
+                            </div>
+                        </div>
+                        <div class="öde" style="width: 100px; height: 100px;">
+                            <button><a href="/">Ödemeyi Tamamla</a></button>
+                        </div>
+                    </div>
+                </div>
+            <!-- </form> -->
+        </div>
+    </section>
+    <!-- End payment Section       -->
+    <!-- Footer -->
+    <section id="footer">
+        <div class="footerleft">
+            <a href="/">
+                <h1 style="color:white; font-size: 3rem;"><span
+                        style="color: rgb(73, 89, 230)  ;font-size: 4rem;">S</span>noll</h1>
+            </a>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam distinctio pariatur placeat
+                consequuntur
+                vel laborum molestiae, eos incidunt est! Doloremque ea illo ratione sunt porro, earum voluptas eum
+                quaerat est.
+                Velit, nostrum quae officia odio veniam animi
+                exercitationem. Nobis, hic. Praesentium provident eaque, dolorum dolore rem ullam id delectus quae?</p>
+            <div class="socialmedia">
+                <div class="socialitem">
+                    <a href="https://tr-tr.facebook.com"><img
+                            src="https://img.icons8.com/plasticine/48/000000/facebook-new.png" /></a>
+                </div>
+                <div class="socialitem">
+                    <a href="https://twitter.com"><img
+                            src="https://img.icons8.com/doodle/48/000000/twitter--v1.png" /></a>
+                </div>
+                <div class="socialitem">
+                    <a href="https://www.instagram.com/?hl=tr"><img
+                            src="https://img.icons8.com/plasticine/50/000000/instagram-new.png" /></a>
+                </div>
+            </div>
+        </div>
+        <ul class="footerright">
+            <li>
+                <h2>Kurumsal</h2>
+                <ul class="box">
+                    <li><a href="/aboutus">Hakkımızda</a></li>
+                    <li><a href="/privacypolicy">Gizlilik Politikası</a></li>
+                    <li><a href="/Useragreement">Kullanım Sözleşmesi</a></li>
+                    <li><a href="/contactus">İletişim&Kariyer</a></li>
+                </ul>
+            </li>
+            <li class="Find">
+                <h2>Keşfet</h2>
+                <ul class="box hbox">
+                    <li><a href="/events">Etkinlikler</a></li>
+                    <li><a href="/category">Kategoriler</a></li>
+                    <li><a href="/cityguide">Şehirler</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+
+        <div class="footerbottom">
+            <p>Copyright © 2020 Snoll</p>
+        </div>
+    </section>
+    <!-- End Footer Section -->
+    <script src="/hb.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+/* User Agreement Section */
+
+#Useragreement {
+  background-color: rgb(255, 255, 255);
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-image: linear-gradient(60deg, #606468 0%, #7a8da3 100%);
+}
+.containeragreement {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 1.175rem;
+  margin: 15rem 30rem 15rem 30rem;
+  line-height: 30px;
+}
+#Useragreement h1 {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5px;
+  font-size: 30px;
+}
+#Useragreement h3 {
+  letter-spacing: 0.5px;
+  font-size: 24px;
+  color: #142744;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+#Useragreement p {
+  letter-spacing: 0.4px;
+  padding: 5px;
+  font-size: 16px;
+  justify-content: start;
+  text-align: start;
+}
+#Useragreement .listA {
+  padding: 20px 10rem 20px 10rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+#Useragreement .title {
+  padding: 5rem 0 0 0;
+}
+.listA ul {
+  list-style-type: none;
+}
+.listA ul li {
+  margin: 5rem 0 5rem 0;
+}
+/* End User Agreement Section */

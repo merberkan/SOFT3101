@@ -1,0 +1,72 @@
+/*  Mid Part Start*/
+.mid-part {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider {
+  display: flex;
+  height: 95rem;
+}
+
+.img-slider {
+  width: 100%;
+  object-fit: cover;
+}
+
+.cities-part {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 5%;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 40px;
+}
+
+.cities {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  grid-gap: 20px 20px;
+  margin: 3% 15% 2% 15%;
+}
+
+.city {
+  display: flex;
+  flex-direction: column;
+}
+
+.city-image {
+  display: flex;  
+  opacity: 1;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+
+.city-image:hover{
+  opacity: 0.8;
+}
+
+.city-image a {
+  max-height: 30rem;
+}
+
+.city-text {
+  display: flex;
+  font-size: 30px;
+}
+
+.img-city {
+  width: 100%;
+  object-fit: cover;
+  height: 30rem;
+}
+
+.link-text {
+  color: #22395c;
+}
