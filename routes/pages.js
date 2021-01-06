@@ -279,7 +279,7 @@ router.get("/category/Tiyatro", (req, res) => {
     }
   );
 });
-router.get("/category/M%C3%BCzik", (req, res) => {
+router.get("/category/Muzik", (req, res) => {
   db.query(
     "SELECT * FROM snoll.events WHERE EventCategory='Müzik' ",
     async (err, result) => {
@@ -291,7 +291,7 @@ router.get("/category/M%C3%BCzik", (req, res) => {
         };
         Music.push(a);
       }
-      res.render("Müzik", {
+      res.render("Muzik", {
         Music,
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
