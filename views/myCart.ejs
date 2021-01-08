@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <title>City Guide</title>
+    <link rel="stylesheet" href="myCart.css">
+    <link rel="stylesheet" href="footernavbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <script src="cityguide.js"></script>
+</head>
+
+<body>
+    <!--    NAVBAR  Start-->
+    <section id="header">
+        <div class="header container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="/">
+                        <h1><span>S</span>noll</h1>
+                    </a>
+                </div>
+                <div class="searchbar">
+                    <input type="search" placeholder="Etkinlik Ara">
+                </div>
+                <div class="navlist">
+                    <div class="hb">
+                        <div class="bar"></div>
+                    </div>
+                    <ul>
+
+                        <li style="padding: 8px;"><a href="/">Anasayfa</a></li>
+                        <li style="padding: 8px;"><a href="/events">Etkinlikler</a></li>
+                        <li style="padding: 8px;"><a href="/category">Kategoriler</a></li>
+                        <li style="padding: 8px;"><a href="/cityguide">Şehir Turu</a></li>
+                        <li style="padding: 20px;"><a href="/aboutus">Hakkımızda</a></li>
+                        <% if(loginn){ %>
+                        <li class="entrance" style="margin-right:20px ; "><a href="/profile">Profilim</a></li>
+                        <li class="entrance" style="margin-right:20px ;"><a href="/logout">Çıkış Yap</a></li>
+                        <% } else{ %>
+                        <li class="entrance" style="margin-right:20px ;"><a href="/login">Giriş Yap</a></li>
+                        <li class="entrance" style="margin-right:20px ;"><a href="/register">Üye Ol</a></li>
+                        <% } %>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--    NAVBAR  End-->
+    <div class="mid-part">
+        <div class="basket-container">
+            <div class="basket-title">
+                <h3>Sepetim</h3>
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+        </div>
+        <div class="info-container">
+            <div class="basket-info">
+                <div class="basket-part">
+                    <% if(Detail.length >0){%>
+                        <%Detail.forEach(detail => {%>
+                    <div class="basket-image">
+                        <img src="images/anadoluefes.png" class="basket-image-fix">
+                    </div>
+                    <div class="basket-event-no">
+                        <h3>Etkinlik No</h3>
+                        <h3><%= detail.event_no %></h3>
+                    </div>
+                    <div class="basket-event-name">
+                        <h3>Etkinlik Adı</h3>
+                        <h3><%= detail.event_name %></h3>
+                    </div>
+                    <!-- <div class="basket-date">
+                        <h3>Etkinlik Tarihi</h3>
+                        <h3><%= detail.event_date %></h3>
+                    </div> -->
+                    <div class="basket-price">
+                        <h3>Bilet Fiyatı</h3>
+                        <h3><%= detail.event_price %></h3>
+                    </div>
+                    <div class="button-part">
+                        <button type="button" class="basket-button"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <div class="button-part">
+                        <a href="cancelEvent/<%= detail.EventNo %>"><button type="button" class="basket-button"></a>
+                            <h3>Alışverişi Tamamla</h3>
+                        </button>
+                    </div>
+                    <% }) %>
+                    <% } %>
+                </div>
+    </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <section id="footer">
+        <div class="footerleft">
+            <a href="/">
+                <h1 style="color:white; font-size: 3rem;"><span
+                        style="color: rgb(73, 89, 230)  ;font-size: 4rem;">S</span>noll
+                </h1>
+            </a>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam distinctio pariatur placeat
+                consequuntur
+                vel laborum molestiae, eos incidunt est! Doloremque ea illo ratione sunt porro, earum voluptas eum
+                quaerat est.
+                Velit, nostrum quae officia odio veniam animi
+                exercitationem. Nobis, hic. Praesentium provident eaque, dolorum dolore rem ullam id delectus quae?</p>
+            <div class="socialmedia">
+                <div class="socialitem">
+                    <a href="#"><img src="https://img.icons8.com/plasticine/48/000000/facebook-new.png" /></a>
+                </div>
+                <div class="socialitem">
+                    <a href="#"><img src="https://img.icons8.com/doodle/48/000000/twitter--v1.png" /></a>
+                </div>
+                <div class="socialitem">
+                    <a href="#"><img src="https://img.icons8.com/plasticine/50/000000/instagram-new.png" /></a>
+                </div>
+            </div>
+        </div>
+        <ul class="footerright">
+            <li>
+                <h2>Kurumsal</h2>
+                <ul class="box">
+                    <li><a href="/aboutus">Hakkımızda</a></li>
+                    <li><a href="/privacypolicy">Gizlilik Politikası</a></li>
+                    <li><a href="/Useragreement">Kullanıcı Sözleşmesi</a></li>
+                    <li><a href="/contactus">İletişim&Kariyer</a></li>
+                </ul>
+            </li>
+            <li class="Find">
+                <h2>Keşfet</h2>
+                <ul class="box hbox">
+                    <li><a href="/events">Etkinlikler</a></li>
+                    <li><a href="/category">Kategoriler</a></li>
+                    <li><a href="/cityguide">Şehirler</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+
+        <div class="footerbottom">
+            <p>Copyright © 2020 Snoll</p>
+        </div>
+    </section>
+    <!--    FOOTER END-->
+    <script src="/hb.js"></script>
+</body>
+
+</html>

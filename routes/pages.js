@@ -414,4 +414,51 @@ router.get("/contactusSuccess", (req, res) => {
     contactname : req.session.contactname,
   });
 });
+router.get("/notFound", (req, res) => {
+  res.render("notFound", {
+    email: req.session.emailAddress,
+    loginn: req.session.loggedinUser,
+  });
+});
+// router.get("/myCart", async (req, res) => {
+//   const Detail = [];
+//   db.query("SELECT * FROM cart WHERE UserEmail=?",
+//   [req.session.emailAddress],
+//   (err,result) => {
+//     if(err){
+//       console.log(err);
+//     } else {
+//       for (var i = 0; i < result.length; i++) {
+//         if(result[i].email == req.session.emailAddress){
+//           var a = [
+//           {
+//               event_no: result[i].event_no,
+//               event_name: result[i].event_name,
+//               event_price: result[i].event_price,
+//           },
+//         ];
+//           Detail.push(a);
+//         }
+//       }
+//     console.log("---------");
+//         console.log(Detail);
+//   res.render("myCart", {
+//     Detail,
+//     email: req.session.emailAddress,
+//     loginn: req.session.loggedinUser,
+//   });
+//     }
+//   });
+// });
+
+// router.get("/cancelEvent/:eventNo" , (req,res) => {
+//   var path = req.params.EventNo;
+//   db.query("DELETE FROM Event WHERE EventNo = ?" , [path], (err, result) => {
+//     if(err) {
+//       console.log(err);
+//     }
+//     res.redirect("/myCart");
+//   });
+// });
+
 module.exports = router;

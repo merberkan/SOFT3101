@@ -1,0 +1,103 @@
+.mid-part {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 65px 100px;
+    background-color: rgb(54, 79, 148);
+    background-size: cover;
+}
+
+.basket-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.basket-title {
+    display: flex;
+    font-size: 50px;
+    margin-top: 8rem;
+}
+
+.info-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.basket-info {
+    display: grid;
+    justify-content: center;
+    grid-template-rows: repeat(auto-fill, minmax(20%, 1fr));
+    grid-gap: 10px;
+}
+
+.basket-image {
+    display: flex;
+    width: 50%;
+}
+
+.basket-image-fix {
+    object-fit: cover;
+    width: 75%;
+    height: 20rem;
+}
+.basket-event-no{
+    display: flex;
+    font-size: 30px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.basket-event-name {
+    display: flex;
+    font-size: 30px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.basket-date {
+    display: flex;
+    font-size: 30px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.basket-price {
+    display: flex;
+    font-size: 30px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.basket-button {
+    justify-content: center;
+    cursor: pointer;
+    width: 10rem;
+    height: 5rem;
+    color: white;
+    background-color: rgb(5, 5, 14);
+    border: 2px solid black;
+    border-radius: 1.175rem;
+    padding: 10px;
+    cursor: pointer;
+}
+.button-part{
+    display: flex;
+    flex-direction: row;
+    padding-top: 75px;
+}
+
+.basket-part {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
