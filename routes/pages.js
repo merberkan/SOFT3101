@@ -394,10 +394,44 @@ router.get("/profile", async (req, res) => {
 });
 
 router.get("/adminPanel", (req, res) => {
-  res.render("adminPanel", {
-    email: req.session.emailAddress,
-    loginn: req.session.loggedinUser,
+  db.query("SELECT * FROM Snoll.City", async (err, result) => {
+    const City = [];
+    if (err) {
+      console.log(err);
+    } 
+    if (result.length>0) {
+      for (var i = 0; i < result.length; i++) {
+        var a = {
+          CityName: result[i].CityName,
+          
+        };
+        City.push(a);
+      }
+    }
+    db.query("SELECT * FROM Snoll.Events", async (err, result) => {
+      const Events = [];
+      if (err) {
+        console.log(err);
+      } else {
+        for (var i = 0; i < result.length; i++) {
+          var a = {
+            EventName: result[i].EventName,
+            EventNo: result[i].EventNo,
+          };
+          Events.push(a);
+        }
+      res.render("adminPanel", {
+      email: req.session.emailAddress,
+      loginn: req.session.loggedinUser,
+      Events,
+      City,
+      });
+      }
+    }
+    );
+    
   });
+  
 });
 router.get("/registerSuccess", (req, res) => {
   res.render("registerSuccess", {
@@ -460,5 +494,4 @@ router.get("/notFound", (req, res) => {
 //     res.redirect("/myCart");
 //   });
 // });
-
 module.exports = router;

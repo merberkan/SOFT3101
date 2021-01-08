@@ -53,7 +53,7 @@
 
     <div class="eventspart">
       <h3 style="font-size:24px ; margin:10px;color: white;">Etkinlikler</h3>
-      <form action="/auth/adminPanel" method="POST">
+      <form action="/adminPanel/event" method="POST">
         <div class="event-text">
           <div class="event-top">
             <label for="EventNo">EventNo</label>
@@ -114,14 +114,14 @@
             <th>Fonksiyon:Etkinlik Çıkar</th>
             <th>Ekinlik No</th>
           </tr>
+          <% if(Events.length >0){%>
+            <%Events.forEach(events => { %>
           <tr>
-            <td><button type="submit">Etkinlik Çıkar</button> </td>
-            <td>ZorluCenter</td>
+            <td> <a href="/eventdelete/<%=events.EventNo%>" > <button class="button">Etkinlik Çıkar</button> </a></td>
+            <td><%=events.EventName%></td>
           </tr>
-          <tr>
-            <td><button type="submit">Etkinlik Çıkar</button> </td>
-            <td>ZorluCenter</td>
-          </tr>
+          <% }) %> 
+          <% } %> 
         </table>
       </div>
 
@@ -185,7 +185,7 @@
     </div>
     <div class="citypart">
       <h3 style="font-size:24px;margin:10px;color: white;">Şehirler</h3>
-      <form>
+      <form action="/adminPanel/city" method="POST">
         <div class="cities-text">
           <div class="cities-top">
             <label for="CityName">CityName</label>
@@ -193,7 +193,7 @@
           </div>
           <div class="cities-top">
             <label for="HistoryPlaces">HistoryPlaces</label>
-            <textarea id="CityName" name="CityName" rows="4" cols="15"></textarea>
+            <textarea id="HistoryPlaces" name="HistoryPlaces" rows="4" cols="15"></textarea>
           </div>
           <div class="cities-top">
             <label for="BeautyPlaces">BeautyPlaces</label>
@@ -228,28 +228,16 @@
             <th>Şehir Adı</th>
 
           </tr>
-          <tr>
-
-
-          </tr>
+          <% if(City.length >0){%>
+            <%City.forEach(city => { %>
           <tr>
             <td> <button type="submit">Şehir Çıkar</button></td>
 
-            <td>ZorluCenter</td>
+            <td><%=city.CityName%></td>
 
           </tr>
-          <tr>
-            <td> <button type="submit">Şehir Çıkar</button></td>
-
-            <td>ZorluCenter</td>
-
-          </tr>
-          <tr>
-            <td> <button type="submit">Şehir Çıkar</button></td>
-
-            <td>ZorluCenter</td>
-
-          </tr>
+          <% }) %> 
+          <% } %> 
         </table>
       </div>
 

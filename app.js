@@ -58,7 +58,8 @@ db.connect((error) => {
 //define routes
 
 app.use('/', require('./routes/pages'));
-app.use('/auth' ,require('./routes/auth'))
+app.use('/auth' ,require('./routes/auth'));
+app.use('/adminPanel',require('./routes/adminPanel'));
 
 
 app.listen(3000, () => {

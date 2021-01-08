@@ -46,7 +46,7 @@
   justify-content: center;
   margin-top: 10px;
 }
-button[type="submit"] {
+.button{
   font-size: 18px;
   text-decoration: none;
   cursor: pointer;
@@ -56,7 +56,7 @@ button[type="submit"] {
   padding: 2px;
   outline: none;
 }
-button[type="submit"]:hover {
+.button:hover {
   background-color: black;
   color: white;
 }
