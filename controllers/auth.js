@@ -114,9 +114,9 @@ exports.register = (req, res) => {
             console.log(error);
           } else {
             console.log(results);
-            return res.render("register", {
-              message: "User registered",
-            });
+            req.session.name = name ;
+            req.session.lname = lastname;
+            return res.redirect("/registerSuccess");
           }
         }
       );
@@ -184,6 +184,7 @@ exports.contactus = (req, res) => {
       console.log("Email sent: " + info.response);
     }
   });
-  res.redirect('/contactus');
+  req.session.contactname = nameS;
+  res.redirect('/contactusSuccess');
 };
 

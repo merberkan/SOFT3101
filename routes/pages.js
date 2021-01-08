@@ -392,4 +392,19 @@ router.get("/adminPanel", (req, res) => {
     loginn: req.session.loggedinUser,
   });
 });
+router.get("/registerSuccess", (req, res) => {
+  res.render("registerSuccess", {
+    loginn: req.session.loggedinUser,
+    email: req.session.emailAddress,
+    name : req.session.name,
+    lastname : req.session.lname,
+  });
+});
+router.get("/contactusSuccess", (req, res) => {
+  res.render("contactusSuccess", {
+    loginn: req.session.loggedinUser,
+    email: req.session.emailAddress,
+    contactname : req.session.contactname,
+  });
+});
 module.exports = router;
