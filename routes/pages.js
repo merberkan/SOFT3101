@@ -133,7 +133,15 @@ router.get("/events/:name", (req, res) => {
 
 router.get("/payment/:id", (req, res) => {
   var path = req.params.id;
+          res.render("payment", {
+              path: path,
+              email: req.session.emailAddress,
+              loginn: req.session.loggedinUser,
+            });
+});
 
+router.get("/paymentsuccessfull/:id", (req, res) => {
+  var path = req.params.id;
   db.query(
     "SELECT * FROM Events WHERE Events.EventNo =?",
     [path],
@@ -161,16 +169,15 @@ router.get("/payment/:id", (req, res) => {
           if (error) {
             console.log(error);
           } else {
-            return res.render("payment", {
-              email: req.session.emailAddress,
-              loginn: req.session.loggedinUser,
-            });
+            res.redirect("/profile");
           }
         }
       );
     }
   );
 });
+
+
 
 router.get("/aboutus", (req, res) => {
   res.render("aboutus", {
