@@ -21,6 +21,7 @@ exports.login = async (req, res) => {
     if (!email || !password) {
       return res.status(400).render("login", {
         message: "please provide an email or password ",
+        loginn : req.session.loggedinUser,
       });
     }
     db.query(
@@ -28,13 +29,12 @@ exports.login = async (req, res) => {
       [email],
       async (error, results) => {
         console.log(results);
-        if (
-          !results ||
-          !(await bcrypt.compare(password, results[0].password))
+        if (results=="" || !(await bcrypt.compare(password, results[0].password))
         ) {
           req.session.message = "email or password incorrect";
           res.render("login", {
             message: req.session.message,
+            loginn : req.session.loggedinUser,
           });
         } else {
           const id = results[0].id;
