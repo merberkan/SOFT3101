@@ -238,11 +238,51 @@ router.get("/cityguide", (req, res) => {
 
 router.get("/cancelticket/:id", (req, res) => {
   var path = req.params.id;
-  db.query("DELETE FROM Ticket Where ticket_id = ?", [path], (err, result) => {
-    if (err) {
+  db.query("SELECT * FROM Ticket WHERE ticket_id = ?",[path], (err,result1) => {
+    if(err){
       console.log(err);
     }
-    res.redirect("/profile");
+    if(result1.length > 0){
+      var Ticket = [
+        {
+          event_name: result1[0].event_name,
+          ticket_id: result1[0].ticket_id
+        }
+      ];
+      db.query("SELECT * FROM Events WHERE Events.EventName = ?", [Ticket[0].event_name], (err,result2) => {
+        if(err){
+          console.log(err);
+        }
+
+        if(result2.length > 0){
+          var Event = [
+            {
+              EventNo: result2[0].EventNo,
+              EventName: result2[0].EventName,
+              EventC : result2[0].EventCapacity,
+            }
+          ];
+  
+          db.query(`UPDATE Snoll.Events SET EventCapacity = ${(Event[0].EventC)+1} WHERE EventNo = ${Event[0].EventNo}`, (err, result3) => {
+            if(err){
+              console.log(err);
+            }
+          });
+        }
+      });
+    }
+
+
+    
+    db.query("DELETE FROM Ticket WHERE ticket_id = ?", [path], (err, result) => {
+      if(err){
+        console.log(err);
+      }
+      else{
+        res.redirect("/profile");
+      }
+    });
+
   });
 });
 
