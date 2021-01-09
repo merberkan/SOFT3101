@@ -222,7 +222,6 @@ input[type="search"]:focus {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  border-top: 2px solid;
 }
 .containermid {
   display: flex;
@@ -238,13 +237,13 @@ input[type="search"]:focus {
 }
 .categorypart {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
   grid-gap: 20px 20px;
   margin: 3% 15% 2% 15%;
 }
 .citypart {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
   grid-gap: 20px 20px;
   margin: 3% 15% 2% 15%;
 }
@@ -255,25 +254,26 @@ input[type="search"]:focus {
   justify-content: center;
 }
 .activity img {
-  width: 60%;
+  width: 100%;
   opacity: 1;
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
-  height: 30rem;
+  height: 25rem;
   object-fit: cover;
-  border-radius: 35%;
+  border-radius: 1.175rem;
   border: 1px solid rgb(0, 0, 0);
 }
 .activity:hover img {
-  opacity: 0.8;
+  opacity: 0.7;
   border-radius: 0;
-  width: 100%;
+  border-radius: 30%;
 }
 .containermid h3 {
   font-size: 48px;
   letter-spacing: 3px;
-
-  color: #062952;
+  color: #061220;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .activity p {
   font-size: 24px;
@@ -302,6 +302,9 @@ input[type="search"]:focus {
 }
 .rowtext {
   border-top: 2px solid black;
+}
+.citytext {
+  border-top: 1px solid black;
 }
 /* Footer */
 #footer {
