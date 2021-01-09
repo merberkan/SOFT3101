@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="footernavbarwotransition.css">
+  <link rel="stylesheet" href="adminPanel.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <section id="header">
+    <div class="header container">
+      <div class="navbar">
+        <div class="logo">
+          <a href="/">
+            <h1><span>S</span>noll</h1>
+          </a>
+        </div>
+        <div class="searchbar">
+          <input type="search" placeholder="Etkinlik Ara">
+        </div>
+        <div class="navlist">
+          <div class="hb">
+            <div class="bar"></div>
+          </div>
+          <ul>
+
+            <li style="padding: 8px;"><a href="/">Anasayfa</a></li>
+            <li style="padding: 8px;"><a href="/events">Etkinlikler</a></li>
+            <li style="padding: 8px;"><a href="/category">Kategoriler</a></li>
+            <li style="padding: 8px;"><a href="/cityguide">Şehir Turu</a></li>
+            <li style="padding: 20px;"><a href="/aboutus">Hakkımızda</a></li>
+            <% if(loginn){ %>
+            <li class="entrance" style="margin-right:20px ; "><a href="/profile">Profilim</a></li>
+            <li class="entrance" style="margin-right:20px ;"><a href="/logout">Çıkış Yap</a></li>
+            <% } else{ %>
+            <li class="entrance" style="margin-right:20px ;"><a href="/login">Giriş Yap</a></li>
+            <li class="entrance" style="margin-right:20px ;"><a href="/register">Üye Ol</a></li>
+            <% } %>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Header -->
+
+  <!-- Admin Panel -->
+  <section id="adminPanel">
+
+
+    <div class="eventspart">
+      <h3 style="font-size:24px ; margin:10px;color: white;">Etkinlikler</h3>
+      <form action="/ownerPanel/event" method="POST">
+        <div class="event-text">
+          <div class="event-top">
+            <label for="EventNo">EventNo</label>
+            <textarea id="EventNo" name="EventNo" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for="EventName">EventName</label>
+            <textarea id="EventName" name="EventName" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for="EventDate">EventDate</label>
+            <textarea id="EventDate" name="EventDate" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for=",EventPlace">EventPlace</label>
+            <textarea id="EventPlace" name="EventPlace" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for="EventPrice">EventPrice</label>
+            <textarea id="EventPrice" name="EventPrice" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for="EventPhotoBackground">Background</label>
+            <textarea id="EventPhotoBackground" name="EventPhotoBackground" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for="EventPhotoUrl">EventPhotoUrl</label>
+            <textarea id="EventPhotoUrl" name="EventPhotoUrl" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for="PerformerName">PerformerName</label>
+            <textarea id="PerformerName" name="PerformerName" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for="EventCategory">EventCategory</label>
+            <textarea id="EventCategory" name="EventCategory" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for="EventCapacity">EventCapacity</label>
+            <textarea id="EventCapacity" name="EventCapacity" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for="EventAddress">EventAddress</label>
+            <textarea id="EventAddress" name="EventAddress" rows="4" cols="15"></textarea>
+          </div>
+          <div class="event-top">
+            <label for="EventCity">EventCity</label>
+            <textarea id="EventCity" name="EventCity" rows="4" cols="15"></textarea>
+          </div>
+        </div>
+        <div class="buttonpart">
+          <a ><button class="button" type="submit">Etkinlik Ekle</button></a>
+        </div>
+      </form>
+      <div class="showpart">
+        <table style="width:100%">
+          <tr>
+            <th>Fonksiyon:Etkinlik Çıkar</th>
+            <th>Ekinlik No</th>
+          </tr>
+          <% if(Events.length >0){%>
+            <%Events.forEach(events => { %>
+          <tr>
+            <td> <a href="/eventdeleteasowner/<%=events.EventNo%>" > <button class="button">Etkinlik Çıkar</button> </a></td>
+            <td><%=events.EventName%></td>
+          </tr>
+          <% }) %> 
+          <% } %> 
+        </table>
+      </div>
+
+  </section>
+
+  <!-- End Admin Panel -->
+  <!-- Footer -->
+  <section id="footer">
+    <div class="footerleft">
+      <a href="/">
+        <h1 style="color:white; font-size: 3rem;"><span style="color: rgb(73, 89, 230)  ;font-size: 4rem;">S</span>noll
+        </h1>
+      </a>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam distinctio pariatur placeat consequuntur
+        vel laborum molestiae, eos incidunt est! Doloremque ea illo ratione sunt porro, earum voluptas eum quaerat est.
+        Velit, nostrum quae officia odio veniam animi
+        exercitationem. Nobis, hic. Praesentium provident eaque, dolorum dolore rem ullam id delectus quae?</p>
+      <div class="socialmedia">
+        <div class="socialitem">
+          <a href="https://tr-tr.facebook.com"><img
+              src="https://img.icons8.com/plasticine/48/000000/facebook-new.png" /></a>
+        </div>
+        <div class="socialitem">
+          <a href="https://twitter.com"><img src="https://img.icons8.com/doodle/48/000000/twitter--v1.png" /></a>
+        </div>
+        <div class="socialitem">
+          <a href="https://www.instagram.com/?hl=tr"><img
+              src="https://img.icons8.com/plasticine/50/000000/instagram-new.png" /></a>
+        </div>
+      </div>
+    </div>
+    <ul class="footerright">
+      <li>
+        <h2>Kurumsal</h2>
+        <ul class="box">
+          <li><a href="aboutus.html">Hakkımızda</a></li>
+          <li><a href="privacypolicy.html">Gizlilik Politikası</a></li>
+          <li><a href="Useragreement.html">Kullanıcı Sözleşmesi</a></li>
+          <li><a href="contactus.html">İletişim&Kariyer</a></li>
+        </ul>
+      </li>
+      <li class="Find">
+        <h2>Keşfet</h2>
+        <ul class="box hbox">
+          <li><a href="events.html">Etkinlikler</a></li>
+          <li><a href="category.html">Kategoriler</a></li>
+          <li><a href="cityguide.html">Şehirler</a></li>
+        </ul>
+      </li>
+
+    </ul>
+
+
+    <div class="footerbottom">
+      <p>Copyright © 2020 Snoll</p>
+    </div>
+  </section>
+  <!-- End Footer Section -->
+  <script src="/hb.js"></script>
+</body>
+
+</html>

@@ -161,7 +161,6 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
       db.query(
         "INSERT INTO Ticket SET ?",
         {
-          ticket_id: "14",
           user_email: req.session.emailAddress,
           event_name: Event[0].EventName,
         },
@@ -412,7 +411,7 @@ router.get("/adminPanel", (req, res) => {
       const Events = [];
       if (err) {
         console.log(err);
-      } else {
+      } if(result.length >0) {
         for (var i = 0; i < result.length; i++) {
           var a = {
             EventName: result[i].EventName,
@@ -420,19 +419,134 @@ router.get("/adminPanel", (req, res) => {
           };
           Events.push(a);
         }
-      res.render("adminPanel", {
-      email: req.session.emailAddress,
-      loginn: req.session.loggedinUser,
-      Events,
-      City,
-      });
       }
+      db.query("SELECT * FROM Snoll.Users", async (err, result) => {
+        const Users = [];
+        if (err) {
+          console.log(err);
+        } if(result.length >0) {
+          for (var i = 0; i < result.length; i++) {
+            var a = {
+              role: result[i].role,
+              email: result[i].email,
+              id:result[i].id,
+            };
+            Users.push(a);
+          }
+        res.render("adminPanel", {
+        email: req.session.emailAddress,
+        loginn: req.session.loggedinUser,
+        Users,
+        Events,
+        City,
+        });
+        }
+        
+      }
+      );
+      
     }
     );
     
   });
   
 });
+
+router.get("/eventdelete/:id", (req, res) => {
+  const path = req.params.id;
+  db.query("DELETE FROM Events Where EventNo = ?", [path], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/adminPanel");
+  });
+});
+
+router.get("/citydelete/:name", (req, res) => {
+  const path = req.params.name;
+  db.query("DELETE FROM City Where CityName = ?", [path], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/adminPanel");
+  });
+});
+
+router.get("/userdelete/:id", (req, res) => {
+  const path = req.params.id;
+  db.query("DELETE FROM Users Where id = ?", [path], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/adminPanel");
+  });
+});
+
+router.get("/setAdmin/:mail", (req, res) => {
+  const path = req.params.mail;
+  db.query("UPDATE  Users SET role = 'admin' Where email = ?", [path], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/adminPanel");
+  });
+});
+
+router.get("/setOwner/:mail", (req, res) => {
+  const path = req.params.mail;
+  db.query("UPDATE  Users SET role = 'owner' Where email = ?", [path], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/adminPanel");
+  });
+});
+
+router.get("/setUser/:mail", (req, res) => {
+  const path = req.params.mail;
+  db.query("UPDATE  Users SET role = 'regUser' Where email = ?", [path], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/adminPanel");
+  });
+});
+
+router.get("/ownerPanel", (req, res) => {
+  db.query("SELECT * FROM Events", (err, result) => {
+    const Events = [];
+      if (err) {
+        console.log(err);
+      }else{
+        for (var i = 0; i < result.length; i++) {
+          var a = {
+            EventName: result[i].EventName,
+            EventNo: result[i].EventNo,
+          };
+          Events.push(a);
+        }
+        res.render("ownerPanel", {
+          Events,
+          loginn: req.session.loggedinUser,
+          email: req.session.emailAddress,
+        });
+      }
+  })
+})
+
+router.get("/eventdeleteasowner/:id", (req, res) => {
+  const path = req.params.id;
+  db.query("DELETE FROM Events Where EventNo = ?", [path], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/ownerPanel");
+  });
+});
+
+
+
+
 router.get("/registerSuccess", (req, res) => {
   res.render("registerSuccess", {
     loginn: req.session.loggedinUser,

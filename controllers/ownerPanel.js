@@ -7,10 +7,12 @@ var nodemailer = require("nodemailer");
 mysql.createConnection({ multipleStatements: true });
 
 const db = mysql.createConnection({
-host: process.env.DATABASE_HOST,
-user: process.env.DATABASE_USER,
-password: process.env.DATABASE_PASSWORD,
-database: process.env.DATABASE
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Snoll",
+    socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
+    port: "8889" 
 });
 
 exports.event = (req,res) => {
@@ -35,8 +37,7 @@ exports.event = (req,res) => {
         if(err){
         console.log(err);
         }else{
-            console.log(EventName)
-        return res.redirect("/adminPanel");
+        return res.redirect("/ownerPanel");
         }
     }
     )
@@ -44,29 +45,3 @@ exports.event = (req,res) => {
     console.log(error);
     }
 };    
-exports.city = (req,res) => {
-    console.log(req.body);
-    try {
-    const {CityName, HistoryPlaces, BeautyPlaces, ArtPlaces, EatPlace, CitySummary, CityPhoto} = req.body;
-    db.query('INSERT INTO city SET ?',
-    {
-        CityName: CityName,
-        HistoryPlaces: HistoryPlaces,
-        BeautyPlaces: BeautyPlaces,
-        ArtPlaces: ArtPlaces,
-        EatPlace: EatPlace,
-        CitySummary: CitySummary,
-        CityPhoto: CityPhoto
-    }, (err,results) => {
-        if(err){
-        console.log(err);
-        }else{
-        return res.redirect("/adminPanel");
-        }
-    }
-    )
-    } catch (error) {
-    console.log(error);
-    }
-
-};

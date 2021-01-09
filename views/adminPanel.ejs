@@ -105,7 +105,7 @@
           </div>
         </div>
         <div class="buttonpart">
-          <button type="submit">Etkinlik Ekle</button>
+          <a ><button class="button" type="submit">Etkinlik Ekle</button></a>
         </div>
       </form>
       <div class="showpart">
@@ -127,7 +127,7 @@
 
     </div>
     <div class="userpart">
-      <h3 style="font-size:24px;margin:10px;color: white;">Kullanıcı</h3>
+      <h3 style="font-size:24px;margin:10px;color: white;">Kullanıcılar</h3>
       <div class="buttonpart">
 
 
@@ -141,44 +141,29 @@
             <th>Kullanıcı Rolü</th>
 
           </tr>
+          <% if(Users.length >0){%>
+            <%Users.forEach(user => { %>
           <tr>
 
-            <td> <select>
-                <label></label>
-                <option>--</option>
-                <option>Admin</option>
-                <option>Üye</option>
-                <option>Etkinlik Sahibi</option>
-              </select>
-              <button type="submit">Kullanıcıyı Güncelle</button>
+            <td> 
+              <a href="/setAdmin/<%=user.email%>"><button class="button" type="submit">Admin Yap</button></a> 
+              <a href="/setOwner/<%=user.email%>"><button class="button" type="submit">Owner Yap</button></a> 
+              <a href="/setUser/<%=user.email%>"><button class="button" type="submit">Üye Yap</button></a> 
+
             </td>
 
 
 
-            <td> <button type="submit">Kullanıcıyı Sil</button> </td>
-            <td>ZorluCenter</td>
-            <td>ZorluCenter</td>
+            <td> <a href="/userdelete/<%=user.email%>"><button class="button" type="submit">Kullanıcıyı Sil</button></a> </td>
+            <td><%=user.email%></td>
+            <td><%=user.role%></td>
 
           </tr>
+          <% }) %> 
+          <% } %> 
+
           <tr>
 
-
-            <td> <select>
-                <label></label>
-                <option>--</option>
-                <option>Admin</option>
-                <option>Üye</option>
-                <option>Etkinlik Sahibi</option>
-
-              </select>
-              <button type="submit">Kullanıcıyı Güncelle</button>
-            </td>
-
-
-            <td> <button type="submit">Kullanıcıyı Sil</button> </td>
-            <td>ZorluCenter</td>
-            <td>ZorluCenter</td>
-          </tr>
         </table>
       </div>
 
@@ -212,12 +197,12 @@
             <textarea id="CitySummary" name="CitySummary" rows="4" cols="15"></textarea>
           </div>
           <div class="cities-top">
-            <label for="CityPhoto">City</label>
+            <label for="CityPhoto">CityPhotoUrl</label>
             <textarea id="CityPhoto" name="CityPhoto" rows="4" cols="15"></textarea>
           </div>
         </div>
         <div class="buttonpart">
-          <button type="submit">Şehir Ekle</button>
+          <a ><button class="button" type="submit">Şehir Ekle</button></a>
         </div>
       </form>
       <div class="showpart">
@@ -231,7 +216,7 @@
           <% if(City.length >0){%>
             <%City.forEach(city => { %>
           <tr>
-            <td> <button type="submit">Şehir Çıkar</button></td>
+            <td><a href="/citydelete/<%=city.CityName%>"><button class="button" type="submit">Şehir Çıkar</button></a></td>
 
             <td><%=city.CityName%></td>
 
