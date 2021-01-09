@@ -155,10 +155,14 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
           {
             EventNo: result[0].EventNo,
             EventName: result[0].EventName,
+            EventC : result[0].EventCapacity,
           },
         ];
+        
       }
+      console.log(Event[0].EventC);
       db.query(
+        
         "INSERT INTO Ticket SET ?",
         {
           user_email: req.session.emailAddress,
@@ -166,12 +170,21 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
         },
         (error, result2) => {
           if (error) {
-            console.log(error);
+          console.log(error);
+          } 
+          
+        }
+      );
+      db.query(
+        `UPDATE Events SET EventCapacity = ${(Event[0].EventC)-1} where EventNo = ${Event[0].EventNo}`,
+        (error, result) => {
+          if (error) {
+          console.log(error);
           } else {
             res.redirect("/profile");
           }
         }
-      );
+        );
     }
   );
 });
