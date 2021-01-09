@@ -18,6 +18,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
     const loggedinUser = Boolean;
     const emailAddress = email;
+    let userRole;
     if (!email || !password) {
       return res.status(400).render("login", {
         message: "please provide an email or password ",
@@ -60,6 +61,8 @@ exports.login = async (req, res) => {
 
           // req.session.notloggedinUser = false;
           req.session.emailAddress = email;
+          req.session.userRole = results[0].role;
+          console.log(req.session.userRole);
           // sessionStorage.setItem(email,emailAddress);
           // console.log(emailAddress);
           //     return res.status(200).redirect('dashboard', {

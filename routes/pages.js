@@ -393,62 +393,67 @@ router.get("/profile", async (req, res) => {
 });
 
 router.get("/adminPanel", (req, res) => {
-  db.query("SELECT * FROM Snoll.City", async (err, result) => {
-    const City = [];
-    if (err) {
-      console.log(err);
-    } 
-    if (result.length>0) {
-      for (var i = 0; i < result.length; i++) {
-        var a = {
-          CityName: result[i].CityName,
-          
-        };
-        City.push(a);
-      }
-    }
-    db.query("SELECT * FROM Snoll.Events", async (err, result) => {
-      const Events = [];
+  if(req.session.userRole == "admin"){
+    db.query("SELECT * FROM Snoll.City", async (err, result) => {
+      const City = [];
       if (err) {
         console.log(err);
-      } if(result.length >0) {
+      } 
+      if (result.length>0) {
         for (var i = 0; i < result.length; i++) {
           var a = {
-            EventName: result[i].EventName,
-            EventNo: result[i].EventNo,
+            CityName: result[i].CityName,
+            
           };
-          Events.push(a);
+          City.push(a);
         }
       }
-      db.query("SELECT * FROM Snoll.Users", async (err, result) => {
-        const Users = [];
+      db.query("SELECT * FROM Snoll.Events", async (err, result) => {
+        const Events = [];
         if (err) {
           console.log(err);
         } if(result.length >0) {
           for (var i = 0; i < result.length; i++) {
             var a = {
-              role: result[i].role,
-              email: result[i].email,
-              id:result[i].id,
+              EventName: result[i].EventName,
+              EventNo: result[i].EventNo,
             };
-            Users.push(a);
+            Events.push(a);
           }
-        res.render("adminPanel", {
-        email: req.session.emailAddress,
-        loginn: req.session.loggedinUser,
-        Users,
-        Events,
-        City,
-        });
         }
+        db.query("SELECT * FROM Snoll.Users", async (err, result) => {
+          const Users = [];
+          if (err) {
+            console.log(err);
+          } if(result.length >0) {
+            for (var i = 0; i < result.length; i++) {
+              var a = {
+                role: result[i].role,
+                email: result[i].email,
+                id:result[i].id,
+              };
+              Users.push(a);
+            }
+          res.render("adminPanel", {
+          email: req.session.emailAddress,
+          loginn: req.session.loggedinUser,
+          Users,
+          Events,
+          City,
+          });
+          }
+          
+        }
+        );
         
       }
       );
       
-    }
-    );
-    
-  });
+    });
+  }else{
+    res.redirect('/notFound');
+  }
+
   
 });
 
@@ -513,26 +518,31 @@ router.get("/setUser/:mail", (req, res) => {
 });
 
 router.get("/ownerPanel", (req, res) => {
-  db.query("SELECT * FROM Events", (err, result) => {
-    const Events = [];
-      if (err) {
-        console.log(err);
-      }else{
-        for (var i = 0; i < result.length; i++) {
-          var a = {
-            EventName: result[i].EventName,
-            EventNo: result[i].EventNo,
-          };
-          Events.push(a);
+  if(req.session.userRole == "owner"){
+    db.query("SELECT * FROM Events", (err, result) => {
+      const Events = [];
+        if (err) {
+          console.log(err);
+        }else{
+          for (var i = 0; i < result.length; i++) {
+            var a = {
+              EventName: result[i].EventName,
+              EventNo: result[i].EventNo,
+            };
+            Events.push(a);
+          }
+          res.render("ownerPanel", {
+            Events,
+            loginn: req.session.loggedinUser,
+            email: req.session.emailAddress,
+          });
         }
-        res.render("ownerPanel", {
-          Events,
-          loginn: req.session.loggedinUser,
-          email: req.session.emailAddress,
-        });
-      }
-  })
-})
+    })
+  }else{
+    res.redirect('/notFound');
+  }
+  
+});
 
 router.get("/eventdeleteasowner/:id", (req, res) => {
   const path = req.params.id;
@@ -608,4 +618,9 @@ router.get("/notFound", (req, res) => {
 //     res.redirect("/myCart");
 //   });
 // });
+
+router.get((req,res) => {
+  res.status(404).render('notFound');
+});
+
 module.exports = router;
