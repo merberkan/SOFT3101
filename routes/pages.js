@@ -618,9 +618,4 @@ router.get("/notFound", (req, res) => {
 //     res.redirect("/myCart");
 //   });
 // });
-
-router.get((req,res) => {
-  res.status(404).render('notFound');
-});
-
 module.exports = router;
