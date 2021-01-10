@@ -205,7 +205,6 @@ exports.contactus = (req, res) => {
   res.redirect('/contactusSuccess');
 };
 
-
 exports.adminPanel = (req,res) => {
   try {
     const { EventNo, EventName, EventDate, EventPlace, EventPrice, EventPhotoBackground,
