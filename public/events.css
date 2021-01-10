@@ -53,6 +53,7 @@
 .event-text{
   display: flex;
   font-size: 30px;
+  justify-content: center;
 }
 
 .img-event{

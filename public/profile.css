@@ -136,3 +136,8 @@
   padding: 5px;
   cursor: pointer;
 }
+.scroll{
+  overflow: scroll;
+  max-height: 65rem;
+  width: 100rem;
+}

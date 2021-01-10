@@ -14,6 +14,7 @@ router.get("/", (req, res) => {
   db.query("SELECT * FROM Snoll.Events", async (err, result) => {
     const Events = [];
     for (var i = 0; i < result.length; i++) {
+      if(i == 6){break;}
       var a = {
         EventName: result[i].EventName,
         EventPhotoUrl: result[i].EventPhotoUrl,
@@ -210,8 +211,18 @@ router.get("/privacypolicy", (req, res) => {
   });
 });
 router.get("/category", (req, res) => {
-  db.query("SELECT * FROM snoll.events", async (err, result) => {
+  db.query("SELECT * FROM Snoll.Events", async (err, result) => {
+    const Events = [];
+    for (var i = 0; i < result.length; i++) {
+      if(i == 4){break;}
+      var a = {
+        EventName: result[i].EventName,
+        EventPhotoUrl: result[i].EventPhotoUrl,
+      };
+      Events.push(a);
+    }
     res.render("category", {
+      Events,
       email: req.session.emailAddress,
       loginn: req.session.loggedinUser,
     });

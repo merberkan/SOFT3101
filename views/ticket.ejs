@@ -12,7 +12,7 @@
 <body>
     <% if(Event.length >0){%>
         <%Event.forEach(event => { %>
-    <div class="page-container" style="position: absolute; background: url(/<%=event.EventPhotoBackground%>) no-repeat center center fixed;
+    <div class="page-container" style="position: absolute; background: url(../<%=event.EventPhotoBackground%>) no-repeat center center fixed;
     background-size: 100% 100%; z-index: 2;color: white; ">
         <% }) %> 
         <% } %> 
@@ -63,7 +63,7 @@
         <div class="title"><%=event.PerformerName%></div>
         <div class="top-top">
             <div class="img-part">
-                <img src="/<%=event.EventPhotoUrl%>" class="img">
+                <img src="../<%=event.EventPhotoUrl%>" class="img">
             </div>
             <div class="place-part">
                 <div class="place-name">

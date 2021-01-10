@@ -53,7 +53,7 @@
     <!-- Upcoming payment Section  -->
     <section id="category">
         <div class="category container">
-            <!-- <form action="#"> -->
+            <form action="/paymentsuccessfull/<%=path%>"> 
                 <div class="container">
                     <div class="payment">
                         <div class="fatura-icon">
@@ -64,11 +64,11 @@
                         </div>
                         <div class="name">
                             <label class="font">Adınız</label>
-                            <input type="text" name="name" style="padding-top:7px" placeholder="Adınız">
+                            <input type="text" name="name" style="padding-top:7px" placeholder="Adınız" required>
                         </div>
                         <div class="mail" style="margin-bottom: 2rem;">
                             <label class="font">Mail Adresiniz</label>
-                            <input type="text" name="email" style="padding-top:7px" placeholder="Mail adresiniz">
+                            <input type="text" name="email" style="padding-top:7px" placeholder="Mail adresiniz" required>
                         </div>
                         <div class="icon-card">
                             <div class="card">
@@ -101,11 +101,11 @@
                             </div>
                         </div>
                         <div class="öde" style="width: 100px; height: 100px;">
-                            <button><a href="/paymentsuccessfull/<%=path%>">Ödemeyi Tamamla</a></button>
+                            <button type="submit">öde</button>
                         </div>
                     </div>
                 </div>
-            <!-- </form> -->
+            </form>
         </div>
     </section>
     <!-- End payment Section       -->

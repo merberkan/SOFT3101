@@ -6,7 +6,6 @@
   background-position: center;
   object-fit: cover;
   padding-top: 10rem;
-  padding-left: 150px;
 }
 .arama {
   display: flex;
@@ -69,6 +68,13 @@
 }
 .event-image {
   display: flex;
+}
+.event-image img{
+  display: flex;
+  object-fit: cover;
+  height: 20rem;
+  justify-content: center;
+  align-items: center;
 }
 .img-events {
   width: 100%;

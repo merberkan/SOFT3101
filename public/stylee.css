@@ -288,7 +288,7 @@ input[type="search"]:focus {
 }
 .rowcontainer img {
   width: 20rem;
-  border: 5px solid black;
+  border: 1px solid black;
   opacity: 1;
   margin-right: 5px;
   max-height: 11rem;
