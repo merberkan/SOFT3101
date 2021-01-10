@@ -45,6 +45,7 @@
     object-fit: cover;
     width: 75%;
     height: 20rem;
+    box-shadow: 6px 6px rgb(19 32 70);
 }
 .basket-event-no{
     display: flex;
