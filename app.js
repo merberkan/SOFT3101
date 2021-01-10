@@ -30,10 +30,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(session({ 
-    secret: '123456cat',
+    secret: 'Özel-Anahtar',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 }
 }))
 
 app.set('view engine', 'ejs');
