@@ -21,7 +21,9 @@
                     </a>
                 </div>
                 <div class="searchbar">
-                    <input type="search" placeholder="Etkinlik Ara">
+                    <form method="POST" action="/filterEvent/event">
+                    <input type="search" name="EventName" placeholder="Etkinlik Ara">
+                </form>
                 </div>
                 <div class="navlist">
                     <div class="hb">
@@ -81,7 +83,7 @@
                         </div>
                         <div class="card-no">
                             <label class="font">Kart numaranız</label>
-                            <input type="number" name="card-no" style="padding-top:7px" placeholder="Kart numaranız"
+                            <input type="text" name="card-no" style="padding-top:7px" placeholder="Kart numaranız"
                                 required>
                         </div>
                         <div class="ay-yıl-cvv">
@@ -95,7 +97,7 @@
                             </div>
                             <div class="cvv">
                                 <label class="font">CVV</label>
-                                <input type="number" name="cvv" style="padding-top:7px" placeholder="CVV" required>
+                                <input type="text" name="cvv" style="padding-top:7px" placeholder="CVV" required>
                             </div>
                         </div>
                         <div class="öde" style="width: 100px; height: 100px;">

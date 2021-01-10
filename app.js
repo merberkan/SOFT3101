@@ -61,11 +61,13 @@ app.use('/', require('./routes/pages'));
 app.use('/auth' ,require('./routes/auth'));
 app.use('/adminPanel',require('./routes/adminPanel'));
 app.use('/ownerPanel',require('./routes/ownerPanel'));
+app.use('/filterEvent',require('./routes/filterEvent'));
 app.use((req,res) => {
     if(req.statusCode == null || req.statusCode == 404){
         res.redirect('/notFound');
     }
 });
+
 
 app.listen(3000, () => {
     console.log("server started at port 3000 ");

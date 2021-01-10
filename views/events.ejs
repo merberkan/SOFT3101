@@ -21,7 +21,9 @@
                     </a>
                 </div>
                 <div class="searchbar">
-                    <input type="search" placeholder="Etkinlik Ara">
+                    <form method="POST" action="/filterEvent/event">
+                    <input type="search" name="EventName" placeholder="Etkinlik Ara">
+                </form>
                 </div>
                 <div class="navlist">
                     <div class="hb">
@@ -62,32 +64,33 @@
             </div>
             <div class="fae">
                 <div class="filter">
-                    <form id="filterForm"  style="border: solid 2px #d2d2d2;
+                    <form id="filterForm"  method="POST" action="/filterEvent/event" style="border: solid 2px #d2d2d2;
                 border-radius: 40px; height: 25rem;">
                         <div class="etkinlik-arama">
                             <label><b>Etkinlik ara</b></label>
-                            <input type="text" placeholder="Etkinlik ara">
+                            <input type="text" name="EventName" placeholder="Etkinlik ara">
                         </div>
                         <div class="tarih-secme">
-                            <laber><b>Tarih seçiniz</b></laber>
-                            <input type="date">
+                            <label><b>Tarih seçiniz</b></label>
+                            <input type="date" name="EventDate">
                         </div>
                         <div class="sehir-secme">
                             <b>Şehir seçiniz</b>
-                            <select>
+                            <select name="EventCity">
                                 <label for="city"></label>
-                                <option>--</option>
+                                <option value="">--</option>
                                 <option>İstanbul</option>
                                 <option>Denizli</option>
                                 <option>Sivas</option>
                                 <option>Kars</option>
                                 <option>Nevşehir</option>
+                                <option>Ankara</option>
                                 <option>İzmir</option>
                             </select>
                         </div>
                         <div class="sehir-secme">
                             <b>Kategori seçiniz</b>
-                            <select>
+                            <select name="EventCategory">
                                 <label for="kategori"></label>
                                 <option>--</option>
                                 <option>Müzik</option>

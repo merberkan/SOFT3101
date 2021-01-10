@@ -4,16 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/footernavbar.css">
+    <link rel="stylesheet" href="/events.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-    <title>City Guide</title>
-    <link rel="stylesheet" href="myCart.css">
-    <link rel="stylesheet" href="footernavbar.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-    <script src="cityguide.js"></script>
+    <title>Website</title>
 </head>
 
 <body>
-    <!--    NAVBAR  Start-->
+    <!-- Header -->
     <section id="header">
         <div class="header container">
             <div class="navbar">
@@ -51,59 +49,51 @@
             </div>
         </div>
     </section>
-    <!--    NAVBAR  End-->
-    <div class="mid-part">
-        <div class="basket-container">
-            <div class="basket-title">
-                <h3>Sepetim</h3>
-                <i class="fas fa-shopping-cart"></i>
+    <!-- End Header -->
+
+    <!-- events Section -->
+    <section id="mid-part">
+        <div class="event-part">
+            <div class="title">
+                <div class="title-icon" style="margin-right: 1%; color: #22395c;">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="title-text">
+                    <p>Filtrelenen Etkinlikler</p>
+                </div>
+            </div>
+            <div class="fae">
+                <div class="flex">
+                    <div class="events">
+                        <% if(Events.length >0){%>
+                        <%Events.forEach(event => { %>
+                        <div class="event">
+                            <div class="event-image">
+                                <a href="/events/<%=event.EventName%>">
+                                    <img class="img-event" src="./<%=event.EventPhotoUrl%>">
+                                </a>
+                            </div>
+                            <div class="event-text">
+                                <a href="/events/<%=event.EventName%>" class="link-text">
+                                    <p><%=event.EventName%></p>
+                                </a>
+                            </div>
+                        </div>
+                        <% }) %>
+                        <% } %>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="info-container">
-            <div class="basket-info">
-                <div class="basket-part">
-                    <% if(Detail.length >0){%>
-                        <%Detail.forEach(detail => {%>
-                    <div class="basket-image">
-                        <img src="images/anadoluefes.png" class="basket-image-fix">
-                    </div>
-                    <div class="basket-event-no">
-                        <h3>Etkinlik No</h3>
-                        <h3><%= detail.event_no %></h3>
-                    </div>
-                    <div class="basket-event-name">
-                        <h3>Etkinlik Adı</h3>
-                        <h3><%= detail.event_name %></h3>
-                    </div>
-                    <!-- <div class="basket-date">
-                        <h3>Etkinlik Tarihi</h3>
-                        <h3><%= detail.event_date %></h3>
-                    </div> -->
-                    <div class="basket-price">
-                        <h3>Bilet Fiyatı</h3>
-                        <h3><%= detail.event_price %></h3>
-                    </div>
-                    <div class="button-part">
-                        <button type="button" class="basket-button"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                    <div class="button-part">
-                        <a href="cancelEvent/<%= detail.EventNo %>"><button type="button" class="basket-button"></a>
-                            <h3>Alışverişi Tamamla</h3>
-                        </button>
-                    </div>
-                    <% }) %>
-                    <% } %>
-                </div>
-    </div>
-        </div>
-    </div>
+    </section>
+    <!-- End events Section -->
+
     <!-- Footer -->
     <section id="footer">
         <div class="footerleft">
-            <a href="/">
+            <a href="index.html">
                 <h1 style="color:white; font-size: 3rem;"><span
-                        style="color: rgb(73, 89, 230)  ;font-size: 4rem;">S</span>noll
-                </h1>
+                        style="color: rgb(73, 89, 230)  ;font-size: 4rem;">S</span>noll</h1>
             </a>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam distinctio pariatur placeat
                 consequuntur
@@ -149,7 +139,7 @@
             <p>Copyright © 2020 Snoll</p>
         </div>
     </section>
-    <!--    FOOTER END-->
+    <!-- End Footer Section -->
     <script src="/hb.js"></script>
 </body>
 
