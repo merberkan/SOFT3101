@@ -179,9 +179,6 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
             if(err){
               console.log(err);
             }
-            else{
-              res.redirect("/profile");
-            }
           });
           db.query(
             `UPDATE Events SET EventCapacity = ${(Event[0].EventC)-1} where EventNo = ${Event[0].EventNo}`,
@@ -698,5 +695,52 @@ router.get("/deletefromcart/:id", (req, res) => {
     }
     res.redirect("/myCart");
   });
+});
+router.get("/addcart/:no", (req, res) => {
+  var path = req.params.no;
+  db.query(
+    "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
+    [path],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        const Event = [
+          {
+            EventName: result[0].EventName,
+            EventDate: result[0].EventDate,
+            EventPrice: result[0].EventPrice,
+            PerformerName: result[0].PerformerName,
+            EventCategory: result[0].EventCategory,
+            EventCapacity: result[0].EventCapacity,
+            EventAddress: result[0].EventAddress,
+            EventCity: result[0].EventCity,
+            EventPlace: result[0].EventPlace,
+            EventPhotoUrl: result[0].EventPhotoUrl,
+            EventPhotoBackground: result[0].EventPhotoBackground,
+            EventNo: result[0].EventNo,
+          },
+        ];
+        db.query(
+          "INSERT INTO Cart SET ?",
+          {
+            EventName: Event[0].EventName,
+            UserEmail: req.session.emailAddress,
+            EventPrice: Event[0].EventPrice,
+            EventNo: Event[0].EventNo,
+          },
+          (error, result2) => {
+            if (error) {
+            console.log(error);
+            }else{
+              res.redirect("/myCart");
+            } 
+            
+          }
+        );
+      }
+    }
+  );
+  
 });
 module.exports = router;
