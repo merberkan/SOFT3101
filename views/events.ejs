@@ -21,7 +21,7 @@
                     </a>
                 </div>
                 <div class="searchbar">
-                    <form method="POST" action="/filterEvent/event">
+                    <form method="POST" action="/filterEvent/searchbar">
                     <input type="search" name="EventName" placeholder="Etkinlik Ara">
                 </form>
                 </div>
@@ -65,7 +65,7 @@
             </div>
             <div class="fae">
                 <div class="filter">
-                    <form id="filterForm"  method="POST" action="/filterEvent/event" style="border: solid 2px #d2d2d2;
+                    <form method="POST" action="/filterEvent/event" style="border: solid 2px #d2d2d2;
                 border-radius: 40px; height: 25rem;">
                         <div class="etkinlik-arama">
                             <label><b>Etkinlik ara</b></label>
@@ -78,6 +78,7 @@
                         <div class="sehir-secme">
                             <b>Şehir seçiniz</b>
                             <select name="EventCity">
+                                <div class="scroll" style="size: 5;">
                                 <label for="city"></label>
                                 <option></option>
                                 <option>İstanbul</option>
@@ -92,6 +93,15 @@
                                 <option>Bursa</option>
                                 <option>Çanakkale</option>
                                 <option>Muğla</option>
+                                <option>Aydın</option>
+                                <option>Kocaeli</option>
+                                <option>Trabzon</option>
+                                <option>Manisa</option>
+                                <option>Tekirdağ</option>
+                                <option>Samsun</option>
+                                <option>Kayseri</option>
+                                <option>Edirne</option>
+                            </div>
                             </select>
                         </div>
                         <div class="sehir-secme">

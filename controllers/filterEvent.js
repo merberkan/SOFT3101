@@ -13,6 +13,34 @@ password: process.env.DATABASE_PASSWORD,
 database: process.env.DATABASE
 });
 
+exports.searchbar = (req,res) => {
+    try{
+        const {EventName,EventPhotoUrl} = req.body;
+        var Events = [];
+        db.query('SELECT * FROM Snoll.events WHERE Snoll.events.EventName = ? OR Snoll.events.EventPhotoUrl',[EventName,EventPhotoUrl],
+        (err,results) =>{
+            if(err){
+                console.log(err);
+            }else{
+                for(var i = 0; i<results.length; i++){
+                    var a = {
+                        EventName: results[i].EventName,
+                        EventPhotoUrl: results[i].EventPhotoUrl
+                    }
+                    Events.push(a);
+                }
+                res.render("filterEvent",{
+                    Events,
+                    email: req.session.emailAddress,
+                    loginn: req.session.loggedinUser  
+                });
+            }
+        })
+    }catch (error) {
+        console.log(error);
+    }
+}
+
 exports.event = (req,res) => {
     try {
     const {EventName,EventCategory,EventCity,EventDate,EventPhotoUrl} = req.body;
@@ -353,7 +381,31 @@ exports.event = (req,res) => {
         }
     }
     )
-    }else if(EventName != '' && EventCategory != '' && EventCity != '' && EventDate != '')
+    }else if(EventName != '' && EventCategory != '' && EventCity != '' && EventDate != ''){
+    db.query('SELECT * FROM Snoll.events WHERE Snoll.events.EventName = ? AND Snoll.events.EventCategory = ? AND Snoll.events.EventCity = ? AND Snoll.events.EventDate = ? OR Snoll.events.EventPhotoUrl',[EventName,EventCategory,EventCity,EventDate,EventPhotoUrl],
+    (err,results) => {
+        if(err){
+        console.log(err);
+        }else{
+            for(var i =0; i<results.length; i++){
+                var a = {
+                    EventName: results[i].EventName,
+                    EventCategory: results[i].EventCategory,
+                    EventCity: results[i].EventCity,
+                    EventDate: results[i].EventDate,
+                    EventPhotoUrl: results[i].EventPhotoUrl
+                }
+                Events.push(a);
+            }
+            res.render("filterEvent",{
+                Events,
+                email: req.session.emailAddress,
+                loginn: req.session.loggedinUser
+            });
+        }
+    }
+    )
+    }else if(EventName == '' && EventCategory == '' && EventCity == '' && EventDate == '')
     db.query('SELECT * FROM Snoll.events WHERE Snoll.events.EventName = ? AND Snoll.events.EventCategory = ? AND Snoll.events.EventCity = ? AND Snoll.events.EventDate = ? OR Snoll.events.EventPhotoUrl',[EventName,EventCategory,EventCity,EventDate,EventPhotoUrl],
     (err,results) => {
         if(err){

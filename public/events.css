@@ -102,6 +102,9 @@
   justify-content: center;
   flex-direction: column;
 }
+.scroll{
+  overflow: scroll;
+}
 
 @media screen and (max-width: 800px) {
   .events{grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));}

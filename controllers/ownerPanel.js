@@ -7,12 +7,10 @@ var nodemailer = require("nodemailer");
 mysql.createConnection({ multipleStatements: true });
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "Snoll",
-    socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
-    port: "8889" 
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE
 });
 
 exports.event = (req,res) => {

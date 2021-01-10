@@ -88,3 +88,19 @@
 .fa-file-invoice{
     font-size: 40px;
 }
+.button-part{
+    display: flex;
+    flex-direction: row;
+}
+.submit-button{
+    justify-content: center;
+    cursor: pointer;
+    width: 10rem;
+    height: 5rem;
+    color: white;
+    background-color: rgb(5, 5, 14);
+    border: 2px solid black;
+    border-radius: 1.175rem;
+    padding: 10px;
+    cursor: pointer;
+}
