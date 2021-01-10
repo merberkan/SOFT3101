@@ -97,6 +97,8 @@
 .ticketimg img {
   border-radius: 1.175rem;
   border: 1px solid;
+  max-height: 15rem;
+  box-shadow: 6px 6px rgb(19 32 70);
 }
 .ticketpart h3 {
   font-size: 24px;

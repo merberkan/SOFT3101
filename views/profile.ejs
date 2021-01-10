@@ -89,15 +89,12 @@
           <%Detail.forEach(detail => { %>
         <div class="boughtickets">
           <div class="ticketimg">
-            <img src="./images/aleyna.png" alt="">
+            <img src="./images/Snoll.png" alt="">
           </div>
           <div class="ticketinfo">
 
             <h4>Etkinlik Adı: <%= detail.event_name %></h4>
             <h4>Bilet No: <%= detail.ticket_id %></h4>
-            <h4>Event No: 3123</h4>
-            <h4>Koltuk No: 23 </h4>
-            <h4>Rezerve Durumu: Evet</h4>
             <a href="cancelticket/<%= detail.ticket_id %>"><button type="button" class="rez-but">Bileti İptal Et</button></a>
 
           </div>

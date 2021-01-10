@@ -450,52 +450,61 @@ router.get("/category/Spor", (req, res) => {
   );
 });
 router.get("/profile", async (req, res) => {
-  const Detail = [];
-  const User = [];
-  db.query(
-    "SELECT * FROM Users join Ticket ON Users.email = Ticket.user_email",
-    [req.session.emailAddress],
-    (err, result) => {
-      if (err) {
+  if(req.session.emailAddress){
+    const Detail = [];
+    db.query("SELECT * FROM Users join Ticket ON Users.email = Ticket.user_email",
+    [req.session.emailAddress], (err,result) => {
+      if(err){
         console.log(err);
-      } else {
-        for (var i = 0; i < result.length; i++) {
-          if (result[i].email == req.session.emailAddress) {
-            var x = [
-              {
-                firstname: result[i].firstname,
-                lastname: result[i].lastname,
-                email: result[i].email,
-                role: result[i].role,
-              },
-            ];
+      }
+      if(result.length > 0){
+        for (var i = 0; i < result.length; i++){
+          if (result[i].email == req.session.emailAddress){
             var a = {
               ticket_id: result[i].ticket_id,
-              event_name: result[i].event_name,
+              event_name: result[i].event_name
             };
-            User.push(x);
             Detail.push(a);
           }
         }
-        var length = User.length;
-        for (var j = 0; j < length - 1; j++) {
-          console.log(j, User.length);
-          User.pop();
-        }
-        console.log("---------");
-        console.log(User.length);
-        console.log(Detail);
-
-        res.render("profile", {
-          User,
-          Detail,
-          email: req.session.emailAddress,
-          loginn: req.session.loggedinUser,
-        });
       }
-    }
-  );
+    });
+    db.query("SELECT * FROM Users WHERE Users.email = ?", [req.session.emailAddress], (err,result) => {
+      const User =[];
+      if(err){
+        console.log(err);
+      }
+      if(result.length > 0){
+        for (var i = 0; i < result.length; i++){
+          var x = [
+            {
+              firstname: result[i].firstname,
+              lastname: result[i].lastname,
+              email: result[i].email,
+              role: result[i].role,
+            },
+          ];
+          User.push(x);
+        }
+        var length = User.length;
+          for (var j = 0; j < length - 1; j++) {
+            console.log(j, User.length);
+            User.pop();
+          }
+
+          res.render("profile",{
+            User,
+            Detail,
+            email: req.session.emailAddress,
+            loginn: req.session.loggedinUser,
+          });
+      }
+    });
+  }else{
+    res.redirect("/notFound");
+  }
 });
+
 
 router.get("/adminPanel", (req, res) => {
   if(req.session.userRole == "admin"){
