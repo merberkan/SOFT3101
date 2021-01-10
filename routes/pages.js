@@ -158,33 +158,38 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
             EventC : result[0].EventCapacity,
           },
         ];
-        
-      }
-      console.log(Event[0].EventC);
-      db.query(
-        
-        "INSERT INTO Ticket SET ?",
-        {
-          user_email: req.session.emailAddress,
-          event_name: Event[0].EventName,
-        },
-        (error, result2) => {
-          if (error) {
-          console.log(error);
-          } 
+        console.log("EVENT: " + Event[0].EventC);
+        if(Event[0].EventC > 0){
+          db.query(
           
+            "INSERT INTO Ticket SET ?",
+            {
+              user_email: req.session.emailAddress,
+              event_name: Event[0].EventName,
+            },
+            (error, result2) => {
+              if (error) {
+              console.log(error);
+              } 
+              
+            }
+          );
+          db.query(
+            `UPDATE Events SET EventCapacity = ${(Event[0].EventC)-1} where EventNo = ${Event[0].EventNo}`,
+            (error, result) => {
+              if (error) {
+              console.log(error);
+              } else {
+                res.redirect("/profile");
+              }
+            }
+            );
+        }else{
+          res.redirect("/noCapacity");
         }
-      );
-      db.query(
-        `UPDATE Events SET EventCapacity = ${(Event[0].EventC)-1} where EventNo = ${Event[0].EventNo}`,
-        (error, result) => {
-          if (error) {
-          console.log(error);
-          } else {
-            res.redirect("/profile");
-          }
-        }
-        );
+      }
+      
+      
     }
   );
 });
@@ -623,6 +628,13 @@ router.get("/contactusSuccess", (req, res) => {
     loginn: req.session.loggedinUser,
     email: req.session.emailAddress,
     contactname : req.session.contactname,
+  });
+});
+
+router.get("/noCapacity", (req, res) => {
+  res.render("noCapacity", {
+    loginn: req.session.loggedinUser,
+    email: req.session.emailAddress,
   });
 });
 router.get("/notFound", (req, res) => {
