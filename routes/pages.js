@@ -42,9 +42,9 @@ router.get("/login", (req, res) => {
     message: req.session.message,
   });
 });
-router.get("/dashboard", function (req, res, next) {
+router.get("/addCartError", function (req, res, next) {
   console.log(req.session.emailAddress);
-  res.render("dashboard", {
+  res.render("addCartError", {
     email: req.session.emailAddress,
     loginn: req.session.loggedinUser,
   });
@@ -705,6 +705,7 @@ router.get("/addcart/:no", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        
         const Event = [
           {
             EventName: result[0].EventName,
@@ -732,6 +733,7 @@ router.get("/addcart/:no", (req, res) => {
           (error, result2) => {
             if (error) {
             console.log(error);
+            res.redirect("/addCartError");
             }else{
               res.redirect("/myCart");
             } 
