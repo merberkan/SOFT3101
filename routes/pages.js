@@ -2,6 +2,7 @@ const { decodeBase64 } = require("bcryptjs");
 const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
+const nodemailer = require("nodemailer")
 
 const db = mysql.createConnection({
   host: process.env.DATABASE_HOST,
@@ -33,6 +34,12 @@ router.get("/register", (req, res) => {
     email: req.session.emailAddress,
     loginn: req.session.loggedinUser,
     message: req.session.message,
+  });
+});
+router.get("/ticketSuccess", (req, res) => {
+  res.render("ticketSuccess", {
+    email: req.session.emailAddress,
+    loginn: req.session.loggedinUser,
   });
 });
 router.get("/login", (req, res) => {
@@ -157,6 +164,8 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
             EventNo: result[0].EventNo,
             EventName: result[0].EventName,
             EventC : result[0].EventCapacity,
+            EventAddress : result[0].EventAddress,
+            EventDate : result[0].EventDate,
           },
         ];
         console.log("EVENT: " + Event[0].EventC);
@@ -186,10 +195,35 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
               if (error) {
               console.log(error);
               } else {
-                res.redirect("/profile");
-              }
-            }
-            );
+                var transporter = nodemailer.createTransport({
+                  service: "gmail",
+                  auth: {
+                    user: "snolldestek@gmail.com",
+                    pass: "snoll123",
+                  },
+                  tls: {
+                    rejectUnauthorized: false,
+                  },
+                });
+              
+                var mailOptions = {
+                  from: "snolldestek@gmail.com",
+                  to: req.session.emailAddress,
+                  subject: "Biletiniz",
+                  text:
+                    "Merhabalar,bilet alma işleminizi başarıyla gerçekleştirdiniz bilet bilgilerinizi burada bulabilirsiniz bizi seçtiğiniz için teşekkür ederiz ."+" Etkinlik adı  :"+
+                    Event[0].EventName + "  Etkinlik adresi : " +Event[0].EventAddress +"  Etkinlik tarihi :  "+Event[0].EventDate
+                };
+                transporter.sendMail(mailOptions, function (error, info) {
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    console.log("Email sent: " + info.response);
+                  }
+                });
+                res.redirect('/ticketSuccess');
+              };
+            });
         }else{
           res.redirect("/noCapacity");
         }
