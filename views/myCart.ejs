@@ -8,7 +8,6 @@
     <title>City Guide</title>
     <link rel="stylesheet" href="myCart.css">
     <link rel="stylesheet" href="footernavbar.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <script src="cityguide.js"></script>
 </head>
 
@@ -23,9 +22,7 @@
                     </a>
                 </div>
                 <div class="searchbar">
-                    <form method="POST" action="/filterEvent/event">
-                    <input type="search" name="EventName" placeholder="Etkinlik Ara">
-                </form>
+                    <input type="search" placeholder="Etkinlik Ara">
                 </div>
                 <div class="navlist">
                     <div class="hb">
@@ -39,6 +36,7 @@
                         <li style="padding: 8px;"><a href="/cityguide">Şehir Turu</a></li>
                         <li style="padding: 20px;"><a href="/aboutus">Hakkımızda</a></li>
                         <% if(loginn){ %>
+                            <li class="entrance" style="margin-right:20px ;"><a href="/myCart"><i class="fas fa-shopping-cart"> Sepetim</i></a> </li>
                         <li class="entrance" style="margin-right:20px ; "><a href="/profile">Profilim</a></li>
                         <li class="entrance" style="margin-right:20px ;"><a href="/logout">Çıkış Yap</a></li>
                         <% } else{ %>
@@ -60,40 +58,40 @@
             </div>
         </div>
         <div class="info-container">
+            
             <div class="basket-info">
-                <div class="basket-part">
-                    <% if(Detail.length >0){%>
-                        <%Detail.forEach(detail => {%>
+                <% if(Detail.length >0){%>
+                <%Detail.forEach(detail => { %>
+                <div class="basket-part"> 
+                
                     <div class="basket-image">
                         <img src="images/anadoluefes.png" class="basket-image-fix">
                     </div>
                     <div class="basket-event-no">
                         <h3>Etkinlik No</h3>
-                        <h3><%= detail.event_no %></h3>
+                        <a href=""><%=detail[0].EventNo%></a>
                     </div>
                     <div class="basket-event-name">
                         <h3>Etkinlik Adı</h3>
-                        <h3><%= detail.event_name %></h3>
+                        <h3><%=detail[0].EventName%></h3>
                     </div>
-                    <!-- <div class="basket-date">
-                        <h3>Etkinlik Tarihi</h3>
-                        <h3><%= detail.event_date %></h3>
-                    </div> -->
                     <div class="basket-price">
                         <h3>Bilet Fiyatı</h3>
-                        <h3><%= detail.event_price %></h3>
+                        <h3><%=detail[0].EventPrice%></h3>
+                    </div>
+
+                    <div class="button-part">
+                    <a href="payment/<%=detail[0].EventNo%>"> <button type="button" class="basket-button"><h3>Alışverişi Tamamla</h3></button></a>
+                        
+                        
                     </div>
                     <div class="button-part">
-                        <button type="button" class="basket-button"><i class="fas fa-trash-alt"></i></button>
+                    <a href="deletefromcart/<%=detail[0].EventNo%>"> <button type="button" class="basket-button"><i class="fas fa-trash-alt"></i></button></a>
                     </div>
-                    <div class="button-part">
-                        <a href="cancelEvent/<%= detail.EventNo %>"><button type="button" class="basket-button"></a>
-                            <h3>Alışverişi Tamamla</h3>
-                        </button>
-                    </div>
-                    <% }) %>
-                    <% } %>
+                    
                 </div>
+                <% }) %>
+                    <% } %>
     </div>
         </div>
     </div>

@@ -175,6 +175,14 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
               
             }
           );
+          db.query("DELETE FROM Cart WHERE EventNo = ? AND UserEmail = ?",[Event[0].EventNo , req.session.emailAddress] , (err, result) => {
+            if(err){
+              console.log(err);
+            }
+            else{
+              res.redirect("/profile");
+            }
+          });
           db.query(
             `UPDATE Events SET EventCapacity = ${(Event[0].EventC)-1} where EventNo = ${Event[0].EventNo}`,
             (error, result) => {
@@ -287,9 +295,6 @@ router.get("/cancelticket/:id", (req, res) => {
         }
       });
     }
-
-
-    
     db.query("DELETE FROM Ticket WHERE ticket_id = ?", [path], (err, result) => {
       if(err){
         console.log(err);
@@ -654,44 +659,44 @@ router.get("/notFound", (req, res) => {
     loginn: req.session.loggedinUser,
   });
 });
-// router.get("/myCart", async (req, res) => {
-//   const Detail = [];
-//   db.query("SELECT * FROM cart WHERE UserEmail=?",
-//   [req.session.emailAddress],
-//   (err,result) => {
-//     if(err){
-//       console.log(err);
-//     } else {
-//       for (var i = 0; i < result.length; i++) {
-//         if(result[i].email == req.session.emailAddress){
-//           var a = [
-//           {
-//               event_no: result[i].event_no,
-//               event_name: result[i].event_name,
-//               event_price: result[i].event_price,
-//           },
-//         ];
-//           Detail.push(a);
-//         }
-//       }
-//     console.log("---------");
-//         console.log(Detail);
-//   res.render("myCart", {
-//     Detail,
-//     email: req.session.emailAddress,
-//     loginn: req.session.loggedinUser,
-//   });
-//     }
-//   });
-// });
-
-// router.get("/cancelEvent/:eventNo" , (req,res) => {
-//   var path = req.params.EventNo;
-//   db.query("DELETE FROM Event WHERE EventNo = ?" , [path], (err, result) => {
-//     if(err) {
-//       console.log(err);
-//     }
-//     res.redirect("/myCart");
-//   });
-// });
+router.get("/myCart", async (req, res) => {
+  const Detail = [];
+  db.query("SELECT * FROM cart WHERE UserEmail=?",
+  [req.session.emailAddress],
+  async (err,result) => {
+    if(err){
+      console.log(err);
+    } else {
+      for (var i = 0; i < result.length; i++) {
+        if(result[i].UserEmail == req.session.emailAddress){
+          console.log(result[i].UserEmail);
+          var a = [
+          {
+            EventNo: result[i].EventNo,
+            EventName: result[i].EventName,
+            EventPrice: result[i].EventPrice,
+          },
+        ];
+          Detail.push(a);
+        }
+      }
+    console.log("---------");
+        console.log(Detail);
+  res.render("myCart", {
+    Detail,
+    email: req.session.emailAddress,
+    loginn: req.session.loggedinUser,
+  });
+    }
+  });
+});
+router.get("/deletefromcart/:id", (req, res) => {
+  const path = req.params.id;
+  db.query("DELETE FROM Cart WHERE EventNo = ? AND UserEmail = ?",[path , req.session.emailAddress] , (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/myCart");
+  });
+});
 module.exports = router;

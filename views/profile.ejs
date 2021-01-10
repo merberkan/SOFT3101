@@ -7,6 +7,7 @@
   <title>Profil</title>
   <link rel="stylesheet" href="profile.css">
   <link rel="stylesheet" href="footernavbarwotransition.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 </head>
 
 <body>
@@ -36,6 +37,7 @@
             <li style="padding: 8px;"><a href="/cityguide">Şehir Turu</a></li>
             <li style="padding: 20px;"><a href="/aboutus">Hakkımızda</a></li>
             <% if(loginn){ %>
+              <li class="entrance" style="margin-right:20px ;"><a href="/myCart"><i class="fas fa-shopping-cart"> Sepetim</i></a> </li>
             <li class="entrance" style="margin-right:20px ; "><a href="/profile">Profilim</a></li>
             <li class="entrance" style="margin-right:20px ;"><a href="/logout">Çıkış Yap</a></li>
             <% } else{ %>

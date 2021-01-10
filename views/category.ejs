@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="footernavbar.css">
     <link rel="stylesheet" href="category.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <title>Website</title>
 </head>
 
@@ -36,6 +37,7 @@
                         <li style="padding: 8px;"><a href="/cityguide">Şehir Turu</a></li>
                         <li style="padding: 20px;"><a href="/aboutus">Hakkımızda</a></li>
                         <% if(loginn){ %>
+                            <li class="entrance" style="margin-right:20px ;"><a href="/myCart"><i class="fas fa-shopping-cart"> Sepetim</i></a> </li>
                         <li class="entrance" style="margin-right:20px ; "><a href="/profile">Profilim</a></li>
                         <li class="entrance" style="margin-right:20px ;"><a href="/logout">Çıkış Yap</a></li>
                         <% } else{ %>
