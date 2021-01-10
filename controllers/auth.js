@@ -160,7 +160,7 @@ exports.register = (req, res) => {
 exports.contactus = (req, res) => {
   console.log('çalıştı');
 
-  const {nameS, contactmail} = req.body;
+  const {nameS, contactmail,message} = req.body;
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -179,6 +179,20 @@ exports.contactus = (req, res) => {
     text:
       "Merhabalar Sayın " +nameS+" Gönderdiğiniz mesaj destek ekiplerimiz tarafından incelemeye"
       + " alınmıştır. En kısa sürede tarafınızla iletişime geçilecektir."
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+  var mailOptions = {
+    from: "snolldestek@gmail.com",
+    to: "snolldestek@gmail.com",
+    subject: "Destek Ekibinin Dikkatine ",
+    text:
+      "Destek ekibinin dikkatine " +nameS+" isimli kullanıcı destek ekibimize şu mesajı bıraktı "+message+ " En kısa sürede değerlendirilip kullanıcıya geri dönülmesi gerekmektedir . İyi çalışmalar"
   };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
