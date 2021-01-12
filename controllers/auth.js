@@ -116,6 +116,35 @@ exports.register = (req, res) => {
           if (error) {
             console.log(error);
           } else {
+            var transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: "snolldestek@gmail.com",
+                pass: "snoll123",
+              },
+              tls: {
+                rejectUnauthorized: false,
+              },
+            });
+          
+            var mailOptions = {
+              from: "snolldestek@gmail.com",
+              to: email,
+              subject: "Tebrikler",
+              text:
+                "Tebrikler başarılı bir şekilde sitemize kayıt oldunuz! Email adresiniz : " +
+                email +
+                "  Şifreniz : " +
+                password,
+            };
+          
+            transporter.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Email sent: " + info.response);
+              }
+            });
             console.log(results);
             req.session.name = name ;
             req.session.lname = lastname;
@@ -126,35 +155,7 @@ exports.register = (req, res) => {
       }
     }
   );
-  var transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "snolldestek@gmail.com",
-      pass: "snoll123",
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
-
-  var mailOptions = {
-    from: "snolldestek@gmail.com",
-    to: email,
-    subject: "Tebrikler",
-    text:
-      "Tebrikler başarılı bir şekilde sitemize kayıt oldunuz! Email adresiniz : " +
-      email +
-      "  Şifreniz : " +
-      password,
-  };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
+  
   // res.send("Form submitted")
 };
 
