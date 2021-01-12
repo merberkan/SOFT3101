@@ -99,7 +99,7 @@ exports.register = (req, res) => {
         res.render("register", {
           message: "Passwords do not match",
         });
-      }
+      }else{
       let hashedPassword = await bcrypt.hash(password, 8);
       console.log(hashedPassword);
       // res.send("testing");
@@ -123,6 +123,7 @@ exports.register = (req, res) => {
           }
         }
       );
+      }
     }
   );
   var transporter = nodemailer.createTransport({

@@ -60,12 +60,7 @@ router.get("/logout", function (req, res) {
   req.session.destroy();
   res.redirect("/");
 });
-// router.get("/anasayfa", (req, res) => {
-//   res.render("anasayfa", {
-//     email: req.session.emailAddress,
-//     loginn: req.session.loggedinUser,
-//   });
-// });
+
 router.get("/contactus", (req, res) => {
   if (req.session.loggedinUser) {
     console.log(req.session.emailAddress);
@@ -140,16 +135,22 @@ router.get("/events/:name", (req, res) => {
 });
 
 router.get("/payment/:id", (req, res) => {
+  if(req.session.emailAddress){
   var path = req.params.id;
           res.render("payment", {
               path: path,
               email: req.session.emailAddress,
               loginn: req.session.loggedinUser,
             });
+          }else{
+            res.redirect("/notFound");
+          }
+
 });
 
 router.get("/paymentsuccessfull/:id", (req, res) => {
   var path = req.params.id;
+  if(req.session.emailAddress){
   db.query(
     "SELECT * FROM Events WHERE Events.EventNo =?",
     [path],
@@ -232,9 +233,10 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
       
     }
   );
+  }else{
+    res.redirect("/notFound")
+  }
 });
-
-
 
 router.get("/aboutus", (req, res) => {
   res.render("aboutus", {
@@ -249,6 +251,7 @@ router.get("/privacypolicy", (req, res) => {
     loginn: req.session.loggedinUser,
   });
 });
+
 router.get("/category", (req, res) => {
   db.query("SELECT * FROM Snoll.Events", async (err, result) => {
     const Events = [];
