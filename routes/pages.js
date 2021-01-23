@@ -808,6 +808,9 @@ router.get("/forgetSuccess", (req, res) => {
 });
 router.get("/resetPassword/:mail", (req, res) => {
   var path = req.params.mail;
+  if(path.length < 30){
+    res.redirect("/notFound");
+  }
   res.render("passwordConfirmation", {
     pathh : path,
     message : req.session.message,
@@ -826,15 +829,10 @@ router.post("/passwordChange/:mail", async (req, res) => {
     });
   }else{
     let hashedPass =  await bcrypt.hash(password, 8);
-    // db.query("UPDATE  Users SET role = 'regUser' Where email = ?", [path], (err, result) => {
-    //   if (err) {
-    //     console.log(err);
-    //   }
-    //   res.redirect("/adminPanel");
-    // });
           db.query("UPDATE users SET password = ? where email = ? ", [hashedPass , decryptedEmail],
             (error, result) => {
               if (error) {
+              
               console.log(error);
               } else {
                 res.render("changeSuccess", {
