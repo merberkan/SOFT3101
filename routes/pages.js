@@ -1,8 +1,10 @@
-const { decodeBase64 } = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
 const nodemailer = require("nodemailer")
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('myTotalySecretKey');
 
 const db = mysql.createConnection({
   host: process.env.DATABASE_HOST,
@@ -44,6 +46,13 @@ router.get("/ticketSuccess", (req, res) => {
 });
 router.get("/login", (req, res) => {
   res.render("login", {
+    loginn: req.session.loggedinUser,
+    email: req.session.emailAddress,
+    message: req.session.message,
+  });
+});
+router.get("/forgetPassword", (req, res) => {
+  res.render("forgetPassword", {
     loginn: req.session.loggedinUser,
     email: req.session.emailAddress,
     message: req.session.message,
@@ -791,4 +800,59 @@ router.get("/addcart/:no", (req, res) => {
   );
   
 });
+
+router.get("/forgetSuccess", (req, res) => {
+  res.render("forgetSuccess", {
+    loginn: req.session.loggedinUser,
+  });
+});
+router.get("/resetPassword/:mail", (req, res) => {
+  var path = req.params.mail;
+  res.render("passwordConfirmation", {
+    pathh : path,
+    message : req.session.message,
+    loginn: req.session.loggedinUser,
+  });
+});
+router.post("/passwordChange/:mail", async (req, res) => {
+  var path = req.params.mail;
+  const decryptedEmail = cryptr.decrypt(path);
+  const {password, passwordConfirm } = req.body;
+  if (password !== passwordConfirm) {
+    res.render("passwordConfirmation", {
+      message: "Passwords do not match",
+      pathh : path,
+      loginn : req.session.loggedinUser,
+    });
+  }else{
+    let hashedPass =  await bcrypt.hash(password, 8);
+    // db.query("UPDATE  Users SET role = 'regUser' Where email = ?", [path], (err, result) => {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    //   res.redirect("/adminPanel");
+    // });
+          db.query("UPDATE users SET password = ? where email = ? ", [hashedPass , decryptedEmail],
+            (error, result) => {
+              if (error) {
+              console.log(error);
+              } else {
+                res.render("changeSuccess", {
+                  loginn: req.session.loggedinUser,
+                });
+              }
+            }
+          )
+        
+          }
+    
+});
+router.get("/control", (req, res) => {
+  const encryptedString = cryptr.encrypt('salih.coskun@isik.edu.tr');
+  console.log(encryptedString);
+  const decryptedString = cryptr.decrypt(encryptedString);
+  console.log(decryptedString);
+  res.redirect("/")
+});
+
 module.exports = router;

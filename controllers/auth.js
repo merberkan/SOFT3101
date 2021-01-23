@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 var express = require("express");
 var router = express.Router();
 var nodemailer = require("nodemailer");
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('myTotalySecretKey');
 mysql.createConnection({ multipleStatements: true });
 
 const db = mysql.createConnection({
@@ -56,10 +58,7 @@ exports.login = async (req, res) => {
             httpOnly: true,
           };
           res.cookie("jwt", token, cookieOptions);
-          // console.log(email);
           req.session.loggedinUser = true;
-
-          // req.session.notloggedinUser = false;
           req.session.emailAddress = email;
           req.session.userRole = results[0].role;
           console.log(req.session.userRole);
@@ -94,15 +93,16 @@ exports.register = (req, res) => {
       if (results.length > 0) {
         res.render("register", {
           message: "That Email is already in use",
+          loginn : req.session.loggedinUser,
         });
       } else if (password !== passwordConfirm) {
         res.render("register", {
           message: "Passwords do not match",
+          loginn : req.session.loggedinUser,
         });
       }else{
       let hashedPassword = await bcrypt.hash(password, 8);
       console.log(hashedPassword);
-      // res.send("testing");
       db.query(
         "INSERT INTO users SET ? ",
         {
@@ -155,8 +155,6 @@ exports.register = (req, res) => {
       }
     }
   );
-  
-  // res.send("Form submitted")
 };
 
 exports.contactus = (req, res) => {
@@ -239,3 +237,107 @@ exports.adminPanel = (req,res) => {
 
 };
 
+exports.contactus = (req, res) => {
+  console.log('çalıştı');
+
+  const {nameS, contactmail,message} = req.body;
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "snolldestek@gmail.com",
+      pass: "snoll123",
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  var mailOptions = {
+    from: "snolldestek@gmail.com",
+    to: contactmail,
+    subject: "Destek Talebi",
+    text:
+      "Merhabalar Sayın " +nameS+" Gönderdiğiniz mesaj destek ekiplerimiz tarafından incelemeye"
+      + " alınmıştır. En kısa sürede tarafınızla iletişime geçilecektir."
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+  var mailOptions = {
+    from: "snolldestek@gmail.com",
+    to: "snolldestek@gmail.com",
+    subject: "Destek Ekibinin Dikkatine ",
+    text:
+      "Destek ekibinin dikkatine " +nameS+" isimli kullanıcı destek ekibimize şu mesajı bıraktı "+message+ " En kısa sürede değerlendirilip kullanıcıya geri dönülmesi gerekmektedir . İyi çalışmalar"
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+  req.session.contactname = nameS;
+  res.redirect('/contactusSuccess');
+};
+
+exports.forgetPasswordSendMail = (req,res) => {
+  const { email } = req.body;
+  const loggedinUser = Boolean;
+  const emailAddress = email;
+  let userRole;
+  if (!email) {
+    return res.status(400).render("forgetPassword", {
+      message: "Email kısmı boş bırakılamaz",
+      loginn: req.session.loggedinUser,
+    });
+  }
+  db.query(
+    "SELECT * FROM users WHERE email = ?",
+    [email],
+    async (error, results) => {
+      console.log(results);
+      if (results=="")
+      {
+        req.session.message = "email sistemde kayıtlı değil";
+        res.render("forgetPassword", {
+          message: req.session.message,
+          loginn: req.session.loggedinUser,
+        });
+      } else {
+        const encryptedemail = cryptr.encrypt(email);
+        var transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: "snolldestek@gmail.com",
+            pass: "snoll123",
+          },
+          tls: {
+            rejectUnauthorized: false,
+          },
+        });
+      
+        var mailOptions = {
+          from: "snolldestek@gmail.com",
+          to: email,
+          subject: "Tebrikler",
+          text:
+            "Burada ki bağlantıyı kullanarak şifrenizi sıfırlayabilirsiniz http://localhost:3000/resetPassword/"+encryptedemail + " Bizi tercih ettiğiniz için teşekkür ederiz"
+        };
+      
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });
+        res.redirect("/forgetSuccess");
+      }
+    }
+    )
+};
