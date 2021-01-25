@@ -133,9 +133,7 @@ exports.register = (req, res) => {
               subject: "Tebrikler",
               text:
                 "Tebrikler başarılı bir şekilde sitemize kayıt oldunuz! Email adresiniz : " +
-                email +
-                "  Şifreniz : " +
-                password,
+                email 
             };
           
             transporter.sendMail(mailOptions, function (error, info) {

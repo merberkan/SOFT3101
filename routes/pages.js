@@ -116,6 +116,10 @@ router.get("/events/:name", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        if(result[0].EventCapacity == 0){
+          var messages = "Bu etkinlik için bilet kalmamıştır";
+          var capacityControl = true;
+        }
         const Event = [
           {
             EventName: result[0].EventName,
@@ -135,6 +139,8 @@ router.get("/events/:name", (req, res) => {
         console.log(Event);
         res.render("ticket", {
           Event,
+          messages,
+          capacityControl,
           email: req.session.emailAddress,
           loginn: req.session.loggedinUser,
         });

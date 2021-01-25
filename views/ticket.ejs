@@ -130,7 +130,11 @@
 
             <div class="button">
                 <% if(loginn){ %> 
+                    <% if(capacityControl){ %> 
+                        <h3 style="font-size: larger;">Etkinlik için bilet tükenmiştir</h3>
+                        <% } else{ %>
                 <a href="/addcart/<%=event.EventNo%>">  <button class="confirm"> Devam Et</button></a>
+                <%}%>
                 <%}%>
             </div>
         </div>
