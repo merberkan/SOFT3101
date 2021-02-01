@@ -116,12 +116,14 @@
         <table style="width:100%">
           <tr>
             <th>Ekinlik İsmi</th>
+            <th>Etkinlik Tarihi</th>
             <th>Fonksiyon:Etkinlik Çıkar</th>
           </tr>
           <% if(ownerEvents.length >0){%>
             <%ownerEvents.forEach(ownerEvent => { %>
           <tr>
             <td><%=ownerEvent.EventName%></td>
+            <td><%=ownerEvent.EventDate%></td>
             <td> <a href="/eventdeleteasowner/<%=ownerEvent.EventNo%>" > <button class="button">Etkinlik Çıkar</button> </a></td>
           </tr>
           <% }) %> 
@@ -131,6 +133,7 @@
             <%Events.forEach(events => { %>
           <tr>
             <td><%=events.EventName%></td>
+            <td><%=events.EventDate%></td>
           </tr>
           <% }) %> 
           <% } %> 

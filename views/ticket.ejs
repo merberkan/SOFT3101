@@ -127,12 +127,13 @@
                     <div class="detail-right">1</div>
                 </div>
             </div>
-
             <div class="button">
                 <% if(loginn){ %> 
                     <% if(capacityControl){ %> 
                         <h3 style="font-size: larger;">Etkinlik için bilet tükenmiştir</h3>
-                        <% } else{ %>
+                        <% }else if(dateControl){ %>
+                    <h3 style="font-size: larger;">Bu etkinliğin tarihi geçmiştir</h3>
+                    <% } else{ %>
                 <a href="/addcart/<%=event.EventNo%>">  <button class="confirm"> Devam Et</button></a>
                 <%}%>
                 <%}%>

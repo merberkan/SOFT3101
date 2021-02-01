@@ -94,6 +94,7 @@ router.get("/events", (req, res) => {
       for (var i = 0; i < result.length; i++) {
         var a = {
           EventName: result[i].EventName,
+          EventCapacity: result[i].EventCapacity,
           EventPhotoUrl: result[i].EventPhotoUrl,
         };
         Events.push(a);
@@ -109,6 +110,7 @@ router.get("/events", (req, res) => {
 
 router.get("/events/:name", (req, res) => {
   var path = req.params.name;
+  var today = new Date();
   db.query(
     "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventName= ? ",
     [path],
@@ -117,8 +119,14 @@ router.get("/events/:name", (req, res) => {
         console.log(err);
       } else {
         if(result[0].EventCapacity == 0){
-          var messages = "Bu etkinlik için bilet kalmamıştır";
-          var capacityControl = true;
+        var messages = "Bu etkinlik için bilet kalmamıştır";
+        var capacityControl = true;
+      }
+        var eventdate = new Date(result[0].EventDate);
+        if(eventdate.getTime() - today.getTime() <0){
+          console.log(eventdate.getTime() - today.getTime());
+          var messages = "Bu etkinliğin süresi geçmiştir";
+          var dateControl = true;
         }
         const Event = [
           {
@@ -141,6 +149,7 @@ router.get("/events/:name", (req, res) => {
           Event,
           messages,
           capacityControl,
+          dateControl,
           email: req.session.emailAddress,
           loginn: req.session.loggedinUser,
         });
@@ -650,6 +659,7 @@ router.get("/setUser/:mail", (req, res) => {
 });
 
 router.get("/ownerPanel", (req, res) => {
+  var today = new Date();
   if(req.session.userRole == "owner"){
     db.query("SELECT * FROM Events", (err, result) => {
       const Events = [];
@@ -658,16 +668,19 @@ router.get("/ownerPanel", (req, res) => {
           console.log(err);
         }else{
           for (var i = 0; i < result.length; i++) {
-            if(result[i].owner_email == req.session.emailAddress){
+            var eventDate = new Date(result[i].EventDate);
+            if(result[i].owner_email == req.session.emailAddress && eventDate.getTime() - today.getTime() > 0){
               var x = {
                 EventName: result[i].EventName,
                 EventNo: result[i].EventNo,
+                EventDate: result[i].EventDate,
               };
               ownerEvents.push(x);
             }else{
               var a = {
                 EventName: result[i].EventName,
                 EventNo: result[i].EventNo,
+                EventDate: result[i].EventDate,
               };
               Events.push(a);
             }
