@@ -653,18 +653,29 @@ router.get("/ownerPanel", (req, res) => {
   if(req.session.userRole == "owner"){
     db.query("SELECT * FROM Events", (err, result) => {
       const Events = [];
+      const ownerEvents = [];
         if (err) {
           console.log(err);
         }else{
           for (var i = 0; i < result.length; i++) {
-            var a = {
-              EventName: result[i].EventName,
-              EventNo: result[i].EventNo,
-            };
-            Events.push(a);
+            if(result[i].owner_email == req.session.emailAddress){
+              var x = {
+                EventName: result[i].EventName,
+                EventNo: result[i].EventNo,
+              };
+              ownerEvents.push(x);
+            }else{
+              var a = {
+                EventName: result[i].EventName,
+                EventNo: result[i].EventNo,
+              };
+              Events.push(a);
+            }
           }
+          console.log(ownerEvents.length);
           res.render("ownerPanel", {
             Events,
+            ownerEvents,
             loginn: req.session.loggedinUser,
             email: req.session.emailAddress,
           });

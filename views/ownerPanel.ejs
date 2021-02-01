@@ -115,13 +115,21 @@
       <div class="showpart">
         <table style="width:100%">
           <tr>
+            <th>Ekinlik İsmi</th>
             <th>Fonksiyon:Etkinlik Çıkar</th>
-            <th>Ekinlik No</th>
           </tr>
+          <% if(ownerEvents.length >0){%>
+            <%ownerEvents.forEach(ownerEvent => { %>
+          <tr>
+            <td><%=ownerEvent.EventName%></td>
+            <td> <a href="/eventdeleteasowner/<%=ownerEvent.EventNo%>" > <button class="button">Etkinlik Çıkar</button> </a></td>
+          </tr>
+          <% }) %> 
+          <% } %> 
+
           <% if(Events.length >0){%>
             <%Events.forEach(events => { %>
           <tr>
-            <td> <a href="/eventdeleteasowner/<%=events.EventNo%>" > <button class="button">Etkinlik Çıkar</button> </a></td>
             <td><%=events.EventName%></td>
           </tr>
           <% }) %> 
