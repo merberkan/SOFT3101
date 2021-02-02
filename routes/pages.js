@@ -2,22 +2,24 @@ const bcrypt = require("bcryptjs");
 const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
-const nodemailer = require("nodemailer")
-const Cryptr = require('cryptr');
-const cryptr = new Cryptr('myTotalySecretKey');
+const nodemailer = require("nodemailer");
+const Cryptr = require("cryptr");
+const cryptr = new Cryptr("myTotalySecretKey");
 
 const db = mysql.createConnection({
   host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE,
 });
 
 router.get("/", (req, res) => {
   db.query("SELECT * FROM Snoll.Events", async (err, result) => {
     const Events = [];
     for (var i = 0; i < result.length; i++) {
-      if(i == 6){break;}
+      if (i == 6) {
+        break;
+      }
       var a = {
         EventName: result[i].EventName,
         EventPhotoUrl: result[i].EventPhotoUrl,
@@ -118,12 +120,12 @@ router.get("/events/:name", (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        if(result[0].EventCapacity == 0){
-        var messages = "Bu etkinlik için bilet kalmamıştır";
-        var capacityControl = true;
-      }
+        if (result[0].EventCapacity == 0) {
+          var messages = "Bu etkinlik için bilet kalmamıştır";
+          var capacityControl = true;
+        }
         var eventdate = new Date(result[0].EventDate);
-        if(eventdate.getTime() - today.getTime() <0){
+        if (eventdate.getTime() - today.getTime() < 0) {
           console.log(eventdate.getTime() - today.getTime());
           var messages = "Bu etkinliğin süresi geçmiştir";
           var dateControl = true;
@@ -159,106 +161,113 @@ router.get("/events/:name", (req, res) => {
 });
 
 router.get("/payment/:id", (req, res) => {
-  if(req.session.emailAddress){
-  var path = req.params.id;
-          res.render("payment", {
-              path: path,
-              email: req.session.emailAddress,
-              loginn: req.session.loggedinUser,
-            });
-          }else{
-            res.redirect("/notFound");
-          }
-
+  if (req.session.emailAddress) {
+    var path = req.params.id;
+    res.render("payment", {
+      path: path,
+      email: req.session.emailAddress,
+      loginn: req.session.loggedinUser,
+    });
+  } else {
+    res.redirect("/notFound");
+  }
 });
 
 router.get("/paymentsuccessfull/:id", (req, res) => {
   var path = req.params.id;
-  if(req.session.emailAddress){
-  db.query(
-    "SELECT * FROM Events WHERE Events.EventNo =?",
-    [path],
-    async (err, result) => {
-      if (err) {
-        console.log(err);
-      }
+  if (req.session.emailAddress) {
+    db.query(
+      "SELECT * FROM Events WHERE Events.EventNo =?",
+      [path],
+      async (err, result) => {
+        if (err) {
+          console.log(err);
+        }
 
-      if (result.length > 0) {
-        var Event = [
-          {
-            EventNo: result[0].EventNo,
-            EventName: result[0].EventName,
-            EventC : result[0].EventCapacity,
-            EventAddress : result[0].EventAddress,
-            EventDate : result[0].EventDate,
-          },
-        ];
-        console.log("EVENT: " + Event[0].EventC);
-        if(Event[0].EventC > 0){
-          db.query(
-          
-            "INSERT INTO Ticket SET ?",
+        if (result.length > 0) {
+          var Event = [
             {
-              user_email: req.session.emailAddress,
-              event_name: Event[0].EventName,
+              EventNo: result[0].EventNo,
+              EventName: result[0].EventName,
+              EventC: result[0].EventCapacity,
+              EventAddress: result[0].EventAddress,
+              EventDate: result[0].EventDate,
             },
-            (error, result2) => {
-              if (error) {
-              console.log(error);
-              } 
-              
-            }
-          );
-          db.query("DELETE FROM Cart WHERE EventNo = ? AND UserEmail = ?",[Event[0].EventNo , req.session.emailAddress] , (err, result) => {
-            if(err){
-              console.log(err);
-            }
-          });
-          db.query(
-            `UPDATE Events SET EventCapacity = ${(Event[0].EventC)-1} where EventNo = ${Event[0].EventNo}`,
-            (error, result) => {
-              if (error) {
-              console.log(error);
-              } else {
-                var transporter = nodemailer.createTransport({
-                  service: "gmail",
-                  auth: {
-                    user: "snolldestek@gmail.com",
-                    pass: "snoll123",
-                  },
-                  tls: {
-                    rejectUnauthorized: false,
-                  },
-                });
-              
-                var mailOptions = {
-                  from: "snolldestek@gmail.com",
-                  to: req.session.emailAddress,
-                  subject: "Biletiniz",
-                  text:
-                    "Merhabalar,bilet alma işleminizi başarıyla gerçekleştirdiniz bilet bilgilerinizi burada bulabilirsiniz bizi seçtiğiniz için teşekkür ederiz ."+" Etkinlik adı  :"+
-                    Event[0].EventName + "  Etkinlik adresi : " +Event[0].EventAddress +"  Etkinlik tarihi :  "+Event[0].EventDate
-                };
-                transporter.sendMail(mailOptions, function (error, info) {
-                  if (error) {
-                    console.log(error);
-                  } else {
-                    console.log("Email sent: " + info.response);
-                  }
-                });
-                res.redirect('/ticketSuccess');
-              };
-            });
-        }else{
-          res.redirect("/noCapacity");
+          ];
+          console.log("EVENT: " + Event[0].EventC);
+          if (Event[0].EventC > 0) {
+            db.query(
+              "INSERT INTO Ticket SET ?",
+              {
+                user_email: req.session.emailAddress,
+                event_name: Event[0].EventName,
+              },
+              (error, result2) => {
+                if (error) {
+                  console.log(error);
+                }
+              }
+            );
+            db.query(
+              "DELETE FROM Cart WHERE EventNo = ? AND UserEmail = ?",
+              [Event[0].EventNo, req.session.emailAddress],
+              (err, result) => {
+                if (err) {
+                  console.log(err);
+                }
+              }
+            );
+            db.query(
+              `UPDATE Events SET EventCapacity = ${
+                Event[0].EventC - 1
+              } where EventNo = ${Event[0].EventNo}`,
+              (error, result) => {
+                if (error) {
+                  console.log(error);
+                } else {
+                  var transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                      user: "snolldestek@gmail.com",
+                      pass: "snoll123",
+                    },
+                    tls: {
+                      rejectUnauthorized: false,
+                    },
+                  });
+
+                  var mailOptions = {
+                    from: "snolldestek@gmail.com",
+                    to: req.session.emailAddress,
+                    subject: "Biletiniz",
+                    text:
+                      "Merhabalar,bilet alma işleminizi başarıyla gerçekleştirdiniz bilet bilgilerinizi burada bulabilirsiniz bizi seçtiğiniz için teşekkür ederiz ." +
+                      " Etkinlik adı  :" +
+                      Event[0].EventName +
+                      "  Etkinlik adresi : " +
+                      Event[0].EventAddress +
+                      "  Etkinlik tarihi :  " +
+                      Event[0].EventDate,
+                  };
+                  transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      console.log("Email sent: " + info.response);
+                    }
+                  });
+                  res.redirect("/ticketSuccess");
+                }
+              }
+            );
+          } else {
+            res.redirect("/noCapacity");
+          }
         }
       }
-      
-      
-    }
-  );
-  }else{
-    res.redirect("/notFound")
+    );
+  } else {
+    res.redirect("/notFound");
   }
 });
 
@@ -280,7 +289,9 @@ router.get("/category", (req, res) => {
   db.query("SELECT * FROM Snoll.Events", async (err, result) => {
     const Events = [];
     for (var i = 0; i < result.length; i++) {
-      if(i == 4){break;}
+      if (i == 4) {
+        break;
+      }
       var a = {
         EventName: result[i].EventName,
         EventPhotoUrl: result[i].EventPhotoUrl,
@@ -320,49 +331,64 @@ router.get("/cityguide", (req, res) => {
 
 router.get("/cancelticket/:id", (req, res) => {
   var path = req.params.id;
-  db.query("SELECT * FROM Ticket WHERE ticket_id = ?",[path], (err,result1) => {
-    if(err){
-      console.log(err);
-    }
-    if(result1.length > 0){
-      var Ticket = [
-        {
-          event_name: result1[0].event_name,
-          ticket_id: result1[0].ticket_id
-        }
-      ];
-      db.query("SELECT * FROM Events WHERE Events.EventName = ?", [Ticket[0].event_name], (err,result2) => {
-        if(err){
-          console.log(err);
-        }
-
-        if(result2.length > 0){
-          var Event = [
-            {
-              EventNo: result2[0].EventNo,
-              EventName: result2[0].EventName,
-              EventC : result2[0].EventCapacity,
-            }
-          ];
-  
-          db.query(`UPDATE Snoll.Events SET EventCapacity = ${(Event[0].EventC)+1} WHERE EventNo = ${Event[0].EventNo}`, (err, result3) => {
-            if(err){
-              console.log(err);
-            }
-          });
-        }
-      });
-    }
-    db.query("DELETE FROM Ticket WHERE ticket_id = ?", [path], (err, result) => {
-      if(err){
+  db.query(
+    "SELECT * FROM Ticket WHERE ticket_id = ?",
+    [path],
+    (err, result1) => {
+      if (err) {
         console.log(err);
       }
-      else{
-        res.redirect("/profile");
-      }
-    });
+      if (result1.length > 0) {
+        var Ticket = [
+          {
+            event_name: result1[0].event_name,
+            ticket_id: result1[0].ticket_id,
+          },
+        ];
+        db.query(
+          "SELECT * FROM Events WHERE Events.EventName = ?",
+          [Ticket[0].event_name],
+          (err, result2) => {
+            if (err) {
+              console.log(err);
+            }
 
-  });
+            if (result2.length > 0) {
+              var Event = [
+                {
+                  EventNo: result2[0].EventNo,
+                  EventName: result2[0].EventName,
+                  EventC: result2[0].EventCapacity,
+                },
+              ];
+
+              db.query(
+                `UPDATE Snoll.Events SET EventCapacity = ${
+                  Event[0].EventC + 1
+                } WHERE EventNo = ${Event[0].EventNo}`,
+                (err, result3) => {
+                  if (err) {
+                    console.log(err);
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+      db.query(
+        "DELETE FROM Ticket WHERE ticket_id = ?",
+        [path],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect("/profile");
+          }
+        }
+      );
+    }
+  );
 });
 
 router.get("/cityguide/:name", (req, res) => {
@@ -477,126 +503,196 @@ router.get("/category/Spor", (req, res) => {
   );
 });
 router.get("/profile", async (req, res) => {
-  if(req.session.emailAddress){
+  if (req.session.emailAddress) {
     const Detail = [];
-    db.query("SELECT * FROM Users join Ticket ON Users.email = Ticket.user_email",
-    [req.session.emailAddress], (err,result) => {
-      if(err){
-        console.log(err);
-      }
-      if(result.length > 0){
-        for (var i = 0; i < result.length; i++){
-          if (result[i].email == req.session.emailAddress){
-            var a = {
-              ticket_id: result[i].ticket_id,
-              event_name: result[i].event_name
-            };
-            Detail.push(a);
+    db.query(
+      "SELECT * FROM Users join Ticket ON Users.email = Ticket.user_email",
+      [req.session.emailAddress],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        if (result.length > 0) {
+          for (var i = 0; i < result.length; i++) {
+            if (result[i].email == req.session.emailAddress) {
+              var a = {
+                ticket_id: result[i].ticket_id,
+                event_name: result[i].event_name,
+              };
+              Detail.push(a);
+            }
           }
         }
       }
-    });
-    db.query("SELECT * FROM Users WHERE Users.email = ?", [req.session.emailAddress], (err,result) => {
-      const User =[];
-      if(err){
-        console.log(err);
-      }
-      if(result.length > 0){
-        for (var i = 0; i < result.length; i++){
-          var x = [
-            {
-              firstname: result[i].firstname,
-              lastname: result[i].lastname,
-              email: result[i].email,
-              role: result[i].role,
-            },
-          ];
-          User.push(x);
+    );
+    db.query(
+      "SELECT * FROM Users WHERE Users.email = ?",
+      [req.session.emailAddress],
+      (err, result) => {
+        const User = [];
+        if (err) {
+          console.log(err);
         }
-        var length = User.length;
+        if (result.length > 0) {
+          for (var i = 0; i < result.length; i++) {
+            var x = [
+              {
+                firstname: result[i].firstname,
+                lastname: result[i].lastname,
+                email: result[i].email,
+                role: result[i].role,
+              },
+            ];
+            User.push(x);
+          }
+          var length = User.length;
           for (var j = 0; j < length - 1; j++) {
             console.log(j, User.length);
             User.pop();
           }
 
-          res.render("profile",{
+          res.render("profile", {
             User,
             Detail,
             email: req.session.emailAddress,
             loginn: req.session.loggedinUser,
           });
+        }
       }
-    });
-  }else{
+    );
+  } else {
     res.redirect("/notFound");
   }
 });
-
-
-router.get("/adminPanel", (req, res) => {
-  if(req.session.userRole == "admin"){
+router.get("/EventPanel", (req, res) => {
+  if (req.session.userRole == "admin") {
+    db.query("SELECT * FROM Snoll.Events", async (err, result) => {
+      const Events = [];
+      if (result.length > 0) {
+        for (var i = 0; i < result.length; i++) {
+          var a = {
+            EventName: result[i].EventName,
+            EventPhotoUrl: result[i].EventPhotoUrl,
+          };
+          Events.push(a);
+        }
+      }
+      res.render("EventPanel", {
+        Events,
+        email: req.session.emailAddress,
+        loginn: req.session.loggedinUser,
+      });
+    });
+  } else {
+    res.redirect("/notFound");
+  }
+});
+router.get("/UserPanel", (req, res) => {
+  if (req.session.userRole == "admin") {
+    db.query("SELECT * FROM Snoll.Users", async (err, result) => {
+      const Users = [];
+      if (result.length > 0) {
+        for (var i = 0; i < result.length; i++) {
+          var a = {
+            role: result[i].role,
+            email: result[i].email,
+            id: result[i].id,
+          };
+          Users.push(a);
+        }
+      }
+      res.render("UserPanel", {
+        Users,
+        email: req.session.emailAddress,
+        loginn: req.session.loggedinUser,
+      });
+    });
+  } else {
+    res.redirect("/notFound");
+  }
+});
+router.get("/CityPanel", (req, res) => {
+  if (req.session.userRole == "admin") {
     db.query("SELECT * FROM Snoll.City", async (err, result) => {
       const City = [];
-      if (err) {
-        console.log(err);
-      } 
-      if (result.length>0) {
+      if (result.length > 0) {
         for (var i = 0; i < result.length; i++) {
           var a = {
             CityName: result[i].CityName,
-            
+            HistoryPlaces: result[i].HistoryPlaces,
           };
           City.push(a);
         }
       }
-      db.query("SELECT * FROM Snoll.Events", async (err, result) => {
-        const Events = [];
-        if (err) {
-          console.log(err);
-        } if(result.length >0) {
-          for (var i = 0; i < result.length; i++) {
-            var a = {
-              EventName: result[i].EventName,
-              EventNo: result[i].EventNo,
-            };
-            Events.push(a);
-          }
-        }
-        db.query("SELECT * FROM Snoll.Users", async (err, result) => {
-          const Users = [];
-          if (err) {
-            console.log(err);
-          } if(result.length >0) {
-            for (var i = 0; i < result.length; i++) {
-              var a = {
-                role: result[i].role,
-                email: result[i].email,
-                id:result[i].id,
-              };
-              Users.push(a);
-            }
-          res.render("adminPanel", {
-          email: req.session.emailAddress,
-          loginn: req.session.loggedinUser,
-          Users,
-          Events,
-          City,
-          });
-          }
-          
-        }
-        );
-        
-      }
-      );
-      
+      res.render("CityPanel", {
+        City,
+        email: req.session.emailAddress,
+        loginn: req.session.loggedinUser,
+      });
     });
-  }else{
-    res.redirect('/notFound');
+  } else {
+    res.redirect("/notFound");
   }
-
-  
 });
+
+// router.get("/adminPanel", (req, res) => {
+//   if (req.session.userRole == "admin") {
+//     db.query("SELECT * FROM Snoll.City", async (err, result) => {
+//       const City = [];
+//       if (err) {
+//         console.log(err);
+//       }
+//       if (result.length > 0) {
+//         for (var i = 0; i < result.length; i++) {
+//           var a = {
+//             CityName: result[i].CityName,
+//           };
+//           City.push(a);
+//         }
+//       }
+//       db.query("SELECT * FROM Snoll.Events", async (err, result) => {
+//         const Events = [];
+//         if (err) {
+//           console.log(err);
+//         }
+//         if (result.length > 0) {
+//           for (var i = 0; i < result.length; i++) {
+//             var a = {
+//               EventName: result[i].EventName,
+//               EventNo: result[i].EventNo,
+//             };
+//             Events.push(a);
+//           }
+//         }
+//         db.query("SELECT * FROM Snoll.Users", async (err, result) => {
+//           const Users = [];
+//           if (err) {
+//             console.log(err);
+//           }
+//           if (result.length > 0) {
+//             for (var i = 0; i < result.length; i++) {
+//               var a = {
+//                 role: result[i].role,
+//                 email: result[i].email,
+//                 id: result[i].id,
+//               };
+//               Users.push(a);
+//             }
+//             res.render("adminPanel", {
+//               email: req.session.emailAddress,
+//               loginn: req.session.loggedinUser,
+//               Users,
+//               Events,
+//               City,
+//             });
+//           }
+//         });
+//       });
+//     });
+//   } else {
+//     res.redirect("/notFound");
+//   }
+// });
 
 router.get("/eventdelete/:id", (req, res) => {
   const path = req.params.id;
@@ -604,7 +700,7 @@ router.get("/eventdelete/:id", (req, res) => {
     if (err) {
       console.log(err);
     }
-    res.redirect("/adminPanel");
+    res.redirect("/EventPanel");
   });
 });
 
@@ -614,90 +710,133 @@ router.get("/citydelete/:name", (req, res) => {
     if (err) {
       console.log(err);
     }
-    res.redirect("/adminPanel");
+    res.redirect("/CityPanel");
   });
 });
 
-router.get("/userdelete/:id", (req, res) => {
-  const path = req.params.id;
-  db.query("DELETE FROM Users Where id = ?", [path], (err, result) => {
+router.get("/userdelete/:mail", (req, res) => {
+  const path = req.params.mail;
+  db.query("DELETE FROM Users Where email = ?", [path], (err, result) => {
     if (err) {
       console.log(err);
     }
-    res.redirect("/adminPanel");
+    res.redirect("/UserPanel");
   });
 });
 
 router.get("/setAdmin/:mail", (req, res) => {
   const path = req.params.mail;
-  db.query("UPDATE  Users SET role = 'admin' Where email = ?", [path], (err, result) => {
-    if (err) {
-      console.log(err);
+  db.query(
+    "UPDATE  Users SET role = 'admin' Where email = ?",
+    [path],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.redirect("/UserPanel");
     }
-    res.redirect("/adminPanel");
-  });
+  );
 });
 
 router.get("/setOwner/:mail", (req, res) => {
   const path = req.params.mail;
-  db.query("UPDATE  Users SET role = 'owner' Where email = ?", [path], (err, result) => {
-    if (err) {
-      console.log(err);
+  db.query(
+    "UPDATE  Users SET role = 'owner' Where email = ?",
+    [path],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.redirect("/UserPanel");
     }
-    res.redirect("/adminPanel");
-  });
+  );
 });
 
 router.get("/setUser/:mail", (req, res) => {
   const path = req.params.mail;
-  db.query("UPDATE  Users SET role = 'regUser' Where email = ?", [path], (err, result) => {
-    if (err) {
-      console.log(err);
+  db.query(
+    "UPDATE  Users SET role = 'regUser' Where email = ?",
+    [path],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.redirect("/UserPanel");
     }
-    res.redirect("/adminPanel");
-  });
+  );
 });
 
 router.get("/ownerPanel", (req, res) => {
   var today = new Date();
-  if(req.session.userRole == "owner"){
+  if (req.session.userRole == "owner") {
     db.query("SELECT * FROM Events", (err, result) => {
       const Events = [];
       const ownerEvents = [];
-        if (err) {
-          console.log(err);
-        }else{
-          for (var i = 0; i < result.length; i++) {
-            var eventDate = new Date(result[i].EventDate);
-            if(result[i].owner_email == req.session.emailAddress && eventDate.getTime() - today.getTime() > 0){
-              var x = {
-                EventName: result[i].EventName,
-                EventNo: result[i].EventNo,
-                EventDate: result[i].EventDate,
-              };
-              ownerEvents.push(x);
-            }else{
-              var a = {
-                EventName: result[i].EventName,
-                EventNo: result[i].EventNo,
-                EventDate: result[i].EventDate,
-              };
-              Events.push(a);
-            }
+      if (err) {
+        console.log(err);
+      } else {
+        for (var i = 0; i < result.length; i++) {
+          var eventDate = new Date(result[i].EventDate);
+          if (
+            result[i].owner_email == req.session.emailAddress &&
+            eventDate.getTime() - today.getTime() > 0
+          ) {
+            var x = {
+              EventName: result[i].EventName,
+              EventNo: result[i].EventNo,
+              EventDate: result[i].EventDate,
+            };
+            ownerEvents.push(x);
+          } else {
+            var a = {
+              EventName: result[i].EventName,
+              EventNo: result[i].EventNo,
+              EventDate: result[i].EventDate,
+            };
+            Events.push(a);
           }
-          console.log(ownerEvents.length);
-          res.render("ownerPanel", {
-            Events,
-            ownerEvents,
-            loginn: req.session.loggedinUser,
-            email: req.session.emailAddress,
-          });
         }
-    })
-  }else{
-    res.redirect('/notFound');
+        console.log(ownerEvents.length);
+        res.render("ownerPanel", {
+          Events,
+          ownerEvents,
+          loginn: req.session.loggedinUser,
+          email: req.session.emailAddress,
+        });
+      }
+      res.render("ownerPanel", {
+        Events,
+        loginn: req.session.loggedinUser,
+        email: req.session.emailAddress,
+      });
+    });
+  } else {
+    res.redirect("/notFound");
   }
-  
+});
+router.get("/ownerMain", (req, res) => {
+  if (req.session.userRole == "owner") {
+    res.render("ownerMain", {
+      loginn: req.session.loggedinUser,
+      email: req.session.emailAddress,
+      name: req.session.name,
+      lastname: req.session.lname,
+    });
+  } else {
+    res.redirect("/notFound");
+  }
+});
+router.get("/adminMain", (req, res) => {
+  if (req.session.userRole == "admin") {
+    res.render("adminMain", {
+      loginn: req.session.loggedinUser,
+      email: req.session.emailAddress,
+      name: req.session.name,
+      lastname: req.session.lname,
+    });
+  } else {
+    res.redirect("/notFound");
+  }
 });
 
 router.get("/eventdeleteasowner/:id", (req, res) => {
@@ -710,22 +849,19 @@ router.get("/eventdeleteasowner/:id", (req, res) => {
   });
 });
 
-
-
-
 router.get("/registerSuccess", (req, res) => {
   res.render("registerSuccess", {
     loginn: req.session.loggedinUser,
     email: req.session.emailAddress,
-    name : req.session.name,
-    lastname : req.session.lname,
+    name: req.session.name,
+    lastname: req.session.lname,
   });
 });
 router.get("/contactusSuccess", (req, res) => {
   res.render("contactusSuccess", {
     loginn: req.session.loggedinUser,
     email: req.session.emailAddress,
-    contactname : req.session.contactname,
+    contactname: req.session.contactname,
   });
 });
 
@@ -743,43 +879,49 @@ router.get("/notFound", (req, res) => {
 });
 router.get("/myCart", async (req, res) => {
   const Detail = [];
-  db.query("SELECT * FROM cart WHERE UserEmail=?",
-  [req.session.emailAddress],
-  async (err,result) => {
-    if(err){
-      console.log(err);
-    } else {
-      for (var i = 0; i < result.length; i++) {
-        if(result[i].UserEmail == req.session.emailAddress){
-          console.log(result[i].UserEmail);
-          var a = [
-          {
-            EventNo: result[i].EventNo,
-            EventName: result[i].EventName,
-            EventPrice: result[i].EventPrice,
-          },
-        ];
-          Detail.push(a);
+  db.query(
+    "SELECT * FROM cart WHERE UserEmail=?",
+    [req.session.emailAddress],
+    async (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        for (var i = 0; i < result.length; i++) {
+          if (result[i].UserEmail == req.session.emailAddress) {
+            console.log(result[i].UserEmail);
+            var a = [
+              {
+                EventNo: result[i].EventNo,
+                EventName: result[i].EventName,
+                EventPrice: result[i].EventPrice,
+              },
+            ];
+            Detail.push(a);
+          }
         }
-      }
-    console.log("---------");
+        console.log("---------");
         console.log(Detail);
-  res.render("myCart", {
-    Detail,
-    email: req.session.emailAddress,
-    loginn: req.session.loggedinUser,
-  });
+        res.render("myCart", {
+          Detail,
+          email: req.session.emailAddress,
+          loginn: req.session.loggedinUser,
+        });
+      }
     }
-  });
+  );
 });
 router.get("/deletefromcart/:id", (req, res) => {
   const path = req.params.id;
-  db.query("DELETE FROM Cart WHERE EventNo = ? AND UserEmail = ?",[path , req.session.emailAddress] , (err, result) => {
-    if (err) {
-      console.log(err);
+  db.query(
+    "DELETE FROM Cart WHERE EventNo = ? AND UserEmail = ?",
+    [path, req.session.emailAddress],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.redirect("/myCart");
     }
-    res.redirect("/myCart");
-  });
+  );
 });
 router.get("/addcart/:no", (req, res) => {
   var path = req.params.no;
@@ -790,7 +932,6 @@ router.get("/addcart/:no", (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        
         const Event = [
           {
             EventName: result[0].EventName,
@@ -817,18 +958,16 @@ router.get("/addcart/:no", (req, res) => {
           },
           (error, result2) => {
             if (error) {
-            console.log(error);
-            res.redirect("/addCartError");
-            }else{
+              console.log(error);
+              res.redirect("/addCartError");
+            } else {
               res.redirect("/myCart");
-            } 
-            
+            }
           }
         );
       }
     }
   );
-  
 });
 
 router.get("/forgetSuccess", (req, res) => {
@@ -838,49 +977,48 @@ router.get("/forgetSuccess", (req, res) => {
 });
 router.get("/resetPassword/:mail", (req, res) => {
   var path = req.params.mail;
-  if(path.length < 30){
+  if (path.length < 30) {
     res.redirect("/notFound");
   }
   res.render("passwordConfirmation", {
-    pathh : path,
-    message : req.session.message,
+    pathh: path,
+    message: req.session.message,
     loginn: req.session.loggedinUser,
   });
 });
 router.post("/passwordChange/:mail", async (req, res) => {
   var path = req.params.mail;
   const decryptedEmail = cryptr.decrypt(path);
-  const {password, passwordConfirm } = req.body;
+  const { password, passwordConfirm } = req.body;
   if (password !== passwordConfirm) {
     res.render("passwordConfirmation", {
       message: "Passwords do not match",
-      pathh : path,
-      loginn : req.session.loggedinUser,
+      pathh: path,
+      loginn: req.session.loggedinUser,
     });
-  }else{
-    let hashedPass =  await bcrypt.hash(password, 8);
-          db.query("UPDATE users SET password = ? where email = ? ", [hashedPass , decryptedEmail],
-            (error, result) => {
-              if (error) {
-              
-              console.log(error);
-              } else {
-                res.render("changeSuccess", {
-                  loginn: req.session.loggedinUser,
-                });
-              }
-            }
-          )
-        
-          }
-    
+  } else {
+    let hashedPass = await bcrypt.hash(password, 8);
+    db.query(
+      "UPDATE users SET password = ? where email = ? ",
+      [hashedPass, decryptedEmail],
+      (error, result) => {
+        if (error) {
+          console.log(error);
+        } else {
+          res.render("changeSuccess", {
+            loginn: req.session.loggedinUser,
+          });
+        }
+      }
+    );
+  }
 });
 router.get("/control", (req, res) => {
-  const encryptedString = cryptr.encrypt('salih.coskun@isik.edu.tr');
+  const encryptedString = cryptr.encrypt("salih.coskun@isik.edu.tr");
   console.log(encryptedString);
   const decryptedString = cryptr.decrypt(encryptedString);
   console.log(decryptedString);
-  res.redirect("/")
+  res.redirect("/");
 });
 
 module.exports = router;

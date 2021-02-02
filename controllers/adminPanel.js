@@ -36,7 +36,7 @@ exports.event = (req,res) => {
         console.log(err);
         }else{
             console.log(EventName)
-        return res.redirect("/adminPanel");
+        return res.redirect("/EventPanel");
         }
     }
     )
@@ -61,7 +61,7 @@ exports.city = (req,res) => {
         if(err){
         console.log(err);
         }else{
-        return res.redirect("/adminPanel");
+        return res.redirect("/CityPanel");
         }
     }
     )

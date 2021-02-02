@@ -1,0 +1,41 @@
+#bodyadmin {
+  min-height: 90vh;
+  background-image: linear-gradient(60deg, #063366 0%, #485564 100%);
+}
+.mainpart {
+  padding-top: 30rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.namep {
+  margin: 3rem;
+}
+.welcomep {
+  display: flex;
+  flex-direction: row;
+}
+.namep h3 {
+  font-size: 24px;
+}
+.mm {
+  height: 30rem;
+  background-color: white;
+  border-radius: 1.175rem;
+  border: 1px black solid;
+  padding: 5rem;
+}
+button {
+  margin-right: 2rem;
+  padding: 8px;
+  border-radius: 1.175rem;
+  border: 1px black solid;
+  cursor: pointer;
+  background-color: #5481b3;
+  font-size: 16px;
+  color: white;
+}
+button:hover {
+  opacity: 0.8;
+}

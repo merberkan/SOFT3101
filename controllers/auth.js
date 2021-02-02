@@ -4,15 +4,15 @@ const bcrypt = require("bcryptjs");
 var express = require("express");
 var router = express.Router();
 var nodemailer = require("nodemailer");
-const Cryptr = require('cryptr');
-const cryptr = new Cryptr('myTotalySecretKey');
+const Cryptr = require("cryptr");
+const cryptr = new Cryptr("myTotalySecretKey");
 mysql.createConnection({ multipleStatements: true });
 
 const db = mysql.createConnection({
   host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE,
 });
 
 exports.login = async (req, res) => {
@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
     if (!email || !password) {
       return res.status(400).render("login", {
         message: "please provide an email or password ",
-        loginn : req.session.loggedinUser,
+        loginn: req.session.loggedinUser,
       });
     }
     db.query(
@@ -32,12 +32,14 @@ exports.login = async (req, res) => {
       [email],
       async (error, results) => {
         console.log(results);
-        if (results=="" || !(await bcrypt.compare(password, results[0].password))
+        if (
+          results == "" ||
+          !(await bcrypt.compare(password, results[0].password))
         ) {
           req.session.message = "email or password incorrect";
           res.render("login", {
             message: req.session.message,
-            loginn : req.session.loggedinUser,
+            loginn: req.session.loggedinUser,
           });
         } else {
           const id = results[0].id;
@@ -67,7 +69,13 @@ exports.login = async (req, res) => {
           //     return res.status(200).redirect('dashboard', {
           //         email : emailAddress
           //     });
-          res.redirect("/");
+          if (req.session.userRole == "admin") {
+            res.redirect("/adminMain");
+          } else if (req.session.userRole == "owner") {
+            res.redirect("/ownerMain");
+          } else {
+            res.redirect("/");
+          }
         }
       }
     );
@@ -93,72 +101,72 @@ exports.register = (req, res) => {
       if (results.length > 0) {
         res.render("register", {
           message: "That Email is already in use",
-          loginn : req.session.loggedinUser,
+          loginn: req.session.loggedinUser,
         });
       } else if (password !== passwordConfirm) {
         res.render("register", {
           message: "Passwords do not match",
-          loginn : req.session.loggedinUser,
+          loginn: req.session.loggedinUser,
         });
-      }else{
-      let hashedPassword = await bcrypt.hash(password, 8);
-      console.log(hashedPassword);
-      db.query(
-        "INSERT INTO users SET ? ",
-        {
-          role: "regUser",
-          password: hashedPassword,
-          email: email,
-          firstname: name,
-          lastname: lastname,
-        },
-        (err, results) => {
-          if (error) {
-            console.log(error);
-          } else {
-            var transporter = nodemailer.createTransport({
-              service: "gmail",
-              auth: {
-                user: "snolldestek@gmail.com",
-                pass: "snoll123",
-              },
-              tls: {
-                rejectUnauthorized: false,
-              },
-            });
-          
-            var mailOptions = {
-              from: "snolldestek@gmail.com",
-              to: email,
-              subject: "Tebrikler",
-              text:
-                "Tebrikler başarılı bir şekilde sitemize kayıt oldunuz! Email adresiniz : " +
-                email 
-            };
-          
-            transporter.sendMail(mailOptions, function (error, info) {
-              if (error) {
-                console.log(error);
-              } else {
-                console.log("Email sent: " + info.response);
-              }
-            });
-            console.log(results);
-            req.session.name = name ;
-            req.session.lname = lastname;
-            return res.redirect("/registerSuccess");
+      } else {
+        let hashedPassword = await bcrypt.hash(password, 8);
+        console.log(hashedPassword);
+        db.query(
+          "INSERT INTO users SET ? ",
+          {
+            role: "regUser",
+            password: hashedPassword,
+            email: email,
+            firstname: name,
+            lastname: lastname,
+          },
+          (err, results) => {
+            if (error) {
+              console.log(error);
+            } else {
+              var transporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                  user: "snolldestek@gmail.com",
+                  pass: "snoll123",
+                },
+                tls: {
+                  rejectUnauthorized: false,
+                },
+              });
+
+              var mailOptions = {
+                from: "snolldestek@gmail.com",
+                to: email,
+                subject: "Tebrikler",
+                text:
+                  "Tebrikler başarılı bir şekilde sitemize kayıt oldunuz! Email adresiniz : " +
+                  email,
+              };
+
+              transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log("Email sent: " + info.response);
+                }
+              });
+              console.log(results);
+              req.session.name = name;
+              req.session.lname = lastname;
+              return res.redirect("/registerSuccess");
+            }
           }
-        }
-      );
+        );
       }
     }
   );
 };
 
 exports.contactus = (req, res) => {
-  console.log('çalıştı');
+  console.log("çalıştı");
 
-  const {nameS, contactmail,message} = req.body;
+  const { nameS, contactmail, message } = req.body;
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -175,8 +183,10 @@ exports.contactus = (req, res) => {
     to: contactmail,
     subject: "Destek Talebi",
     text:
-      "Merhabalar Sayın " +nameS+" Gönderdiğiniz mesaj destek ekiplerimiz tarafından incelemeye"
-      + " alınmıştır. En kısa sürede tarafınızla iletişime geçilecektir."
+      "Merhabalar Sayın " +
+      nameS +
+      " Gönderdiğiniz mesaj destek ekiplerimiz tarafından incelemeye" +
+      " alınmıştır. En kısa sürede tarafınızla iletişime geçilecektir.",
   };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
@@ -190,7 +200,11 @@ exports.contactus = (req, res) => {
     to: "snolldestek@gmail.com",
     subject: "Destek Ekibinin Dikkatine ",
     text:
-      "Destek ekibinin dikkatine " +nameS+" isimli kullanıcı destek ekibimize şu mesajı bıraktı "+message+ " En kısa sürede değerlendirilip kullanıcıya geri dönülmesi gerekmektedir . İyi çalışmalar"
+      "Destek ekibinin dikkatine " +
+      nameS +
+      " isimli kullanıcı destek ekibimize şu mesajı bıraktı " +
+      message +
+      " En kısa sürede değerlendirilip kullanıcıya geri dönülmesi gerekmektedir . İyi çalışmalar",
   };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
@@ -200,45 +214,58 @@ exports.contactus = (req, res) => {
     }
   });
   req.session.contactname = nameS;
-  res.redirect('/contactusSuccess');
+  res.redirect("/contactusSuccess");
 };
 
-exports.adminPanel = (req,res) => {
+exports.adminPanel = (req, res) => {
   try {
-    const { EventNo, EventName, EventDate, EventPlace, EventPrice, EventPhotoBackground,
-    EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventAddress, EventCity} = req.body;
-    db.query('INSERT INTO Events SET ?',
-    {
-      EventNo: EventNo,
-      EventName: EventName,
-      EventDate: EventDate,
-      EventPlace: EventPlace,
-      EventPrice: EventPrice,
-      EventPhotoBackground: EventPhotoBackground,
-      EventPhotoUrl: EventPhotoUrl,
-      PerformerName: PerformerName,
-      EventCategory: EventCategory,
-      EventCapacity: EventCapacity,
-      EventAddress: EventAddress,
-      EventCity: EventCity,
-    }, (err,results) => {
-      if(err){
-        console.log(err);
-      }else{
-        return res.redirect("/adminPanel");
+    const {
+      EventNo,
+      EventName,
+      EventDate,
+      EventPlace,
+      EventPrice,
+      EventPhotoBackground,
+      EventPhotoUrl,
+      PerformerName,
+      EventCategory,
+      EventCapacity,
+      EventAddress,
+      EventCity,
+    } = req.body;
+    db.query(
+      "INSERT INTO Events SET ?",
+      {
+        EventNo: EventNo,
+        EventName: EventName,
+        EventDate: EventDate,
+        EventPlace: EventPlace,
+        EventPrice: EventPrice,
+        EventPhotoBackground: EventPhotoBackground,
+        EventPhotoUrl: EventPhotoUrl,
+        PerformerName: PerformerName,
+        EventCategory: EventCategory,
+        EventCapacity: EventCapacity,
+        EventAddress: EventAddress,
+        EventCity: EventCity,
+      },
+      (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          return res.redirect("/EventPanel");
+        }
       }
-    }
-    )
+    );
   } catch (error) {
     console.log(error);
   }
-
 };
 
 exports.contactus = (req, res) => {
-  console.log('çalıştı');
+  console.log("çalıştı");
 
-  const {nameS, contactmail,message} = req.body;
+  const { nameS, contactmail, message } = req.body;
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -255,8 +282,10 @@ exports.contactus = (req, res) => {
     to: contactmail,
     subject: "Destek Talebi",
     text:
-      "Merhabalar Sayın " +nameS+" Gönderdiğiniz mesaj destek ekiplerimiz tarafından incelemeye"
-      + " alınmıştır. En kısa sürede tarafınızla iletişime geçilecektir."
+      "Merhabalar Sayın " +
+      nameS +
+      " Gönderdiğiniz mesaj destek ekiplerimiz tarafından incelemeye" +
+      " alınmıştır. En kısa sürede tarafınızla iletişime geçilecektir.",
   };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
@@ -270,7 +299,11 @@ exports.contactus = (req, res) => {
     to: "snolldestek@gmail.com",
     subject: "Destek Ekibinin Dikkatine ",
     text:
-      "Destek ekibinin dikkatine " +nameS+" isimli kullanıcı destek ekibimize şu mesajı bıraktı "+message+ " En kısa sürede değerlendirilip kullanıcıya geri dönülmesi gerekmektedir . İyi çalışmalar"
+      "Destek ekibinin dikkatine " +
+      nameS +
+      " isimli kullanıcı destek ekibimize şu mesajı bıraktı " +
+      message +
+      " En kısa sürede değerlendirilip kullanıcıya geri dönülmesi gerekmektedir . İyi çalışmalar",
   };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
@@ -280,10 +313,10 @@ exports.contactus = (req, res) => {
     }
   });
   req.session.contactname = nameS;
-  res.redirect('/contactusSuccess');
+  res.redirect("/contactusSuccess");
 };
 
-exports.forgetPasswordSendMail = (req,res) => {
+exports.forgetPasswordSendMail = (req, res) => {
   const { email } = req.body;
   const loggedinUser = Boolean;
   const emailAddress = email;
@@ -299,8 +332,7 @@ exports.forgetPasswordSendMail = (req,res) => {
     [email],
     async (error, results) => {
       console.log(results);
-      if (results=="")
-      {
+      if (results == "") {
         req.session.message = "email sistemde kayıtlı değil";
         res.render("forgetPassword", {
           message: req.session.message,
@@ -318,15 +350,17 @@ exports.forgetPasswordSendMail = (req,res) => {
             rejectUnauthorized: false,
           },
         });
-      
+
         var mailOptions = {
           from: "snolldestek@gmail.com",
           to: email,
           subject: "Tebrikler",
           text:
-            "Burada ki bağlantıyı kullanarak şifrenizi sıfırlayabilirsiniz http://localhost:3000/resetPassword/"+encryptedemail + " Bizi tercih ettiğiniz için teşekkür ederiz"
+            "Burada ki bağlantıyı kullanarak şifrenizi sıfırlayabilirsiniz http://localhost:3000/resetPassword/" +
+            encryptedemail +
+            " Bizi tercih ettiğiniz için teşekkür ederiz",
         };
-      
+
         transporter.sendMail(mailOptions, function (error, info) {
           if (error) {
             console.log(error);
@@ -337,5 +371,5 @@ exports.forgetPasswordSendMail = (req,res) => {
         res.redirect("/forgetSuccess");
       }
     }
-    )
+  );
 };

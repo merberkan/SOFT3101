@@ -291,7 +291,7 @@ input[type="search"]:focus {
   border: 1px solid black;
   opacity: 1;
   margin-right: 5px;
-  max-height: 11rem;
+  height: 11rem;
 }
 .rowcontainer:hover img {
   opacity: 0.8;
