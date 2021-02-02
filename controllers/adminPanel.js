@@ -16,10 +16,10 @@ database: process.env.DATABASE
 exports.event = (req,res) => {
     try {
     const { EventNo, EventName, EventDate, EventPlace, EventPrice, EventPhotoBackground,
-    EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventAddress, EventCity} = req.body;
+    EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventAddress, EventCity,owner_email} = req.body;
     db.query('INSERT INTO Events SET ?',
-    {
-        EventNo: EventNo,
+    {   
+          
         EventName: EventName,
         EventDate: EventDate,
         EventPlace: EventPlace,
@@ -31,6 +31,7 @@ exports.event = (req,res) => {
         EventCapacity: EventCapacity,
         EventAddress: EventAddress,
         EventCity: EventCity,
+        owner_email:req.session.emailAddress,
     }, (err,results) => {
         if(err){
         console.log(err);

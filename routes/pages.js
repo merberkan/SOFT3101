@@ -26,6 +26,7 @@ router.get("/", (req, res) => {
       };
       Events.push(a);
     }
+
     res.render("index", {
       Events,
       email: req.session.emailAddress,
@@ -572,7 +573,17 @@ router.get("/EventPanel", (req, res) => {
           var a = {
             EventNo: result[i].EventNo,
             EventName: result[i].EventName,
+            EventDate: result[i].EventDate,
+            EventPlace: result[i].EventPlace,
+            EventPrice: result[i].EventPrice,
+            EventPhotoBackground: result[i].EventPhotoBackground,
             EventPhotoUrl: result[i].EventPhotoUrl,
+            PerformerName: result[i].PerformerName,
+            EventCategory: result[i].EventCategory,
+            EventCapacity: result[i].EventCapacity,
+            EventAddress: result[i].EventAddress,
+            EventCity: result[i].EventCity,
+            owner_email: result[i].owner_email,
           };
           Events.push(a);
         }
@@ -619,7 +630,7 @@ router.get("/CityPanel", (req, res) => {
         for (var i = 0; i < result.length; i++) {
           var a = {
             CityName: result[i].CityName,
-            HistoryPlaces: result[i].HistoryPlaces,
+            CityPhoto: result[i].CityPhoto,
           };
           City.push(a);
         }
@@ -845,16 +856,36 @@ router.get("/ownerPanel", (req, res) => {
             eventDate.getTime() - today.getTime() > 0
           ) {
             var x = {
-              EventName: result[i].EventName,
               EventNo: result[i].EventNo,
+              EventName: result[i].EventName,
               EventDate: result[i].EventDate,
+              EventPlace: result[i].EventPlace,
+              EventPrice: result[i].EventPrice,
+              EventPhotoBackground: result[i].EventPhotoBackground,
+              EventPhotoUrl: result[i].EventPhotoUrl,
+              PerformerName: result[i].PerformerName,
+              EventCategory: result[i].EventCategory,
+              EventCapacity: result[i].EventCapacity,
+              EventAddress: result[i].EventAddress,
+              EventCity: result[i].EventCity,
+              owner_email: result[i].owner_email,
             };
             ownerEvents.push(x);
           } else {
             var a = {
-              EventName: result[i].EventName,
               EventNo: result[i].EventNo,
+              EventName: result[i].EventName,
               EventDate: result[i].EventDate,
+              EventPlace: result[i].EventPlace,
+              EventPrice: result[i].EventPrice,
+              EventPhotoBackground: result[i].EventPhotoBackground,
+              EventPhotoUrl: result[i].EventPhotoUrl,
+              PerformerName: result[i].PerformerName,
+              EventCategory: result[i].EventCategory,
+              EventCapacity: result[i].EventCapacity,
+              EventAddress: result[i].EventAddress,
+              EventCity: result[i].EventCity,
+              owner_email: result[i].owner_email,
             };
             Events.push(a);
           }
@@ -914,12 +945,42 @@ router.get("/ownerMain", (req, res) => {
 });
 router.get("/adminMain", (req, res) => {
   if (req.session.userRole == "admin") {
-    res.render("adminMain", {
-      loginn: req.session.loggedinUser,
-      email: req.session.emailAddress,
-      name: req.session.name,
-      lastname: req.session.lname,
-    });
+    db.query(
+      "SELECT * FROM Users WHERE Users.email = ?",
+      [req.session.emailAddress],
+      (err, result) => {
+        const User = [];
+        if (err) {
+          console.log(err);
+        }
+        if (result.length > 0) {
+          for (var i = 0; i < result.length; i++) {
+            var x = [
+              {
+                firstname: result[i].firstname,
+                lastname: result[i].lastname,
+                email: result[i].email,
+                role: result[i].role,
+              },
+            ];
+            User.push(x);
+          }
+          var length = User.length;
+          for (var j = 0; j < length - 1; j++) {
+            console.log(j, User.length);
+            User.pop();
+          }
+
+          res.render("adminMain", {
+            User,
+            loginn: req.session.loggedinUser,
+            email: req.session.emailAddress,
+            name: req.session.name,
+            lastname: req.session.lname,
+          });
+        }
+      }
+    );
   } else {
     res.redirect("/notFound");
   }
