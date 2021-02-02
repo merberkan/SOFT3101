@@ -85,6 +85,7 @@
                 id="EventName"
                 name="EventName"
                 style="margin-top: 5rem"
+                required
               />
             </div>
             <div class="event-top">
@@ -94,6 +95,7 @@
                 id="EventDate"
                 name="EventDate"
                 style="margin-top: 5rem"
+                required
               />
             </div>
             <div class="event-top">
@@ -103,6 +105,7 @@
                 id="EventPlace"
                 name="EventPlace"
                 style="margin-top: 5rem"
+                required
               />
             </div>
             <div class="event-top">
@@ -114,6 +117,7 @@
                 id="EventPrice"
                 name="EventPrice"
                 style="margin-top: 5rem"
+                required
               />
             </div>
             <div class="event-top" style="justify-content: space-between">
@@ -123,6 +127,7 @@
                 name="EventPhotoBackground"
                 rows="4"
                 cols="15"
+                required
               ></textarea>
             </div>
             <div class="event-top" style="justify-content: space-between">
@@ -132,6 +137,7 @@
                 name="EventPhotoUrl"
                 rows="4"
                 cols="15"
+                required
               ></textarea>
             </div>
             <div class="event-top">
@@ -141,6 +147,7 @@
                 id="PerformerName"
                 name="PerformerName"
                 style="margin-top: 5rem"
+                required
               />
             </div>
             <div class="event-top">
@@ -149,6 +156,7 @@
                 name="EventCategory"
                 id="EventCategory"
                 style="margin-top: 2.3rem"
+                required
               >
                 <option></option>
                 <option>Müzik</option>
@@ -166,6 +174,7 @@
                 id="EventCapacity"
                 name="EventCapacity"
                 style="margin-top: 2.3rem"
+                required
               />
             </div>
             <div class="event-top" style="justify-content: space-between">
@@ -175,6 +184,7 @@
                 name="EventAddress"
                 rows="4"
                 cols="15"
+                required
               ></textarea>
             </div>
             <div class="event-top">
@@ -183,6 +193,7 @@
                 name="EventCity"
                 id="EventCity"
                 style="margin-top: 2.3rem"
+                required
               >
                 <option></option>
                 <option>İstanbul</option>
@@ -213,7 +224,6 @@
           </div>
         </form>
       </div>
-
       <div
         class="showpart"
         style="
@@ -227,7 +237,10 @@
           margin-bottom: 5rem;
         "
       >
-        <table>
+        <h3 style="font-size: 24px; margin: 10px; color: white">
+          Güncel Etkinlikler
+        </h3>
+        <table style="width: 100%">
           <tr>
             <th>Etkinlik Çıkar</th>
             <th>Etkinlik No</th>
@@ -251,22 +264,57 @@
                 <button class="button">Etkinlik Çıkar</button>
               </a>
             </td>
-            <td><%=events.EventNo%></td>
-            <td><%=events.EventName%></td>
-            <td><%=events.EventDate%></td>
-            <td><%=events.EventPlace%></td>
-            <td><%=events.EventPrice%></td>
-            <td><%=events.EventPhotoBackground%></td>
-            <td><%=events.EventPhotoUrl%></td>
-            <td><%=events.PerformerName%></td>
-            <td><%=events.EventCategory%></td>
-            <td><%=events.EventCapacity%></td>
-            <td><%=events.EventAddress%></td>
-            <td><%=events.EventCity%></td>
+            <td><%=ownerEvent.EventNo%></td>
+            <td><%=ownerEvent.EventName%></td>
+            <td><%=ownerEvent.EventDate%></td>
+            <td><%=ownerEvent.EventPlace%></td>
+            <td><%=ownerEvent.EventPrice%></td>
+            <td><%=ownerEvent.EventPhotoBackground%></td>
+            <td><%=ownerEvent.EventPhotoUrl%></td>
+            <td><%=ownerEvent.PerformerName%></td>
+            <td><%=ownerEvent.EventCategory%></td>
+            <td><%=ownerEvent.EventCapacity%></td>
+            <td><%=ownerEvent.EventAddress%></td>
+            <td><%=ownerEvent.EventCity%></td>
           </tr>
-          <% }) %> <% } %> <% if(Events.length >0){%> <%Events.forEach(events =>
-          { %>
+          <% }) %> <% } %>
+        </table>
+      </div>
+      <div
+        class="showpart"
+        style="
+          position: relative;
+          background-image: linear-gradient(60deg, #063366 0%, #485564 100%);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          border-radius: 1.175rem;
+          margin-bottom: 5rem;
+        "
+      >
+        <h3 style="font-size: 24px; margin: 10px; color: white">
+          Tarihi Geçmiş Etkinlikler
+        </h3>
+        <table style="width: 100%">
           <tr>
+            <th>Etkinlik Çıkar</th>
+            <th>Etkinlik No</th>
+            <th>Etkinlik Adı</th>
+            <th>Etkinlik Tarihi</th>
+            <th>Etkinlik Yeri</th>
+            <th>Etkinlik Fiyatı</th>
+            <th>Etkinlik Arkaplan</th>
+            <th>Etkinlik Resmi</th>
+            <th>Sanatçı</th>
+            <th>Etkinlik Kategorisi</th>
+            <th>Etkinlik Kapasitesi</th>
+            <th>Etkinlik Adresi</th>
+            <th>Etkinlik Şehri</th>
+          </tr>
+          <% if(Events.length >0){%> <%Events.forEach(events => { %>
+          <tr>
+            <td></td>
             <td><%=events.EventNo%></td>
             <td><%=events.EventName%></td>
             <td><%=events.EventDate%></td>
@@ -282,6 +330,26 @@
           </tr>
           <% }) %> <% } %>
         </table>
+      </div>
+      <div
+        class="b"
+        style="display: flex; justify-content: end; align-items: center"
+      >
+        <a href="/ownerMain">
+          <button
+            style="
+              padding: 5px;
+              border-radius: 1.175rem;
+              border: 1px black solid;
+              cursor: pointer;
+              background-color: #5481b3;
+              font-size: 16px;
+              color: white;
+            "
+          >
+            Ana Sayfana Dön
+          </button></a
+        >
       </div>
     </section>
 

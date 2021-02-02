@@ -597,35 +597,68 @@ router.get("/profile", async (req, res) => {
   }
 });
 router.get("/EventPanel", (req, res) => {
+  var today = new Date();
   if (req.session.userRole == "admin") {
-    db.query("SELECT * FROM Snoll.Events", async (err, result) => {
+    db.query("SELECT * FROM Events", (err, result) => {
       const Events = [];
-      if (result.length > 0) {
+      const pEvents = [];
+      if (err) {
+        console.log(err);
+      } else {
         for (var i = 0; i < result.length; i++) {
-          var a = {
-            EventNo: result[i].EventNo,
-            EventName: result[i].EventName,
-            EventDate: result[i].EventDate,
-            EventPlace: result[i].EventPlace,
-            EventPrice: result[i].EventPrice,
-            EventPhotoBackground: result[i].EventPhotoBackground,
-            EventPhotoUrl: result[i].EventPhotoUrl,
-            PerformerName: result[i].PerformerName,
-            EventCategory: result[i].EventCategory,
-            EventCapacity: result[i].EventCapacity,
-            EventAddress: result[i].EventAddress,
-            EventCity: result[i].EventCity,
-            owner_email: result[i].owner_email,
-          };
-          Events.push(a);
+          var eventDate = new Date(result[i].EventDate);
+          if (
+            result[i].owner_email == req.session.emailAddress &&
+            eventDate.getTime() - today.getTime() > 0
+          ) {
+            var x = {
+              EventNo: result[i].EventNo,
+              EventName: result[i].EventName,
+              EventDate: result[i].EventDate,
+              EventPlace: result[i].EventPlace,
+              EventPrice: result[i].EventPrice,
+              EventPhotoBackground: result[i].EventPhotoBackground,
+              EventPhotoUrl: result[i].EventPhotoUrl,
+              PerformerName: result[i].PerformerName,
+              EventCategory: result[i].EventCategory,
+              EventCapacity: result[i].EventCapacity,
+              EventAddress: result[i].EventAddress,
+              EventCity: result[i].EventCity,
+              owner_email: result[i].owner_email,
+            };
+            pEvents.push(x);
+          } else {
+            var a = {
+              EventNo: result[i].EventNo,
+              EventName: result[i].EventName,
+              EventDate: result[i].EventDate,
+              EventPlace: result[i].EventPlace,
+              EventPrice: result[i].EventPrice,
+              EventPhotoBackground: result[i].EventPhotoBackground,
+              EventPhotoUrl: result[i].EventPhotoUrl,
+              PerformerName: result[i].PerformerName,
+              EventCategory: result[i].EventCategory,
+              EventCapacity: result[i].EventCapacity,
+              EventAddress: result[i].EventAddress,
+              EventCity: result[i].EventCity,
+              owner_email: result[i].owner_email,
+            };
+            Events.push(a);
+          }
         }
+        console.log(pEvents.length);
+        res.render("EventPanel", {
+          Events,
+          pEvents,
+          loginn: req.session.loggedinUser,
+          email: req.session.emailAddress,
+        });
       }
       res.render("EventPanel", {
         Events,
-        email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
         adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+        ownerr: req.session.ownerUser,
       });
     });
   } else {
@@ -760,59 +793,71 @@ router.get("/eventdelete/:id", (req, res) => {
         events.push(a);
       }
       console.log(events);
-    };
-    db.query("SELECT * FROM ticket Where event_name = ?", [events[0].EventName], (err, result3) => {
-      const tickets = [];
-      if (err) {
-        console.log(err)
-        res.redirect("/notFound");
-      }
-      if (result3.length > 0) {
-        for (var i = 0; i < result3.length; i++) {
-          var b = {
-            EventName: result3[i].event_name,
-            user_email: result3[i].user_email,
-          };
-          tickets.push(b);
-        }
-        console.log("---------------------------------------");
-        console.log(tickets);
-        console.log("---------------------------------------");
-        for (i = 0; i < tickets.length; i++) {
-          var transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-              user: "snolldestek@gmail.com",
-              pass: "snoll123",
-            },
-            tls: {
-              rejectUnauthorized: false,
-            },
-          });
-
-          var mailOptions = {
-            from: "snolldestek@gmail.com",
-            to: tickets[i].user_email,
-            subject: "Etkinlik İptali",
-            text: "Bilet satın almış olduğunuz bir etkinlik iptal olmuştur yapmış olduğunuz " + result[0].EventPrice + "₺ lik ödeme" + " tarafınıza en kısa sürede iletilecektir."
-          };
-
-          transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log("Email sent: " + info.response);
-            }
-          });
-        }
-      }
-      db.query("DELETE FROM Events Where EventNo = ?", [path], (err, result) => {
+    }
+    db.query(
+      "SELECT * FROM ticket Where event_name = ?",
+      [events[0].EventName],
+      (err, result3) => {
+        const tickets = [];
         if (err) {
           console.log(err);
+          res.redirect("/notFound");
         }
-        res.redirect("/EventPanel");
-      });
-    })
+        if (result3.length > 0) {
+          for (var i = 0; i < result3.length; i++) {
+            var b = {
+              EventName: result3[i].event_name,
+              user_email: result3[i].user_email,
+            };
+            tickets.push(b);
+          }
+          console.log("---------------------------------------");
+          console.log(tickets);
+          console.log("---------------------------------------");
+          for (i = 0; i < tickets.length; i++) {
+            var transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: "snolldestek@gmail.com",
+                pass: "snoll123",
+              },
+              tls: {
+                rejectUnauthorized: false,
+              },
+            });
+
+            var mailOptions = {
+              from: "snolldestek@gmail.com",
+              to: tickets[i].user_email,
+              subject: "Etkinlik İptali",
+              text:
+                "Bilet satın almış olduğunuz bir etkinlik iptal olmuştur yapmış olduğunuz " +
+                result[0].EventPrice +
+                "₺ lik ödeme" +
+                " tarafınıza en kısa sürede iletilecektir.",
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Email sent: " + info.response);
+              }
+            });
+          }
+        }
+        db.query(
+          "DELETE FROM Events Where EventNo = ?",
+          [path],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            }
+            res.redirect("/EventPanel");
+          }
+        );
+      }
+    );
   });
 });
 
@@ -954,20 +999,19 @@ router.get("/ownerMain", (req, res) => {
     db.query(
       "SELECT * FROM Events Where owner_email =?",
       [req.session.emailAddress],
-      (err,result) => {
-        if(err){
+      (err, result) => {
+        if (err) {
           console.log(err);
         }
         console.log(result);
-        if(result.length > 0){
-          for(var i = 0; i < result.length; i++){
-              var a = {
-                EventName: result[i].EventName,
-                EventDate: result[i].EventDate,
-                EventNo: result[i].EventNo,
-              };
-              Event.push(a);
-            }
+        if (result.length > 0) {
+          for (var i = 0; i < result.length; i++) {
+            var a = {
+              EventName: result[i].EventName,
+              EventDate: result[i].EventDate,
+              EventNo: result[i].EventNo,
+            };
+            Event.push(a);
           }
           console.log(Event);
           res.render("ownerMain", {
@@ -980,7 +1024,16 @@ router.get("/ownerMain", (req, res) => {
       ownerr: req.session.ownerUser,
           });
         }
-    )
+        console.log(Event);
+        res.render("ownerMain", {
+          Event,
+          loginn: req.session.loggedinUser,
+          email: req.session.emailAddress,
+          name: req.session.name,
+          lastname: req.session.lname,
+        });
+      }
+    );
   } else {
     res.redirect("/notFound");
   }
@@ -1037,6 +1090,15 @@ router.get("/eventdeleteasowner/:id", (req, res) => {
       console.log(err);
     }
     res.redirect("/ownerPanel");
+  });
+});
+router.get("/eventdeleteasadmin/:id", (req, res) => {
+  const path = req.params.id;
+  db.query("DELETE FROM Events Where EventNo = ?", [path], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/EventPanel");
   });
 });
 

@@ -31,11 +31,12 @@ exports.event = (req,res) => {
         EventCapacity: EventCapacity,
         EventAddress: EventAddress,
         EventCity: EventCity,
-        owner_email:owner_email
+        owner_email:req.session.emailAddress,
     }, (err,results) => {
         if(err){
         console.log(err);
         }else{
+            console.log(EventName)
         return res.redirect("/ownerPanel");
         }
     }

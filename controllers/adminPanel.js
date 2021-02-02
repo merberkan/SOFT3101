@@ -18,8 +18,8 @@ exports.event = (req,res) => {
     const { EventNo, EventName, EventDate, EventPlace, EventPrice, EventPhotoBackground,
     EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventAddress, EventCity,owner_email} = req.body;
     db.query('INSERT INTO Events SET ?',
-    {   
-          
+    {
+        EventNo: EventNo,
         EventName: EventName,
         EventDate: EventDate,
         EventPlace: EventPlace,
