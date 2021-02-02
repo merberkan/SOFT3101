@@ -288,7 +288,7 @@ router.get("/aboutus", (req, res) => {
     email: req.session.emailAddress,
     loginn: req.session.loggedinUser,
     adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+    ownerr: req.session.ownerUser,
   });
 });
 
@@ -297,7 +297,7 @@ router.get("/privacypolicy", (req, res) => {
     email: req.session.emailAddress,
     loginn: req.session.loggedinUser,
     adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+    ownerr: req.session.ownerUser,
   });
 });
 
@@ -342,7 +342,7 @@ router.get("/cityguide", (req, res) => {
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
         adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+        ownerr: req.session.ownerUser,
       });
       console.log(City);
     }
@@ -437,7 +437,7 @@ router.get("/cityguide/:name", (req, res) => {
           email: req.session.emailAddress,
           loginn: req.session.loggedinUser,
           adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+          ownerr: req.session.ownerUser,
         });
       }
     }
@@ -460,7 +460,7 @@ router.get("/category/Tiyatro", (req, res) => {
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
         adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+        ownerr: req.session.ownerUser,
       });
     }
   );
@@ -482,7 +482,7 @@ router.get("/category/Muzik", (req, res) => {
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
         adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+        ownerr: req.session.ownerUser,
       });
     }
   );
@@ -505,7 +505,7 @@ router.get("/category/Teknoloji", (req, res) => {
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
         adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+        ownerr: req.session.ownerUser,
       });
     }
   );
@@ -527,7 +527,7 @@ router.get("/category/Spor", (req, res) => {
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
         adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+        ownerr: req.session.ownerUser,
       });
     }
   );
@@ -587,7 +587,7 @@ router.get("/profile", async (req, res) => {
             email: req.session.emailAddress,
             loginn: req.session.loggedinUser,
             adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+            ownerr: req.session.ownerUser,
           });
         }
       }
@@ -657,8 +657,7 @@ router.get("/EventPanel", (req, res) => {
       res.render("EventPanel", {
         Events,
         loginn: req.session.loggedinUser,
-        adminn: req.session.adminUser,
-        ownerr: req.session.ownerUser,
+        email: req.session.emailAddress,
       });
     });
   } else {
@@ -684,7 +683,7 @@ router.get("/UserPanel", (req, res) => {
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
         adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+        ownerr: req.session.ownerUser,
       });
     });
   } else {
@@ -709,7 +708,7 @@ router.get("/CityPanel", (req, res) => {
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
         adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+        ownerr: req.session.ownerUser,
       });
     });
   } else {
@@ -980,7 +979,7 @@ router.get("/ownerPanel", (req, res) => {
           loginn: req.session.loggedinUser,
           email: req.session.emailAddress,
           adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+          ownerr: req.session.ownerUser,
         });
       }
       res.render("ownerPanel", {
@@ -1021,7 +1020,7 @@ router.get("/ownerMain", (req, res) => {
             name: req.session.name,
             lastname: req.session.lname,
             adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+            ownerr: req.session.ownerUser,
           });
         }
         console.log(Event);
@@ -1073,7 +1072,7 @@ router.get("/adminMain", (req, res) => {
             name: req.session.name,
             lastname: req.session.lname,
             adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+            ownerr: req.session.ownerUser,
           });
         }
       }
@@ -1159,7 +1158,7 @@ router.get("/myCart", async (req, res) => {
           email: req.session.emailAddress,
           loginn: req.session.loggedinUser,
           adminn: req.session.adminUser,
-      ownerr: req.session.ownerUser,
+          ownerr: req.session.ownerUser,
         });
       }
     }

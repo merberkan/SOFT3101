@@ -256,7 +256,7 @@ exports.adminPanel = (req, res) => {
         EventCapacity: EventCapacity,
         EventAddress: EventAddress,
         EventCity: EventCity,
-        owner_email:owner_email,
+        owner_email: owner_email,
       },
       (err, results) => {
         if (err) {
