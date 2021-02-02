@@ -68,6 +68,7 @@
     <!-- End Header -->
     <section id="body">
       <div class="mainpart">
+        <div class="design">
         <div class="mm">
           <div class="namep">
             <h3>Etkinlik Sahibi Anasayfasına Hoşgeldiniz</h3>
@@ -77,6 +78,27 @@
             <a href="/ownerPanel"><button>Etkinlik Paneline Git</button></a>
           </div>
         </div>
+        <div class="myEvents">
+          <div class="title">
+            <h3>Etkinliklerim</h3>
+          </div>
+          <% if(Event.length >0){%>
+            <%Event.forEach(Event => { %>
+          <div class="eventinfo">
+            <div class="eventName">
+            <h4>Etkinlik Adı: <%=Event.EventName%></h4>
+          </div>
+          <div class="eventDate">
+            <h4>Etkinlik Tarihi: <%=Event.EventDate%></h4>
+          </div>
+          <div class="eventNo">
+            <h4>Etkinlik No: <%=Event.EventNo%></h4>
+          </div>
+          </div>
+          <% }) %> 
+          <% } %> 
+        </div>
+      </div>
       </div>
     </section>
     <!-- Footer -->

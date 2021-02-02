@@ -96,7 +96,6 @@ router.get("/events", (req, res) => {
       for (var i = 0; i < result.length; i++) {
         var a = {
           EventName: result[i].EventName,
-          EventCapacity: result[i].EventCapacity,
           EventPhotoUrl: result[i].EventPhotoUrl,
         };
         Events.push(a);
@@ -880,12 +879,35 @@ router.get("/ownerPanel", (req, res) => {
 });
 router.get("/ownerMain", (req, res) => {
   if (req.session.userRole == "owner") {
-    res.render("ownerMain", {
-      loginn: req.session.loggedinUser,
-      email: req.session.emailAddress,
-      name: req.session.name,
-      lastname: req.session.lname,
-    });
+    const Event = [];
+    db.query(
+      "SELECT * FROM Events Where owner_email =?",
+      [req.session.emailAddress],
+      (err,result) => {
+        if(err){
+          console.log(err);
+        }
+        console.log(result);
+        if(result.length > 0){
+          for(var i = 0; i < result.length; i++){
+              var a = {
+                EventName: result[i].EventName,
+                EventDate: result[i].EventDate,
+                EventNo: result[i].EventNo,
+              };
+              Event.push(a);
+            }
+          }
+          console.log(Event);
+          res.render("ownerMain", {
+            Event,
+            loginn: req.session.loggedinUser,
+            email: req.session.emailAddress,
+            name: req.session.name,
+            lastname: req.session.lname,
+          });
+        }
+    )
   } else {
     res.redirect("/notFound");
   }

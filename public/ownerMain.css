@@ -4,7 +4,7 @@
 }
 
 .mainpart {
-  padding-top: 30rem;
+  padding-top: 10rem;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -41,4 +41,39 @@ button:hover {
   background-color: white;
   border-radius: 1.175rem;
   border: 1px black solid;
+}
+.myEvents{
+  height: 50rem;
+  background-color: white;
+  border-radius: 1.175rem;
+  border: 1px black solid;
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+}
+.title{
+  font-size: 24px;
+  padding-bottom: 20px;
+}
+.design{
+  display: flex;
+  flex-direction: column;
+}
+.eventinfo{
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  padding-top: 15px;
+}
+.eventDate{
+  padding-right: 8rem;
+  display: flex;
+}
+.eventName{
+  padding-right: 8rem;
+  display: flex;
+}
+.eventNo{
+  display: flex;
 }
