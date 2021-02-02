@@ -256,13 +256,18 @@
             <th>Etkinlik Adresi</th>
             <th>Etkinlik Şehri</th>
           </tr>
-          <% if(ownerEvents.length >0){%> <%ownerEvents.forEach(ownerEvent => {
-          %>
+          <% if(ownerEvents.length >0){%>
+          <%ownerEvents.forEach(ownerEvent => {%>
           <tr>
             <td>
-              <a href="/eventdeleteasowner/<%=ownerEvent.EventNo%>">
-                <button class="button">Etkinlik Çıkar</button>
-              </a>
+              <div class="buttons-row" style="display: flex;">
+                <a href="/UpdateEvent/<%=ownerEvent.EventNo%>">
+                  <button class="button">Etkinliği Güncelle</button>
+                </a>
+                <a href="/eventdeleteasowner/<%=ownerEvent.EventNo%>">
+                  <button class="button">Etkinlik Çıkar</button>
+                </a>
+              </div>
             </td>
             <td><%=ownerEvent.EventNo%></td>
             <td><%=ownerEvent.EventName%></td>
@@ -328,7 +333,8 @@
             <td><%=events.EventAddress%></td>
             <td><%=events.EventCity%></td>
           </tr>
-          <% }) %> <% } %>
+          <% }) %> 
+          <% } %>
         </table>
       </div>
       <div

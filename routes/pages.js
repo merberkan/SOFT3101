@@ -922,6 +922,41 @@ router.get("/setUser/:mail", (req, res) => {
   );
 });
 
+
+router.get("/UpdateEvent/:eventno", (req, res) => {
+  const path = req.params.eventno;
+  db.query("SELECT * FROM Events Where EventNo = ?", [path], (err, result) => {
+    const Event = [];
+    if (err) {
+      console.log(err);
+    };
+    if(result.length > 0){
+      var data = {
+              EventNo: result[0].EventNo,
+              EventName: result[0].EventName,
+              EventDate: result[0].EventDate,
+              EventPlace: result[0].EventPlace,
+              EventPrice: result[0].EventPrice,
+              EventPhotoBackground: result[0].EventPhotoBackground,
+              EventPhotoUrl: result[0].EventPhotoUrl,
+              PerformerName: result[0].PerformerName,
+              EventCategory: result[0].EventCategory,
+              EventCapacity: result[0].EventCapacity,
+              EventAddress: result[0].EventAddress,
+              EventCity: result[0].EventCity,
+              owner_email: result[0].owner_email,
+      };
+      Event.push(data);
+    };
+    res.render("UpdateEvent", {
+      Event,
+      loginn: req.session.loggedinUser,
+      email: req.session.emailAddress,
+    });
+  });
+});
+
+
 router.get("/ownerPanel", (req, res) => {
   var today = new Date();
   if (req.session.userRole == "owner") {
@@ -982,11 +1017,6 @@ router.get("/ownerPanel", (req, res) => {
           ownerr: req.session.ownerUser,
         });
       }
-      res.render("ownerPanel", {
-        Events,
-        loginn: req.session.loggedinUser,
-        email: req.session.emailAddress,
-      });
     });
   } else {
     res.redirect("/notFound");
