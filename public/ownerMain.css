@@ -7,40 +7,99 @@
   padding-top: 10rem;
   display: flex;
   justify-content: center;
-  text-align: center;
   align-items: center;
-  flex-direction: column;
+  text-align: center;
+  margin-bottom: 20rem;
 }
 .namep {
   margin: 3rem;
 }
-.namep h3 {
-  font-size: 24px;
-}
 .welcomep {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10rem;
   flex-direction: column;
 }
-.welcomep button {
-  padding: 8px;
-  border-radius: 1.175rem;
-  border: 1px black solid;
-  cursor: pointer;
-  background-color: #5481b3;
-  font-size: 16px;
-  margin-bottom: 2rem;
-}
-button:hover {
-  opacity: 0.8;
+.namep h3 {
+  font-size: 24px;
 }
 .mm {
   height: 30rem;
   background-color: white;
   border-radius: 1.175rem;
   border: 1px black solid;
+  padding: 5rem;
+}
+button {
+  margin-right: 2rem;
+  padding: 8px;
+  border-radius: 1.175rem;
+  border: 1px black solid;
+  cursor: pointer;
+  background-color: #5481b3;
+  font-size: 16px;
+  color: white;
+}
+button:hover {
+  opacity: 0.8;
+}
+.profilepart {
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 15rem;
+  border-radius: 1.175rem;
+  border: 1px solid;
+  padding: 1px 0 35px 0;
+  margin-right: 30rem;
+  margin-bottom: 20rem;
+}
+.contain {
+  display: flex;
+  padding-top: 15rem;
+  justify-content: flex-start;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+}
+.profilepart img {
+  margin: 4rem 2rem 2rem 2rem;
+  border-radius: 20%;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 10%;
+}
+
+.boxp {
+  display: flex;
+  flex-direction: column;
+  margin: 10% 0 5% 0;
+}
+
+.boxp h3 {
+  font-size: 24px;
+  border-bottom: 2px solid;
+}
+
+.boxp h4 {
+  margin-top: 5%;
+  font-size: 18px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.profileimage {
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 .myEvents{
   height: 50rem;

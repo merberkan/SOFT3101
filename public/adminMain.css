@@ -3,11 +3,11 @@
   background-image: linear-gradient(60deg, #063366 0%, #485564 100%);
 }
 .mainpart {
-  padding-top: 30rem;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin-bottom: 20rem;
 }
 .namep {
   margin: 3rem;
@@ -38,4 +38,64 @@ button {
 }
 button:hover {
   opacity: 0.8;
+}
+.profilepart {
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 15rem;
+  border-radius: 1.175rem;
+  border: 1px solid;
+  padding: 1px 0 35px 0;
+  margin-right: 30rem;
+  margin-bottom: 20rem;
+}
+.contain {
+  display: flex;
+  padding-top: 15rem;
+  justify-content: flex-start;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+}
+.profilepart img {
+  margin: 4rem 2rem 2rem 2rem;
+  border-radius: 20%;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 10%;
+}
+
+.boxp {
+  display: flex;
+  flex-direction: column;
+  margin: 10% 0 5% 0;
+}
+
+.boxp h3 {
+  font-size: 24px;
+  border-bottom: 2px solid;
+}
+
+.boxp h4 {
+  margin-top: 5%;
+  font-size: 18px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.profileimage {
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }

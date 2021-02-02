@@ -68,58 +68,51 @@
     <!-- End Header -->
 
     <!-- Admin Panel -->
-    <section id="adminPanel">
+    <section id="adminPanel" style="justify-content: start">
       <div class="eventspart">
         <h3 style="font-size: 24px; margin: 10px; color: white">Etkinlikler</h3>
         <form action="/adminPanel/event" method="POST">
           <div class="event-text">
             <div class="event-top">
-              <label for="EventNo">EventNo</label>
-              <textarea
-                id="EventNo"
-                name="EventNo"
-                rows="4"
-                cols="15"
-              ></textarea>
-            </div>
-            <div class="event-top">
-              <label for="EventName">EventName</label>
-              <textarea
+              <label for="EventName">Etkinlik Adı</label>
+              <input
+                type="text"
                 id="EventName"
                 name="EventName"
-                rows="4"
-                cols="15"
-              ></textarea>
+                style="margin-top: 5rem"  
+              />
             </div>
             <div class="event-top">
-              <label for="EventDate">EventDate</label>
-              <textarea
+              <label for="EventDate">Etkinlik Tarihi</label>
+              <input
+                type="date"
                 id="EventDate"
                 name="EventDate"
-                rows="4"
-                cols="15"
-              ></textarea>
+                style="margin-top: 5rem"
+              />
             </div>
             <div class="event-top">
-              <label for=",EventPlace">EventPlace</label>
-              <textarea
+              <label for="EventPlace">Etkinlik Yeri</label>
+              <input
+                type="text"
                 id="EventPlace"
                 name="EventPlace"
-                rows="4"
-                cols="15"
-              ></textarea>
+                style="margin-top: 5rem"
+              />
             </div>
             <div class="event-top">
-              <label for="EventPrice">EventPrice</label>
-              <textarea
+              <label for="EventPrice">Etkinlik Fiyatı</label>
+              <input
+                type="text"
+                pattern="[0-9]+"
+                title="lütfen sadece pozitif sayılar girin"
                 id="EventPrice"
                 name="EventPrice"
-                rows="4"
-                cols="15"
-              ></textarea>
+                style="margin-top: 5rem"
+              />
             </div>
-            <div class="event-top">
-              <label for="EventPhotoBackground">Background</label>
+            <div class="event-top" style="justify-content: space-between">
+              <label for="EventPhotoBackground">Etkinlik Arkaplan</label>
               <textarea
                 id="EventPhotoBackground"
                 name="EventPhotoBackground"
@@ -127,8 +120,8 @@
                 cols="15"
               ></textarea>
             </div>
-            <div class="event-top">
-              <label for="EventPhotoUrl">EventPhotoUrl</label>
+            <div class="event-top" style="justify-content: space-between">
+              <label for="EventPhotoUrl">Etkinlik Resmi</label>
               <textarea
                 id="EventPhotoUrl"
                 name="EventPhotoUrl"
@@ -137,34 +130,41 @@
               ></textarea>
             </div>
             <div class="event-top">
-              <label for="PerformerName">PerformerName</label>
-              <textarea
+              <label for="PerformerName">Sanatçı</label>
+              <input
+                type="text"
                 id="PerformerName"
                 name="PerformerName"
-                rows="4"
-                cols="15"
-              ></textarea>
+                style="margin-top: 5rem"
+              />
             </div>
             <div class="event-top">
-              <label for="EventCategory">EventCategory</label>
-              <textarea
-                id="EventCategory"
+              <label for="EventCategory">Etkinlik Kategorisi</label>
+              <select
                 name="EventCategory"
-                rows="4"
-                cols="15"
-              ></textarea>
+                id="EventCategory"
+                style="margin-top: 2.3rem"
+              >
+                <option></option>
+                <option>Müzik</option>
+                <option>Spor</option>
+                <option>Tiyatro</option>
+                <option>Teknoloji</option>
+              </select>
             </div>
             <div class="event-top">
-              <label for="EventCapacity">EventCapacity</label>
-              <textarea
+              <label for="EventCapacity">Etkinlik Kapasitesi</label>
+              <input
+                type="text"
+                pattern="[0-9]+"
+                title="lütfen sadece pozitif sayılar girin"
                 id="EventCapacity"
                 name="EventCapacity"
-                rows="4"
-                cols="15"
-              ></textarea>
+                style="margin-top: 2.3rem"
+              />
             </div>
-            <div class="event-top">
-              <label for="EventAddress">EventAddress</label>
+            <div class="event-top" style="justify-content: space-between">
+              <label for="EventAddress">Etkinlik Adresi</label>
               <textarea
                 id="EventAddress"
                 name="EventAddress"
@@ -173,24 +173,61 @@
               ></textarea>
             </div>
             <div class="event-top">
-              <label for="EventCity">EventCity</label>
-              <textarea
-                id="EventCity"
+              <label for="EventCity">Etkinlik Şehri</label>
+              <select
                 name="EventCity"
-                rows="4"
-                cols="15"
-              ></textarea>
+                id="EventCity"
+                style="margin-top: 2.3rem"
+              >
+                <option></option>
+                <option>İstanbul</option>
+                <option>Denizli</option>
+                <option>Sivas</option>
+                <option>Kars</option>
+                <option>Nevşehir</option>
+                <option>Ankara</option>
+                <option>İzmir</option>
+                <option>Eskişehir</option>
+                <option>Antalya</option>
+                <option>Bursa</option>
+                <option>Çanakkale</option>
+                <option>Muğla</option>
+                <option>Aydın</option>
+                <option>Kocaeli</option>
+                <option>Trabzon</option>
+                <option>Manisa</option>
+                <option>Tekirdağ</option>
+                <option>Samsun</option>
+                <option>Kayseri</option>
+                <option>Edirne</option>
+              </select>
             </div>
           </div>
           <div class="buttonpart">
             <a><button class="button" type="submit">Etkinlik Ekle</button></a>
           </div>
         </form>
+      </div>
+      <div class="eventspart">
+        <h3 style="font-size: 24px; margin: 10px; color: white">
+          Güncel Etkinlikler
+        </h3>
         <div class="showpart">
           <table style="width: 100%">
             <tr>
-              <th>Fonksiyon:Etkinlik Çıkar</th>
-              <th>Ekinlik No</th>
+              <th>Etkinlik Çıkar</th>
+              <th>Etkinlik No</th>
+              <th>Etkinlik Adı</th>
+              <th>Etkinlik Tarihi</th>
+              <th>Etkinlik Yeri</th>
+              <th>Etkinlik Fiyatı</th>
+              <th>Etkinlik Arkaplan</th>
+              <th>Etkinlik Resmi</th>
+              <th>Sanatçı</th>
+              <th>Etkinlik Kategorisi</th>
+              <th>Etkinlik Kapasitesi</th>
+              <th>Etkinlik Adresi</th>
+              <th>Etkinlik Şehri</th>
             </tr>
             <% if(Events.length >0){%> <%Events.forEach(events => { %>
             <tr>
@@ -199,12 +236,83 @@
                   <button class="button">Etkinlik Çıkar</button>
                 </a>
               </td>
+              <th><%=events.EventNo%></th>
               <td><%=events.EventName%></td>
+              <td><%=events.EventDate%></td>
+              <td><%=events.EventPlace%></td>
+              <td><%=events.EventPrice%></td>
+              <td><%=events.EventPhotoBackground%></td>
+              <td><%=events.EventPhotoUrl%></td>
+              <td><%=events.PerformerName%></td>
+              <td><%=events.EventCategory%></td>
+              <td><%=events.EventCapacity%></td>
+              <td><%=events.EventAddress%></td>
+              <td><%=events.EventCity%></td>
             </tr>
             <% }) %> <% } %>
           </table>
         </div>
       </div>
+      <div class="eventspart">
+        <h3 style="font-size: 24px; margin: 10px; color: white">
+          Tarihi Geçmiş Etkinlikler
+        </h3>
+        <div class="showpart">
+          <table style="width: 100%">
+            <tr>
+              <th>Etkinlik Çıkar</th>
+              <th>Etkinlik No</th>
+              <th>Etkinlik Adı</th>
+              <th>Etkinlik Tarihi</th>
+              <th>Etkinlik Yeri</th>
+              <th>Etkinlik Fiyatı</th>
+              <th>Etkinlik Arkaplan</th>
+              <th>Etkinlik Resmi</th>
+              <th>Sanatçı</th>
+              <th>Etkinlik Kategorisi</th>
+              <th>Etkinlik Kapasitesi</th>
+              <th>Etkinlik Adresi</th>
+              <th>Etkinlik Şehri</th>
+            </tr>
+            <% if(Events.length >0){%> <%Events.forEach(events => { %>
+            <tr>
+              <td>
+                <a href="/eventdelete/<%=events.EventNo%>">
+                  <button class="button">Etkinlik Çıkar</button>
+                </a>
+              </td>
+              <th><%=events.EventNo%></th>
+              <td><%=events.EventName%></td>
+              <td><%=events.EventDate%></td>
+              <td><%=events.EventPlace%></td>
+              <td><%=events.EventPrice%></td>
+              <td><%=events.EventPhotoBackground%></td>
+              <td><%=events.EventPhotoUrl%></td>
+              <td><%=events.PerformerName%></td>
+              <td><%=events.EventCategory%></td>
+              <td><%=events.EventCapacity%></td>
+              <td><%=events.EventAddress%></td>
+              <td><%=events.EventCity%></td>
+            </tr>
+            <% }) %> <% } %>
+          </table>
+        </div>
+      </div>
+      <a href="/adminMain">
+        <button
+          style="
+            padding: 5px;
+            border-radius: 1.175rem;
+            border: 1px black solid;
+            cursor: pointer;
+            background-color: #5481b3;
+            font-size: 16px;
+            color: white;
+          "
+        >
+          Ana Sayfana Dön
+        </button></a
+      >
     </section>
 
     <!-- End Admin Panel -->

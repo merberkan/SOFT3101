@@ -234,6 +234,7 @@ exports.adminPanel = (req, res) => {
       EventCapacity,
       EventAddress,
       EventCity,
+      owner_email,
     } = req.body;
     db.query(
       "INSERT INTO Events SET ?",
@@ -250,6 +251,7 @@ exports.adminPanel = (req, res) => {
         EventCapacity: EventCapacity,
         EventAddress: EventAddress,
         EventCity: EventCity,
+        owner_email:owner_email,
       },
       (err, results) => {
         if (err) {

@@ -89,7 +89,7 @@
                   placeholder="Adınız"
                   required="required"
                   maxlength="54"
-                  pattern="[A-Za-z]{3,54}"
+                  pattern="[A-Za-z\s]{3,54}"
                   title="Lütfen sadece harflerden oluşan bir ad giriniz"
                 />
               </div>
@@ -118,7 +118,7 @@
                   placeholder="Kart sahibinin ismi"
                   required="required"
                   maxlength="54"
-                  pattern="[A-Za-z]{3,54}"
+                  pattern="[A-Za-z\s]{3,54}"
                   title="Lütfen sadece harflerden oluşan bir ad giriniz"
                 />
               </div>
@@ -141,7 +141,6 @@
                   <label class="font">Ay</label>
                   <input
                     maxlength="2"
-                    minlength="2"
                     type="text"
                     name="ay"
                     style="padding-top: 7px"
@@ -149,8 +148,19 @@
                     required="required"
                     pattern="[0-9]+"
                     title="Lütfen sadece sayı giriniz"
+                    oninput="check(this)"
                   />
                 </div>
+                <script>
+                  function check(input) {
+                    if (input.value > 12) {
+                      input.setCustomValidity("Ay 12den büyük olamaz");
+                    } else {
+                      // input is fine -- reset the error message
+                      input.setCustomValidity("");
+                    }
+                  }
+                </script>
                 <div class="yıl">
                   <label class="font">Yıl</label>
                   <input
@@ -163,8 +173,19 @@
                     required="required"
                     pattern="[0-9]+"
                     title="Lütfen sadece sayı giriniz"
+                    oninput="check2(this)"
                   />
                 </div>
+                <script>
+                  function check2(input) {
+                    if (input.value < 21) {
+                      input.setCustomValidity("Lütfen Geçerli Bir Yıl Giriniz");
+                    } else {
+                      // input is fine -- reset the error message
+                      input.setCustomValidity("");
+                    }
+                  }
+                </script>
                 <div class="cvv">
                   <label class="font">CVV</label>
                   <input

@@ -68,8 +68,8 @@
     <!-- End Header -->
 
     <!-- Admin Panel -->
-    <section id="adminPanel">
-      <div class="citypart">
+    <section id="adminPanel" style="justify-content: start">
+      <div class="citypart" style="width: 100%">
         <h3 style="font-size: 24px; margin: 10px; color: white">Şehirler</h3>
         <form action="/adminPanel/city" method="POST">
           <div class="cities-text">
@@ -128,7 +128,7 @@
               ></textarea>
             </div>
             <div class="cities-top">
-              <label for="CityPhoto">Şehrir Fotoğrafı</label>
+              <label for="CityPhoto">Şehir Fotoğrafı</label>
               <textarea
                 id="CityPhoto"
                 name="CityPhoto"
@@ -141,13 +141,15 @@
             <a><button class="button" type="submit">Şehir Ekle</button></a>
           </div>
         </form>
+      </div>
+      <div class="citypart" style="width: 100%">
         <div class="showpart">
           <table style="width: 100%">
             <tr>
               <th>Fonksiyon:Şehir Çıkar</th>
 
               <th>Şehir Adı</th>
-              <th>Tarihi Yerler</th>
+              <th>Şehir Fotoğrafı</th>
             </tr>
             <% if(City.length >0){%> <%City.forEach(city => { %>
             <tr>
@@ -158,11 +160,31 @@
               </td>
 
               <td><%=city.CityName%></td>
-              <td><%=city.HistoryPlaces%></td>
+              <td><%=city.CityPhoto%></td>
             </tr>
             <% }) %> <% } %>
           </table>
         </div>
+      </div>
+      <div
+        class="b"
+        style="display: flex; justify-content: end; align-items: center"
+      >
+        <a href="/adminMain">
+          <button
+            style="
+              padding: 5px;
+              border-radius: 1.175rem;
+              border: 1px black solid;
+              cursor: pointer;
+              background-color: #5481b3;
+              font-size: 16px;
+              color: white;
+            "
+          >
+            Ana Sayfana Dön
+          </button></a
+        >
       </div>
     </section>
 
