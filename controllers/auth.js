@@ -9,12 +9,10 @@ const cryptr = new Cryptr("myTotalySecretKey");
 mysql.createConnection({ multipleStatements: true });
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "Snoll",
-  socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
-  port: "8889" 
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE,
 });
 
 exports.login = async (req, res) => {
@@ -34,6 +32,11 @@ exports.login = async (req, res) => {
       [email],
       async (error, results) => {
         console.log(results);
+        if(results[0].role == "admin"){
+          req.session.adminUser = true;
+        }if(results[0].role == "owner"){
+          req.session.ownerUser = true;
+        }
         if (
           results == "" ||
           !(await bcrypt.compare(password, results[0].password))
@@ -42,6 +45,8 @@ exports.login = async (req, res) => {
           res.render("login", {
             message: req.session.message,
             loginn: req.session.loggedinUser,
+            adminn: req.session.adminUser,
+            ownerr: req.session.ownerUser,
           });
         } else {
           const id = results[0].id;

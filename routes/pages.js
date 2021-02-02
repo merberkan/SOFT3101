@@ -7,12 +7,10 @@ const Cryptr = require("cryptr");
 const cryptr = new Cryptr("myTotalySecretKey");
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "Snoll",
-    socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
-    port: "8889" 
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE,
 });
 
 router.get("/", (req, res) => {
@@ -33,6 +31,8 @@ router.get("/", (req, res) => {
       Events,
       email: req.session.emailAddress,
       loginn: req.session.loggedinUser,
+      adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
     });
   });
 });
@@ -82,12 +82,16 @@ router.get("/contactus", (req, res) => {
   res.render("contactus", {
     email: req.session.emailAddress,
     loginn: req.session.loggedinUser,
+    adminn: req.session.adminUser,
+    ownerr: req.session.ownerUser,
   });
 });
 router.get("/Useragreement", (req, res) => {
   res.render("Useragreement", {
     email: req.session.emailAddress,
     loginn: req.session.loggedinUser,
+    adminn: req.session.adminUser,
+    ownerr: req.session.ownerUser,
   });
 });
 router.get("/events", (req, res) => {
@@ -107,6 +111,8 @@ router.get("/events", (req, res) => {
         Events,
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
+        adminn: req.session.adminUser,
+        ownerr: req.session.ownerUser,
       });
     }
   });
@@ -156,6 +162,8 @@ router.get("/events/:name", (req, res) => {
           dateControl,
           email: req.session.emailAddress,
           loginn: req.session.loggedinUser,
+          adminn: req.session.adminUser,
+          ownerr: req.session.ownerUser,
         });
       }
     }
@@ -169,6 +177,8 @@ router.get("/payment/:id", (req, res) => {
       path: path,
       email: req.session.emailAddress,
       loginn: req.session.loggedinUser,
+      adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
     });
   } else {
     res.redirect("/notFound");
@@ -277,6 +287,8 @@ router.get("/aboutus", (req, res) => {
   res.render("aboutus", {
     email: req.session.emailAddress,
     loginn: req.session.loggedinUser,
+    adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
   });
 });
 
@@ -284,6 +296,8 @@ router.get("/privacypolicy", (req, res) => {
   res.render("privacypolicy", {
     email: req.session.emailAddress,
     loginn: req.session.loggedinUser,
+    adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
   });
 });
 
@@ -304,6 +318,8 @@ router.get("/category", (req, res) => {
       Events,
       email: req.session.emailAddress,
       loginn: req.session.loggedinUser,
+      adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
     });
   });
 });
@@ -325,6 +341,8 @@ router.get("/cityguide", (req, res) => {
         City,
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
+        adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
       });
       console.log(City);
     }
@@ -418,6 +436,8 @@ router.get("/cityguide/:name", (req, res) => {
           City,
           email: req.session.emailAddress,
           loginn: req.session.loggedinUser,
+          adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
         });
       }
     }
@@ -439,6 +459,8 @@ router.get("/category/Tiyatro", (req, res) => {
         Tiyatro,
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
+        adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
       });
     }
   );
@@ -459,6 +481,8 @@ router.get("/category/Muzik", (req, res) => {
         Music,
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
+        adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
       });
     }
   );
@@ -480,6 +504,8 @@ router.get("/category/Teknoloji", (req, res) => {
         Teknoloji,
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
+        adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
       });
     }
   );
@@ -500,6 +526,8 @@ router.get("/category/Spor", (req, res) => {
         Spor,
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
+        adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
       });
     }
   );
@@ -558,6 +586,8 @@ router.get("/profile", async (req, res) => {
             Detail,
             email: req.session.emailAddress,
             loginn: req.session.loggedinUser,
+            adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
           });
         }
       }
@@ -594,6 +624,8 @@ router.get("/EventPanel", (req, res) => {
         Events,
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
+        adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
       });
     });
   } else {
@@ -618,6 +650,8 @@ router.get("/UserPanel", (req, res) => {
         Users,
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
+        adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
       });
     });
   } else {
@@ -641,6 +675,8 @@ router.get("/CityPanel", (req, res) => {
         City,
         email: req.session.emailAddress,
         loginn: req.session.loggedinUser,
+        adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
       });
     });
   } else {
@@ -898,6 +934,8 @@ router.get("/ownerPanel", (req, res) => {
           ownerEvents,
           loginn: req.session.loggedinUser,
           email: req.session.emailAddress,
+          adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
         });
       }
       res.render("ownerPanel", {
@@ -938,6 +976,8 @@ router.get("/ownerMain", (req, res) => {
             email: req.session.emailAddress,
             name: req.session.name,
             lastname: req.session.lname,
+            adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
           });
         }
     )
@@ -979,6 +1019,8 @@ router.get("/adminMain", (req, res) => {
             email: req.session.emailAddress,
             name: req.session.name,
             lastname: req.session.lname,
+            adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
           });
         }
       }
@@ -1054,6 +1096,8 @@ router.get("/myCart", async (req, res) => {
           Detail,
           email: req.session.emailAddress,
           loginn: req.session.loggedinUser,
+          adminn: req.session.adminUser,
+      ownerr: req.session.ownerUser,
         });
       }
     }
