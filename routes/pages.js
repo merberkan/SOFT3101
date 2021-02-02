@@ -627,6 +627,46 @@ router.get("/EventPanel", (req, res) => {
               owner_email: result[i].owner_email,
             };
             pEvents.push(x);
+          }else if (
+            result[i].owner_email != req.session.emailAddress &&
+            eventDate.getTime() - today.getTime() > 0
+          ) {
+            var x = {
+              EventNo: result[i].EventNo,
+              EventName: result[i].EventName,
+              EventDate: result[i].EventDate,
+              EventPlace: result[i].EventPlace,
+              EventPrice: result[i].EventPrice,
+              EventPhotoBackground: result[i].EventPhotoBackground,
+              EventPhotoUrl: result[i].EventPhotoUrl,
+              PerformerName: result[i].PerformerName,
+              EventCategory: result[i].EventCategory,
+              EventCapacity: result[i].EventCapacity,
+              EventAddress: result[i].EventAddress,
+              EventCity: result[i].EventCity,
+              owner_email: result[i].owner_email,
+            };
+            pEvents.push(x);
+          }else if (
+            result[i].owner_email == req.session.emailAddress &&
+            eventDate.getTime() - today.getTime() < 0
+          ) {
+            var x = {
+              EventNo: result[i].EventNo,
+              EventName: result[i].EventName,
+              EventDate: result[i].EventDate,
+              EventPlace: result[i].EventPlace,
+              EventPrice: result[i].EventPrice,
+              EventPhotoBackground: result[i].EventPhotoBackground,
+              EventPhotoUrl: result[i].EventPhotoUrl,
+              PerformerName: result[i].PerformerName,
+              EventCategory: result[i].EventCategory,
+              EventCapacity: result[i].EventCapacity,
+              EventAddress: result[i].EventAddress,
+              EventCity: result[i].EventCity,
+              owner_email: result[i].owner_email,
+            };
+            Events.push(x);
           } else {
             var a = {
               EventNo: result[i].EventNo,
@@ -962,7 +1002,9 @@ router.get("/ownerPanel", (req, res) => {
   if (req.session.userRole == "owner") {
     db.query("SELECT * FROM Events", (err, result) => {
       const Events = [];
+      const pEvents = [];
       const ownerEvents = [];
+      const pownerEvents = [];
       if (err) {
         console.log(err);
       } else {
@@ -988,7 +1030,47 @@ router.get("/ownerPanel", (req, res) => {
               owner_email: result[i].owner_email,
             };
             ownerEvents.push(x);
-          } else {
+          } else if (
+            result[i].owner_email == req.session.emailAddress &&
+            eventDate.getTime() - today.getTime() < 0
+          ) {
+            var x = {
+              EventNo: result[i].EventNo,
+              EventName: result[i].EventName,
+              EventDate: result[i].EventDate,
+              EventPlace: result[i].EventPlace,
+              EventPrice: result[i].EventPrice,
+              EventPhotoBackground: result[i].EventPhotoBackground,
+              EventPhotoUrl: result[i].EventPhotoUrl,
+              PerformerName: result[i].PerformerName,
+              EventCategory: result[i].EventCategory,
+              EventCapacity: result[i].EventCapacity,
+              EventAddress: result[i].EventAddress,
+              EventCity: result[i].EventCity,
+              owner_email: result[i].owner_email,
+            };
+            pownerEvents.push(x);
+          } else if (
+            result[i].owner_email != req.session.emailAddress &&
+            eventDate.getTime() - today.getTime() > 0
+          ) {
+            var x = {
+              EventNo: result[i].EventNo,
+              EventName: result[i].EventName,
+              EventDate: result[i].EventDate,
+              EventPlace: result[i].EventPlace,
+              EventPrice: result[i].EventPrice,
+              EventPhotoBackground: result[i].EventPhotoBackground,
+              EventPhotoUrl: result[i].EventPhotoUrl,
+              PerformerName: result[i].PerformerName,
+              EventCategory: result[i].EventCategory,
+              EventCapacity: result[i].EventCapacity,
+              EventAddress: result[i].EventAddress,
+              EventCity: result[i].EventCity,
+              owner_email: result[i].owner_email,
+            };
+            pEvents.push(x);
+          }else {
             var a = {
               EventNo: result[i].EventNo,
               EventName: result[i].EventName,
@@ -1007,10 +1089,11 @@ router.get("/ownerPanel", (req, res) => {
             Events.push(a);
           }
         }
-        console.log(ownerEvents.length);
         res.render("ownerPanel", {
           Events,
           ownerEvents,
+          pownerEvents,
+          pEvents,
           loginn: req.session.loggedinUser,
           email: req.session.emailAddress,
           adminn: req.session.adminUser,

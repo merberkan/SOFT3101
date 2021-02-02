@@ -1,5 +1,5 @@
 #body {
-  min-height: 90vh;
+  min-height: 100vh;
   background-image: linear-gradient(60deg, #063366 0%, #485564 100%);
 }
 
@@ -135,4 +135,8 @@ button:hover {
 }
 .eventNo{
   display: flex;
+}
+.design{
+  display: flex;
+  flex-direction: column;
 }

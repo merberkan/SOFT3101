@@ -161,7 +161,7 @@
               </select>
             </div>
             <div class="event-top">
-              <label for="EventCapacity">Etkinlik Kapasitesi</label>
+              <label for="EventCapacity" style="margin-top: 2.7rem;">Etkinlik Kapasitesi</label>
               <input
                 type="text"
                 pattern="[0-9]+"
@@ -298,7 +298,6 @@
         </h3>
         <table style="width: 100%">
           <tr>
-            <th>Etkinlik Çıkar</th>
             <th>Etkinlik No</th>
             <th>Etkinlik Adı</th>
             <th>Etkinlik Tarihi</th>
@@ -314,7 +313,6 @@
           </tr>
           <% if(Events.length >0){%> <%Events.forEach(events => { %>
           <tr>
-            <td></td>
             <td><%=events.EventNo%></td>
             <td><%=events.EventName%></td>
             <td><%=events.EventDate%></td>
