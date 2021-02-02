@@ -571,6 +571,7 @@ router.get("/EventPanel", (req, res) => {
       if (result.length > 0) {
         for (var i = 0; i < result.length; i++) {
           var a = {
+            EventNo: result[i].EventNo,
             EventName: result[i].EventName,
             EventPhotoUrl: result[i].EventPhotoUrl,
           };
@@ -696,11 +697,74 @@ router.get("/CityPanel", (req, res) => {
 
 router.get("/eventdelete/:id", (req, res) => {
   const path = req.params.id;
-  db.query("DELETE FROM Events Where EventNo = ?", [path], (err, result) => {
+
+  db.query("SELECT * FROM Events Where EventNo = ?", [path], (err, result) => {
+    const events = [];
     if (err) {
       console.log(err);
     }
-    res.redirect("/EventPanel");
+    if (result.length > 0) {
+      for (var i = 0; i < result.length; i++) {
+        var a = {
+          EventName: result[0].EventName,
+          EventPrice: result[0].EventPrice,
+        };
+        events.push(a);
+      }
+      console.log(events);
+    };
+    db.query("SELECT * FROM ticket Where event_name = ?", [events[0].EventName], (err, result3) => {
+      const tickets = [];
+      if (err) {
+        console.log(err)
+        res.redirect("/notFound");
+      }
+      if (result3.length > 0) {
+        for (var i = 0; i < result3.length; i++) {
+          var b = {
+            EventName: result3[i].event_name,
+            user_email: result3[i].user_email,
+          };
+          tickets.push(b);
+        }
+        console.log("---------------------------------------");
+        console.log(tickets);
+        console.log("---------------------------------------");
+        for (i = 0; i < tickets.length; i++) {
+          var transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: "snolldestek@gmail.com",
+              pass: "snoll123",
+            },
+            tls: {
+              rejectUnauthorized: false,
+            },
+          });
+
+          var mailOptions = {
+            from: "snolldestek@gmail.com",
+            to: tickets[i].user_email,
+            subject: "Etkinlik İptali",
+            text: "Bilet satın almış olduğunuz bir etkinlik iptal olmuştur yapmış olduğunuz " + result[0].EventPrice + "₺ lik ödeme" + " tarafınıza en kısa sürede iletilecektir."
+          };
+
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("Email sent: " + info.response);
+            }
+          });
+        }
+      }
+      db.query("DELETE FROM Events Where EventNo = ?", [path], (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        res.redirect("/EventPanel");
+      });
+    })
   });
 });
 
