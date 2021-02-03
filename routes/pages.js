@@ -627,7 +627,7 @@ router.get("/EventPanel", (req, res) => {
               owner_email: result[i].owner_email,
             };
             pEvents.push(x);
-          }else if (
+          } else if (
             result[i].owner_email != req.session.emailAddress &&
             eventDate.getTime() - today.getTime() > 0
           ) {
@@ -647,7 +647,7 @@ router.get("/EventPanel", (req, res) => {
               owner_email: result[i].owner_email,
             };
             pEvents.push(x);
-          }else if (
+          } else if (
             result[i].owner_email == req.session.emailAddress &&
             eventDate.getTime() - today.getTime() < 0
           ) {
@@ -962,32 +962,31 @@ router.get("/setUser/:mail", (req, res) => {
   );
 });
 
-
 router.get("/UpdateEvent/:eventno", (req, res) => {
   const path = req.params.eventno;
   db.query("SELECT * FROM Events Where EventNo = ?", [path], (err, result) => {
     const Event = [];
     if (err) {
       console.log(err);
-    };
-    if(result.length > 0){
+    }
+    if (result.length > 0) {
       var data = {
-              EventNo: result[0].EventNo,
-              EventName: result[0].EventName,
-              EventDate: result[0].EventDate,
-              EventPlace: result[0].EventPlace,
-              EventPrice: result[0].EventPrice,
-              EventPhotoBackground: result[0].EventPhotoBackground,
-              EventPhotoUrl: result[0].EventPhotoUrl,
-              PerformerName: result[0].PerformerName,
-              EventCategory: result[0].EventCategory,
-              EventCapacity: result[0].EventCapacity,
-              EventAddress: result[0].EventAddress,
-              EventCity: result[0].EventCity,
-              owner_email: result[0].owner_email,
+        EventNo: result[0].EventNo,
+        EventName: result[0].EventName,
+        EventDate: result[0].EventDate,
+        EventPlace: result[0].EventPlace,
+        EventPrice: result[0].EventPrice,
+        EventPhotoBackground: result[0].EventPhotoBackground,
+        EventPhotoUrl: result[0].EventPhotoUrl,
+        PerformerName: result[0].PerformerName,
+        EventCategory: result[0].EventCategory,
+        EventCapacity: result[0].EventCapacity,
+        EventAddress: result[0].EventAddress,
+        EventCity: result[0].EventCity,
+        owner_email: result[0].owner_email,
       };
       Event.push(data);
-    };
+    }
     res.render("UpdateEvent", {
       Event,
       loginn: req.session.loggedinUser,
@@ -995,7 +994,6 @@ router.get("/UpdateEvent/:eventno", (req, res) => {
     });
   });
 });
-
 
 router.get("/ownerPanel", (req, res) => {
   var today = new Date();
@@ -1070,7 +1068,7 @@ router.get("/ownerPanel", (req, res) => {
               owner_email: result[i].owner_email,
             };
             pEvents.push(x);
-          }else {
+          } else {
             var a = {
               EventNo: result[i].EventNo,
               EventName: result[i].EventName,
@@ -1109,7 +1107,7 @@ router.get("/ownerMain", (req, res) => {
   if (req.session.userRole == "owner") {
     const Event = [];
     db.query(
-      "SELECT * FROM Events Where owner_email =?",
+      "SELECT * FROM Events Where owner_email=? ",
       [req.session.emailAddress],
       (err, result) => {
         if (err) {
@@ -1119,14 +1117,53 @@ router.get("/ownerMain", (req, res) => {
         if (result.length > 0) {
           for (var i = 0; i < result.length; i++) {
             var a = {
+              EventNo: result[i].EventNo,
               EventName: result[i].EventName,
               EventDate: result[i].EventDate,
-              EventNo: result[i].EventNo,
+              EventPlace: result[i].EventPlace,
+              EventPrice: result[i].EventPrice,
+              EventPhotoBackground: result[i].EventPhotoBackground,
+              EventPhotoUrl: result[i].EventPhotoUrl,
+              PerformerName: result[i].PerformerName,
+              EventCategory: result[i].EventCategory,
+              EventCapacity: result[i].EventCapacity,
+              EventAddress: result[i].EventAddress,
+              EventCity: result[i].EventCity,
+              owner_email: result[i].owner_email,
             };
             Event.push(a);
           }
-          console.log(Event);
+        }
+      }
+    );
+    db.query(
+      "SELECT * FROM Users WHERE Users.email = ?",
+      [req.session.emailAddress],
+      (err, result) => {
+        const User = [];
+        if (err) {
+          console.log(err);
+        }
+        if (result.length > 0) {
+          for (var i = 0; i < result.length; i++) {
+            var x = [
+              {
+                firstname: result[i].firstname,
+                lastname: result[i].lastname,
+                email: result[i].email,
+                role: result[i].role,
+              },
+            ];
+            User.push(x);
+          }
+          var length = User.length;
+          for (var j = 0; j < length - 1; j++) {
+            console.log(j, User.length);
+            User.pop();
+          }
+
           res.render("ownerMain", {
+            User,
             Event,
             loginn: req.session.loggedinUser,
             email: req.session.emailAddress,
@@ -1136,14 +1173,6 @@ router.get("/ownerMain", (req, res) => {
             ownerr: req.session.ownerUser,
           });
         }
-        console.log(Event);
-        res.render("ownerMain", {
-          Event,
-          loginn: req.session.loggedinUser,
-          email: req.session.emailAddress,
-          name: req.session.name,
-          lastname: req.session.lname,
-        });
       }
     );
   } else {
@@ -1152,6 +1181,37 @@ router.get("/ownerMain", (req, res) => {
 });
 router.get("/adminMain", (req, res) => {
   if (req.session.userRole == "admin") {
+    const Event = [];
+    db.query(
+      "SELECT * FROM Events ",
+      [req.session.emailAddress],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+        if (result.length > 0) {
+          for (var i = 0; i < result.length; i++) {
+            var a = {
+              EventNo: result[i].EventNo,
+              EventName: result[i].EventName,
+              EventDate: result[i].EventDate,
+              EventPlace: result[i].EventPlace,
+              EventPrice: result[i].EventPrice,
+              EventPhotoBackground: result[i].EventPhotoBackground,
+              EventPhotoUrl: result[i].EventPhotoUrl,
+              PerformerName: result[i].PerformerName,
+              EventCategory: result[i].EventCategory,
+              EventCapacity: result[i].EventCapacity,
+              EventAddress: result[i].EventAddress,
+              EventCity: result[i].EventCity,
+              owner_email: result[i].owner_email,
+            };
+            Event.push(a);
+          }
+        }
+      }
+    );
     db.query(
       "SELECT * FROM Users WHERE Users.email = ?",
       [req.session.emailAddress],
@@ -1180,6 +1240,7 @@ router.get("/adminMain", (req, res) => {
 
           res.render("adminMain", {
             User,
+            Event,
             loginn: req.session.loggedinUser,
             email: req.session.emailAddress,
             name: req.session.name,

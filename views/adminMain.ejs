@@ -40,12 +40,15 @@
               <li style="padding: 8px"><a href="/category">Kategoriler</a></li>
               <li style="padding: 8px"><a href="/cityguide">Şehir Turu</a></li>
               <li style="padding: 20px"><a href="/aboutus">Hakkımızda</a></li>
-              <% if(loginn){ %>
-                <% if(adminn){ %>
-                  <li class="entrance" style="margin-right:20px ;"><a href="/adminMain">Admin</a></li>
-                  <% } if(ownerr){ %>
-                  <li class="entrance" style="margin-right:20px ;"><a href="/ownerMain">Owner</a></li>
-                  <% } %>
+              <% if(loginn){ %> <% if(adminn){ %>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/adminMain">Admin</a>
+              </li>
+              <% } if(ownerr){ %>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/ownerMain">Owner</a>
+              </li>
+              <% } %>
               <li class="entrance" style="margin-right: 20px">
                 <a href="/myCart"
                   ><i class="fas fa-shopping-cart"> Sepetim</i></a
@@ -96,20 +99,54 @@
             <% }) %> <% } %>
           </div>
         </div>
-        <div class="mainpart">
-          <div class="mm">
-            <div class="namep">
-              <h3>Admin Paneline Hoşgeldiniz</h3>
-            </div>
-            <div class="welcomebutton" style="margin-bottom: 3rem">
-              <a href="/"><button>Anasayfaya Git</button></a>
-            </div>
+        <div class="conainters">
+          <div class="mainpart">
+            <div class="mm">
+              <div class="namep">
+                <h3>Admin Paneline Hoşgeldiniz</h3>
+              </div>
+              <div class="welcomebutton" style="margin-bottom: 3rem">
+                <a href="/"><button>Anasayfaya Git</button></a>
+              </div>
 
-            <div class="welcomep">
-              <a href="/EventPanel"><button>Etkinlik Paneline Git</button></a>
-              <a href="/UserPanel"><button>Kullanıcı Paneline Git</button></a>
-              <a href="/CityPanel"><button>Şehirler Paneline Git</button></a>
+              <div class="welcomep">
+                <a href="/EventPanel"><button>Etkinlik Paneline Git</button></a>
+                <a href="/UserPanel"><button>Kullanıcı Paneline Git</button></a>
+                <a href="/CityPanel"><button>Şehirler Paneline Git</button></a>
+              </div>
             </div>
+          </div>
+          <div class="myEvents">
+            <table style="width: 100%">
+              <tr>
+                <th>Etkinlik Adı</th>
+                <th>Etkinlik Tarihi</th>
+                <th>Etkinlik Yeri</th>
+                <th>Etkinlik Fiyatı</th>
+                <th>Etkinlik Arkaplan</th>
+                <th>Etkinlik Resmi</th>
+                <th>Sanatçı</th>
+                <th>Etkinlik Kategorisi</th>
+                <th>Etkinlik Kapasitesi</th>
+                <th>Etkinlik Adresi</th>
+                <th>Etkinlik Şehri</th>
+              </tr>
+              <% if(Event.length >0){%> <%Event.forEach(Event => { %>
+              <tr>
+                <td><%=Event.EventName%></td>
+                <td><%=Event.EventDate%></td>
+                <td><%=Event.EventPlace%></td>
+                <td><%=Event.EventPrice%></td>
+                <td><%=Event.EventPhotoBackground%></td>
+                <td><%=Event.EventPhotoUrl%></td>
+                <td><%=Event.PerformerName%></td>
+                <td><%=Event.EventCategory%></td>
+                <td><%=Event.EventCapacity%></td>
+                <td><%=Event.EventAddress%></td>
+                <td><%=Event.EventCity%></td>
+              </tr>
+              <% }) %> <% } %>
+            </table>
           </div>
         </div>
       </div>

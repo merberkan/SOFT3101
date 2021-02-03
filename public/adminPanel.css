@@ -1,13 +1,18 @@
 #adminPanel {
+  background-image: url(./images/neon-background--wallpaper.jpg);
+  background-size: cover;
+}
+.back {
   position: relative;
   min-height: 100vh;
   padding: 110px 10% 20px 10%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   background-size: cover;
 }
+
 .eventspart {
   position: relative;
   background-image: linear-gradient(60deg, #063366 0%, #485564 100%);

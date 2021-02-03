@@ -69,6 +69,32 @@
     <section id="body">
           <div class="mainpart">
             <div class="design">
+              <div class="profilepart">
+                <div class="profileimage">
+                  <img
+                    src="https://img.icons8.com/ios/200/000000/gender-neutral-user.png"
+                  />
+                </div>
+                <div class="information">
+                  <% if(User.length >0){%> <%User.forEach(user => { %>
+                  <div class="boxp">
+                    <h3>İsim</h3>
+                    <h4><%= user[0].firstname %></h4>
+                  </div>
+                  <div class="boxp">
+                    <h3>Email</h3>
+                    <h4><%= email %></h4>
+                  </div>
+                  <div class="boxp">
+                    <h3>Rol</h3>
+                    <h4><%= user[0].role %></h4>
+                  </div>
+                  <% }) %> <% } %>
+                </div>
+              </div>
+              <div class="col">
+
+            
             <div class="mm">
               <div class="namep">
                 <h3>Etkinlik Sahibi Anasayfasına Hoşgeldiniz</h3>
@@ -85,23 +111,38 @@
               </div>
             </div>
           <div class="myEvents">
-            <div class="title">
-              <h3>Etkinliklerim</h3>
-            </div>
-            <% if(Event.length >0){%> <%Event.forEach(Event => { %>
-            <div class="eventinfo">
-              <div class="eventName">
-                <h4>Etkinlik Adı: <%=Event.EventName%></h4>
-              </div>
-              <div class="eventDate">
-                <h4>Etkinlik Tarihi: <%=Event.EventDate%></h4>
-              </div>
-              <div class="eventNo">
-                <h4>Etkinlik No: <%=Event.EventNo%></h4>
-              </div>
-            </div>
-            <% }) %> <% } %>
+            <table style="width: 100%">
+              <tr>
+                <th>Etkinlik Adı</th>
+                <th>Etkinlik Tarihi</th>
+                <th>Etkinlik Yeri</th>
+                <th>Etkinlik Fiyatı</th>
+                <th>Etkinlik Arkaplan</th>
+                <th>Etkinlik Resmi</th>
+                <th>Sanatçı</th>
+                <th>Etkinlik Kategorisi</th>
+                <th>Etkinlik Kapasitesi</th>
+                <th>Etkinlik Adresi</th>
+                <th>Etkinlik Şehri</th>
+              </tr>
+              <% if(Event.length >0){%> <%Event.forEach(Event => { %>
+              <tr>
+                <td><%=Event.EventName%></td>
+                <td><%=Event.EventDate%></td>
+                <td><%=Event.EventPlace%></td>
+                <td><%=Event.EventPrice%></td>
+                <td><%=Event.EventPhotoBackground%></td>
+                <td><%=Event.EventPhotoUrl%></td>
+                <td><%=Event.PerformerName%></td>
+                <td><%=Event.EventCategory%></td>
+                <td><%=Event.EventCapacity%></td>
+                <td><%=Event.EventAddress%></td>
+                <td><%=Event.EventCity%></td>
+              </tr>
+              <% }) %> <% } %>
+            </table>
           </div>
+        </div>
         </div>
         </div>
       </div>

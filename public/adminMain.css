@@ -7,7 +7,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-bottom: 20rem;
 }
 .namep {
   margin: 3rem;
@@ -50,7 +49,7 @@ button:hover {
   border-radius: 1.175rem;
   border: 1px solid;
   padding: 1px 0 35px 0;
-  margin-right: 30rem;
+  margin-right: 5rem;
   margin-bottom: 20rem;
 }
 .contain {
@@ -98,4 +97,58 @@ button:hover {
   display: flex;
   justify-content: center;
   text-align: center;
+}
+
+.myEvents {
+  height: 50rem;
+  background-color: white;
+  border-radius: 1.175rem;
+  border: 1px black solid;
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  overflow: scroll;
+  max-height: 40rem;
+}
+.title {
+  font-size: 24px;
+  padding-bottom: 20px;
+}
+.design {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.eventinfo {
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  padding-top: 15px;
+}
+.eventDate {
+  padding-right: 8rem;
+  display: flex;
+}
+.eventName {
+  padding-right: 8rem;
+  display: flex;
+}
+.eventNo {
+  display: flex;
+}
+.design {
+  display: flex;
+  flex-direction: column;
+}
+th {
+  font-size: 14px;
+  padding-bottom: 0.5rem;
+  padding-right: 0.5rem;
+}
+td {
+  padding: 0.5rem;
+  font-size: 14px;
+  word-break: break-all;
+  max-width: 20rem;
 }

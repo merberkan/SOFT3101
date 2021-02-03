@@ -4,12 +4,12 @@
 }
 
 .mainpart {
-  padding-top: 10rem;
+  padding-top: 15rem;
+  padding-right: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-bottom: 20rem;
 }
 .namep {
   margin: 3rem;
@@ -27,6 +27,10 @@
   border-radius: 1.175rem;
   border: 1px black solid;
   padding: 5rem;
+  width: 50rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 button {
   margin-right: 2rem;
@@ -48,11 +52,10 @@ button:hover {
   text-align: center;
   align-items: center;
   flex-direction: column;
-  margin-left: 15rem;
   border-radius: 1.175rem;
   border: 1px solid;
   padding: 1px 0 35px 0;
-  margin-right: 30rem;
+  margin-right: 5rem;
   margin-bottom: 20rem;
 }
 .contain {
@@ -101,7 +104,7 @@ button:hover {
   justify-content: center;
   text-align: center;
 }
-.myEvents{
+.myEvents {
   height: 50rem;
   background-color: white;
   border-radius: 1.175rem;
@@ -110,33 +113,49 @@ button:hover {
   display: flex;
   flex-direction: column;
   margin: 15px;
+  overflow: scroll;
+  max-height: 40rem;
 }
-.title{
+.title {
   font-size: 24px;
   padding-bottom: 20px;
 }
-.design{
+.design {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
 }
-.eventinfo{
+.eventinfo {
   display: flex;
   flex-direction: row;
   font-size: 20px;
   padding-top: 15px;
 }
-.eventDate{
+.eventDate {
   padding-right: 8rem;
   display: flex;
 }
-.eventName{
+.eventName {
   padding-right: 8rem;
   display: flex;
 }
-.eventNo{
+.eventNo {
   display: flex;
 }
-.design{
+th {
+  font-size: 14px;
+  padding-bottom: 0.5rem;
+  padding-right: 0.5rem;
+}
+td {
+  padding: 0.5rem;
+  font-size: 14px;
+  word-break: break-all;
+  max-width: 20rem;
+}
+.col {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
