@@ -27,6 +27,8 @@
   border: solid 2px #ffffff;
   border-radius: 4rem;
   font-weight: bold;
+  background-color: #063366;
+  opacity: 0.9;
 }
 
 .title {
@@ -97,6 +99,8 @@
   border: solid 2px #ffffff;
   border-radius: 4rem;
   font-weight: bold;
+  background-color: #063366;
+  opacity: 0.9;
 }
 
 .bottom-left {
@@ -233,4 +237,9 @@
 .confirm:hover {
   background-color: #32a732;
   color: #ffffff;
+}
+.ticket-span{
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
