@@ -32,7 +32,9 @@ exports.searchbar = (req,res) => {
                 res.render("filterEvent",{
                     Events,
                     email: req.session.emailAddress,
-                    loginn: req.session.loggedinUser  
+                    loginn: req.session.loggedinUser,
+                    adminn: req.session.adminUser,
+                    ownerr: req.session.ownerUser,
                 });
             }
         })
@@ -64,7 +66,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -88,7 +92,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -112,7 +118,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -136,7 +144,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -160,7 +170,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -184,7 +196,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -208,7 +222,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -232,7 +248,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -256,7 +274,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -280,7 +300,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -304,7 +326,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -328,7 +352,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -352,7 +378,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -376,7 +404,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -400,7 +430,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }
@@ -424,7 +456,9 @@ exports.event = (req,res) => {
             res.render("filterEvent",{
                 Events,
                 email: req.session.emailAddress,
-                loginn: req.session.loggedinUser
+                loginn: req.session.loggedinUser,
+                adminn: req.session.adminUser,
+                ownerr: req.session.ownerUser,
             });
         }
     }

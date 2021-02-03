@@ -235,8 +235,6 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
                 }
               }
             );
-            console.log("Abi burda ne yazıyor abi"+req.session.secim)
-            console.log(typeof req.session.secim)
             if(req.session.secim=="normal"){
               var denememail = req.session.emailAddress;
               console.log("Normal çalıştı");
@@ -789,12 +787,16 @@ router.get("/EventPanel", (req, res) => {
           pEvents,
           loginn: req.session.loggedinUser,
           email: req.session.emailAddress,
+          adminn: req.session.adminUser,
+            ownerr: req.session.ownerUser,
         });
       }
       res.render("EventPanel", {
         Events,
         loginn: req.session.loggedinUser,
         email: req.session.emailAddress,
+        adminn: req.session.adminUser,
+            ownerr: req.session.ownerUser,
       });
     });
   } else {
