@@ -90,6 +90,7 @@
             <div class="detail">Bilet Snoll'dan alınır, Canlı Dinlenir...</div>
         </div>
     </div>
+    <form action="/addcart/<%=event.EventNo%>" method="POST">  
     <div class="bottom-part">
         <div class="bottom-left">
             <div class="title2">BİLET ARA</div>
@@ -103,10 +104,11 @@
             </div>
             <div class="title2">Bilet Seçimi</div>
             <div class="amount">
-                <div class="amount-left">TAM</div>
+                <div class="amount-left">Bilet Tipi</div>
                 <div class="amount-right">
-                    <select id="amoung-choose">
-                    <option selected>1</option>
+                    <select name="secim" id="amoung-choose">
+                    <option value="normal" selected>Normal- <%=event.EventPrice%> ₺</option>
+                    <option value="vip" selected>Vip- <%=event.EventVipPrice%> ₺</option>
                     </select>
                 </div>
             </div>
@@ -139,12 +141,14 @@
                         <% }else if(dateControl){ %>
                     <h3 style="font-size: larger;">Bu etkinliğin tarihi geçmiştir</h3>
                     <% } else{ %>
-                <a href="/addcart/<%=event.EventNo%>">  <button class="confirm"> Devam Et</button></a>
+                <button class="confirm" type="submit">Devam Et</button>
                 <%}%>
                 <%}%>
             </div>
         </div>
+   
     </div>
+ </form>
     <% }) %> 
     <% } %> 
 </div>

@@ -143,9 +143,11 @@ router.get("/events/:name", (req, res) => {
             EventName: result[0].EventName,
             EventDate: result[0].EventDate,
             EventPrice: result[0].EventPrice,
+            EventVipPrice: result[0].EventVipPrice,
             PerformerName: result[0].PerformerName,
             EventCategory: result[0].EventCategory,
             EventCapacity: result[0].EventCapacity,
+            EventVipCapacity: result[0].EventVipCapacity,
             EventAddress: result[0].EventAddress,
             EventCity: result[0].EventCity,
             EventPlace: result[0].EventPlace,
@@ -202,6 +204,9 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
               EventNo: result[0].EventNo,
               EventName: result[0].EventName,
               EventC: result[0].EventCapacity,
+              EventVipC: result[0].EventVipCapacity,
+              EventPrice:result[0].EventPrice,
+              EventVipPrice: result[0].EventVipPrice,
               EventAddress: result[0].EventAddress,
               EventDate: result[0].EventDate,
             },
@@ -213,6 +218,7 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
               {
                 user_email: req.session.emailAddress,
                 event_name: Event[0].EventName,
+                ticketType: req.session.secim,
               },
               (error, result2) => {
                 if (error) {
@@ -229,6 +235,18 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
                 }
               }
             );
+            console.log("Abi burda ne yazıyor abi"+req.session.secim)
+            console.log(typeof req.session.secim)
+            if(req.session.secim=="normal"){
+              var denememail = req.session.emailAddress;
+              console.log("Normal çalıştı");
+              db.query(
+                "UPDATE ticket SET ticketPrice = ? where user_email = ?",[Event[0].EventPrice, req.session.emailAddress],
+                (error, result2) => {
+                  if (error) {
+                    console.log(error);
+                  }
+                
             db.query(
               `UPDATE Events SET EventCapacity = ${
                 Event[0].EventC - 1
@@ -247,7 +265,6 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
                       rejectUnauthorized: false,
                     },
                   });
-
                   var mailOptions = {
                     from: "snolldestek@gmail.com",
                     to: req.session.emailAddress,
@@ -272,6 +289,63 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
                 }
               }
             );
+          }
+          );
+            }else if(req.session.secim == "vip"){
+              var denememail =req.session.emailAddress;
+              console.log("Vip çalıştı");
+              db.query(
+                "UPDATE ticket SET ticketPrice = ? where user_email = ?",[Event[0].EventVipPrice, req.session.emailAddress],
+                (error, result2) => {
+                  if (error) {
+                    console.log(error);
+                  }
+                
+              db.query(
+                `UPDATE Events SET EventVipCapacity = ${
+                  Event[0].EventVipC - 1
+                } where EventNo = ${Event[0].EventNo}`,
+                (error, result) => {
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    var transporter = nodemailer.createTransport({
+                      service: "gmail",
+                      auth: {
+                        user: "snolldestek@gmail.com",
+                        pass: "snoll123",
+                      },
+                      tls: {
+                        rejectUnauthorized: false,
+                      },
+                    });
+                    var mailOptions = {
+                      from: "snolldestek@gmail.com",
+                      to: req.session.emailAddress,
+                      subject: "Biletiniz",
+                      text:
+                        "Merhabalar,bilet alma işleminizi başarıyla gerçekleştirdiniz bilet bilgilerinizi burada bulabilirsiniz bizi seçtiğiniz için teşekkür ederiz ." +
+                        " Etkinlik adı  :" +
+                        Event[0].EventName +
+                        "  Etkinlik adresi : " +
+                        Event[0].EventAddress +
+                        "  Etkinlik tarihi :  " +
+                        Event[0].EventDate,
+                    };
+                    transporter.sendMail(mailOptions, function (error, info) {
+                      if (error) {
+                        console.log(error);
+                      } else {
+                        console.log("Email sent: " + info.response);
+                      }
+                    });
+                    res.redirect("/ticketSuccess");
+                  }
+                }
+              );
+            }
+            );
+            }
           } else {
             res.redirect("/noCapacity");
           }
@@ -363,6 +437,8 @@ router.get("/cancelticket/:id", (req, res) => {
           {
             event_name: result1[0].event_name,
             ticket_id: result1[0].ticket_id,
+            ticketPrice: result1[0].ticketPrice,
+            ticketType: result1[0].ticketType,
           },
         ];
         db.query(
@@ -379,9 +455,10 @@ router.get("/cancelticket/:id", (req, res) => {
                   EventNo: result2[0].EventNo,
                   EventName: result2[0].EventName,
                   EventC: result2[0].EventCapacity,
+                  EventVipCapacity: result2[0].EventVipCapacity,
                 },
               ];
-
+              if(Ticket[0].ticketType == "normal"){
               db.query(
                 `UPDATE Snoll.Events SET EventCapacity = ${
                   Event[0].EventC + 1
@@ -392,6 +469,18 @@ router.get("/cancelticket/:id", (req, res) => {
                   }
                 }
               );
+              }else{
+                db.query(
+                  `UPDATE Snoll.Events SET EventVipCapacity = ${
+                    Event[0].EventVipCapacity + 1
+                  } WHERE EventNo = ${Event[0].EventNo}`,
+                  (err, result3) => {
+                    if (err) {
+                      console.log(err);
+                    }
+                  }
+                );
+              }
             }
           }
         );
@@ -823,7 +912,7 @@ router.get("/CityPanel", (req, res) => {
 //   }
 // });
 
-router.get("/eventdelete/:id", (req, res) => {
+router.get("/eventdeleteasadmin/:id", (req, res) => {
   const path = req.params.id;
 
   db.query("SELECT * FROM Events Where EventNo = ?", [path], (err, result) => {
@@ -855,6 +944,7 @@ router.get("/eventdelete/:id", (req, res) => {
             var b = {
               EventName: result3[i].event_name,
               user_email: result3[i].user_email,
+              ticketPrice: result3[i].ticketPrice,
             };
             tickets.push(b);
           }
@@ -879,7 +969,7 @@ router.get("/eventdelete/:id", (req, res) => {
               subject: "Etkinlik İptali",
               text:
                 "Bilet satın almış olduğunuz bir etkinlik iptal olmuştur yapmış olduğunuz " +
-                result[0].EventPrice +
+                tickets[i].ticketPrice +
                 "₺ lik ödeme" +
                 " tarafınıza en kısa sürede iletilecektir.",
             };
@@ -901,6 +991,92 @@ router.get("/eventdelete/:id", (req, res) => {
               console.log(err);
             }
             res.redirect("/EventPanel");
+          }
+        );
+      }
+    );
+  });
+});
+
+router.get("/eventdeleteasowner/:id", (req, res) => {
+  const path = req.params.id;
+
+  db.query("SELECT * FROM Events Where EventNo = ?", [path], (err, result) => {
+    const events = [];
+    if (err) {
+      console.log(err);
+    }
+    if (result.length > 0) {
+      for (var i = 0; i < result.length; i++) {
+        var a = {
+          EventName: result[0].EventName,
+          EventPrice: result[0].EventPrice,
+        };
+        events.push(a);
+      }
+      console.log(events);
+    }
+    db.query(
+      "SELECT * FROM ticket Where event_name = ?",
+      [events[0].EventName],
+      (err, result3) => {
+        const tickets = [];
+        if (err) {
+          console.log(err);
+          res.redirect("/notFound");
+        }
+        if (result3.length > 0) {
+          for (var i = 0; i < result3.length; i++) {
+            var b = {
+              EventName: result3[i].event_name,
+              user_email: result3[i].user_email,
+              ticketPrice: result3[i].ticketPrice,
+            };
+            tickets.push(b);
+          }
+          console.log("---------------------------------------");
+          console.log(tickets);
+          console.log("---------------------------------------");
+          for (i = 0; i < tickets.length; i++) {
+            var transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: "snolldestek@gmail.com",
+                pass: "snoll123",
+              },
+              tls: {
+                rejectUnauthorized: false,
+              },
+            });
+
+            var mailOptions = {
+              from: "snolldestek@gmail.com",
+              to: tickets[i].user_email,
+              subject: "Etkinlik İptali",
+              text:
+                "Bilet satın almış olduğunuz bir etkinlik iptal olmuştur yapmış olduğunuz " +
+                tickets[i].ticketPrice +
+                "₺ lik ödeme" +
+                " tarafınıza en kısa sürede iletilecektir.",
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Email sent: " + info.response);
+              }
+            });
+          }
+        }
+        db.query(
+          "DELETE FROM Events Where EventNo = ?",
+          [path],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            }
+            res.redirect("/ownerPanel");
           }
         );
       }
@@ -1373,51 +1549,134 @@ router.get("/deletefromcart/:id", (req, res) => {
     }
   );
 });
-router.get("/addcart/:no", (req, res) => {
+router.post("/addcart/:no", (req, res) => {
   var path = req.params.no;
+  const { secim } = req.body;
+  req.session.secim = secim;
+  console.log("-----------------")
+  console.log(req.session.secim);
+  console.log("-------------------------------")
+  if(secim == "vip"){
   db.query(
     "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
     [path],
-    (err, result) => {
+    (err, result2) => {
       if (err) {
         console.log(err);
       } else {
-        const Event = [
-          {
-            EventName: result[0].EventName,
-            EventDate: result[0].EventDate,
-            EventPrice: result[0].EventPrice,
-            PerformerName: result[0].PerformerName,
-            EventCategory: result[0].EventCategory,
-            EventCapacity: result[0].EventCapacity,
-            EventAddress: result[0].EventAddress,
-            EventCity: result[0].EventCity,
-            EventPlace: result[0].EventPlace,
-            EventPhotoUrl: result[0].EventPhotoUrl,
-            EventPhotoBackground: result[0].EventPhotoBackground,
-            EventNo: result[0].EventNo,
-          },
-        ];
-        db.query(
-          "INSERT INTO Cart SET ?",
-          {
-            EventName: Event[0].EventName,
-            UserEmail: req.session.emailAddress,
-            EventPrice: Event[0].EventPrice,
-            EventNo: Event[0].EventNo,
-          },
-          (error, result2) => {
-            if (error) {
-              console.log(error);
-              res.redirect("/addCartError");
-            } else {
-              res.redirect("/myCart");
+        if(result2[0].EventVipCapacity == 0){
+          res.redirect("/noCapacity");
+        }else{
+          db.query(
+            "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
+            [path],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              } else {
+                const Event = [
+                  {
+                    EventName: result[0].EventName,
+                    EventDate: result[0].EventDate,
+                    EventPrice: result[0].EventPrice,
+                    EventVipPrice : result[0].EventVipPrice,
+                    PerformerName: result[0].PerformerName,
+                    EventCategory: result[0].EventCategory,
+                    EventCapacity: result[0].EventCapacity,
+                    EventVipCapacity : result[0].EventVipCapacity,
+                    EventAddress: result[0].EventAddress,
+                    EventCity: result[0].EventCity,
+                    EventPlace: result[0].EventPlace,
+                    EventPhotoUrl: result[0].EventPhotoUrl,
+                    EventPhotoBackground: result[0].EventPhotoBackground,
+                    EventNo: result[0].EventNo,
+                  },
+                ];
+                db.query(
+                  "INSERT INTO Cart SET ?",
+                  {
+                    EventName: Event[0].EventName,
+                    UserEmail: req.session.emailAddress,
+                    EventPrice: Event[0].EventVipPrice,
+                    EventNo: Event[0].EventNo,
+                  },
+                  (error, result2) => {
+                    if (error) {
+                      console.log(error);
+                      res.redirect("/addCartError");
+                    } else {
+                      res.redirect("/myCart");
+                    }
+                  }
+                );
+              }
             }
-          }
-        );
+          );
+        }
       }
     }
   );
+  }else{
+    db.query(
+      "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
+      [path],
+      (err, result3) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if(result3[0].EventCapacity == 0){
+            res.redirect("/noCapacity");
+          }else{
+            db.query(
+              "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
+              [path],
+              (err, result) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  const Event = [
+                    {
+                      EventName: result[0].EventName,
+                      EventDate: result[0].EventDate,
+                      EventPrice: result[0].EventPrice,
+                      EventVipPrice : result[0].EventVipPrice,
+                      PerformerName: result[0].PerformerName,
+                      EventCategory: result[0].EventCategory,
+                      EventCapacity: result[0].EventCapacity,
+                      EventVipCapacity : result[0].EventVipCapacity,
+                      EventAddress: result[0].EventAddress,
+                      EventCity: result[0].EventCity,
+                      EventPlace: result[0].EventPlace,
+                      EventPhotoUrl: result[0].EventPhotoUrl,
+                      EventPhotoBackground: result[0].EventPhotoBackground,
+                      EventNo: result[0].EventNo,
+                    },
+                  ];
+                  db.query(
+                    "INSERT INTO Cart SET ?",
+                    {
+                      EventName: Event[0].EventName,
+                      UserEmail: req.session.emailAddress,
+                      EventPrice: Event[0].EventPrice,
+                      EventNo: Event[0].EventNo,
+                    },
+                    (error, result2) => {
+                      if (error) {
+                        console.log(error);
+                        res.redirect("/addCartError");
+                      } else {
+                        res.redirect("/myCart");
+                      }
+                    }
+                  );
+                }
+              }
+            );
+          }
+        }
+      }
+    );
+  }
 });
 
 router.get("/forgetSuccess", (req, res) => {
@@ -1463,6 +1722,7 @@ router.post("/passwordChange/:mail", async (req, res) => {
     );
   }
 });
+//Easter Egg
 router.get("/control", (req, res) => {
   const encryptedString = cryptr.encrypt("salih.coskun@isik.edu.tr");
   console.log(encryptedString);
@@ -1470,5 +1730,4 @@ router.get("/control", (req, res) => {
   console.log(decryptedString);
   res.redirect("/");
 });
-
 module.exports = router;
