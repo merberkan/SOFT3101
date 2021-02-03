@@ -32,10 +32,12 @@ exports.login = async (req, res) => {
       [email],
       async (error, results) => {
         console.log(results);
-        if(results[0].role == "admin"){
-          req.session.adminUser = true;
-        }if(results[0].role == "owner"){
-          req.session.ownerUser = true;
+        if(results.length > 0){
+          if(results[0].role == "admin"){
+            req.session.adminUser = true;
+          }if(results[0].role == "owner"){
+            req.session.ownerUser = true;
+          }
         }
         if (
           results == "" ||
