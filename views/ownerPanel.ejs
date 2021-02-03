@@ -275,11 +275,13 @@
             <th>Etkinlik Tarihi</th>
             <th>Etkinlik Yeri</th>
             <th>Etkinlik Fiyatı</th>
+            <th>Etkinlik Vip Fiyatı</th>
             <th>Etkinlik Arkaplan</th>
             <th>Etkinlik Resmi</th>
             <th>Sanatçı</th>
             <th>Etkinlik Kategorisi</th>
             <th>Etkinlik Kapasitesi</th>
+            <th>Etkinlik Vip Kapasitesi</th>
             <th>Etkinlik Adresi</th>
             <th>Etkinlik Şehri</th>
           </tr>
@@ -296,16 +298,19 @@
                 </a>
               </div>
             </td>
+            
             <td><%=ownerEvent.EventNo%></td>
             <td><%=ownerEvent.EventName%></td>
             <td><%=ownerEvent.EventDate%></td>
             <td><%=ownerEvent.EventPlace%></td>
             <td><%=ownerEvent.EventPrice%></td>
+            <td><%=ownerEvent.EventVipPrice%></td>
             <td><%=ownerEvent.EventPhotoBackground%></td>
             <td><%=ownerEvent.EventPhotoUrl%></td>
             <td><%=ownerEvent.PerformerName%></td>
             <td><%=ownerEvent.EventCategory%></td>
             <td><%=ownerEvent.EventCapacity%></td>
+            <td><%=ownerEvent.EventVipCapacity%></td>
             <td><%=ownerEvent.EventAddress%></td>
             <td><%=ownerEvent.EventCity%></td>
           </tr>
