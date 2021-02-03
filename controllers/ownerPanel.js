@@ -67,6 +67,7 @@ exports.update = (req, res) => {
     const eventno = req.params.eventno;
     const {EventName, EventDate, EventPlace, EventPrice,EventVipPrice, EventPhotoBackground,
             EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventVipCapacity,EventAddress, EventCity} = req.body;
+            const etkinlik=[];
 
         db.query("UPDATE Snoll.Events SET EventName = ?, EventDate = ?, EventPlace = ?, EventPrice = ?,EventVipPrice=?, EventPhotoBackground = ?, EventPhotoUrl = ?, PerformerName = ?, EventCategory = ?, EventCapacity = ?,EventVipCapacity=?, EventAddress = ?, EventCity = ? WHERE EventNo = ?",
         [EventName,EventDate, EventPlace, EventPrice,EventVipPrice, EventPhotoBackground,EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventVipCapacity,EventAddress, EventCity, eventno],
@@ -80,9 +81,83 @@ exports.update = (req, res) => {
             if (req.session.userRole == "owner") {
                 res.redirect("/ownerMain");
             }; 
+            db.query("SELECT * FROM Events Where EventNo = ?", [eventno], (err, result) => {
+                const events = [];
+                if (err) {
+                  console.log(err);
+                }
+                if (result.length > 0) {
+                  for (var i = 0; i < result.length; i++) {
+                    var a = {
+                      EventName: result[0].EventName,
+                      EventAddress:result[0].EventAddress,
+                      EventPlace:result[0].EventPlace,
+                      EventPrice: result[0].EventPrice,
+                      EventDate: result[0].EventDate,
+                    };
+                    events.push(a);
+                  }
+                  console.log(events);
+                }
+                db.query(
+                  "SELECT * FROM ticket Where event_name = ?",
+                  [events[0].EventName],
+                  (err, result3) => {
+                    const tickets = [];
+                    if (err) {
+                      console.log(err);
+                      res.redirect("/notFound");
+                    }
+                    if (result3.length > 0) {
+                      for (var i = 0; i < result3.length; i++) {
+                        var b = {
+                          EventName: result3[i].event_name,
+                          user_email: result3[i].user_email,
+                          ticketPrice: result3[i].ticketPrice,
+                        };
+                        tickets.push(b);
+                      }
+                      console.log("---------------------------------------");
+                      console.log(tickets);
+                      console.log("---------------------------------------");
+                      for (i = 0; i < tickets.length; i++) {
+                        var transporter = nodemailer.createTransport({
+                          service: "gmail",
+                          auth: {
+                            user: "snolldestek@gmail.com",
+                            pass: "snoll123",
+                          },
+                          tls: {
+                            rejectUnauthorized: false,
+                          },
+                        });
             
+                        var mailOptions = {
+                          from: "snolldestek@gmail.com",
+                          to: tickets[i].user_email,
+                          subject: "Etkinlik Değişikliği",
+                          text:"Merhabalar,bilet satın aldığınız bir etkinliğin bilgileri güncellenmiştir yeni bilgiler şu şekildedir.  " +
+                          " Etkinlik adı  :" +
+                          events[0].EventName +
+                          "  Etkinlik adresi : " +
+                          events[0].EventAddress +
+                          "  Etkinlik tarihi :  " +
+                          events[0].EventDate,
+                        };
+            
+                        transporter.sendMail(mailOptions, function (error, info) {
+                          if (error) {
+                            console.log(error);
+                          } else {
+                            console.log("Email sent: " + info.response);
+                          }
+                        });
+                      }
+                    }
+                  }
+                ); 
             
         }
         )
-
+    });
 };
