@@ -269,7 +269,7 @@
         </h3>
         <table style="width: 100%">
           <tr>
-            <th>Etkinlik Çıkar</th>
+            <th>Etkinlik Çıkar/Güncelle</th>
             <th>Etkinlik No</th>
             <th>Etkinlik Adı</th>
             <th>Etkinlik Tarihi</th>
@@ -311,7 +311,7 @@
             <td><%=ownerEvent.EventCategory%></td>
             <td><%=ownerEvent.EventCapacity%></td>
             <td><%=ownerEvent.EventVipCapacity%></td>
-            <td><%=ownerEvent.EventAddress%></td>
+            <td style="word-break: break-all; min-width: 20rem"><%=ownerEvent.EventAddress%></td>
             <td><%=ownerEvent.EventCity%></td>
           </tr>
           <% }) %> <% } %>
@@ -331,7 +331,7 @@
               <td><%=pEvent.EventCategory%></td>
               <td><%=pEvent.EventCapacity%></td>
               <td><%=pEvent.EventVipCapacity%></td>
-              <td style="word-break: break-all; max-width: 30rem">
+              <td style="word-break: break-all; min-width: 20rem">
                 <%=pEvent.EventAddress%>
               </td>
               <td><%=pEvent.EventCity%></td>
