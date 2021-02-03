@@ -76,7 +76,7 @@
           </h3>
           <form action="/ownerPanel/event" method="POST">
             <div class="event-text">
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventName">Etkinlik Adı</label>
                 <input
                   type="text"
@@ -86,7 +86,7 @@
                   required
                 />
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventDate">Etkinlik Tarihi</label>
                 <input
                   type="date"
@@ -96,7 +96,7 @@
                   required
                 />
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventPlace">Etkinlik Yeri</label>
                 <input
                   type="text"
@@ -106,7 +106,7 @@
                   required
                 />
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventPrice">Etkinlik Fiyatı</label>
                 <input
                   type="text"
@@ -116,6 +116,20 @@
                   name="EventPrice"
                   style="margin-top: 5rem"
                   required
+                  size="4"
+                />
+              </div>
+              <div class="event-top" style="justify-content: space-between">
+                <label for="EventVipPrice">Etkinlik Vip Fiyatı</label>
+                <input
+                  type="text"
+                  pattern="[0-9]+"
+                  title="lütfen sadece pozitif sayılar girin"
+                  id="EventVipPrice"
+                  name="EventVipPrice"
+                  style="margin-top: 5rem"
+                  required
+                  size="4"
                 />
               </div>
               <div class="event-top" style="justify-content: space-between">
@@ -138,7 +152,7 @@
                   required
                 ></textarea>
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="PerformerName">Sanatçı</label>
                 <input
                   type="text"
@@ -148,7 +162,7 @@
                   required
                 />
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventCategory">Etkinlik Kategorisi</label>
                 <select
                   name="EventCategory"
@@ -163,10 +177,8 @@
                   <option>Teknoloji</option>
                 </select>
               </div>
-              <div class="event-top">
-                <label for="EventCapacity" style="margin-top: 2.7rem"
-                  >Etkinlik Kapasitesi</label
-                >
+              <div class="event-top" style="justify-content: space-between">
+                <label for="EventCapacity">Etkinlik Kapasitesi</label>
                 <input
                   type="text"
                   pattern="[0-9]+"
@@ -175,6 +187,20 @@
                   name="EventCapacity"
                   style="margin-top: 2.3rem"
                   required
+                  size="4"
+                />
+              </div>
+              <div class="event-top" style="justify-content: space-between">
+                <label for="EventVipCapacity">Etkinlik Vip Kapasitesi</label>
+                <input
+                  type="text"
+                  pattern="[0-9]+"
+                  title="lütfen sadece pozitif sayılar girin"
+                  id="EventVipCapacity"
+                  name="EventVipCapacity"
+                  style="margin-top: 2.3rem"
+                  required
+                  size="4"
                 />
               </div>
               <div class="event-top" style="justify-content: space-between">
@@ -187,7 +213,7 @@
                   required
                 ></textarea>
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventCity">Etkinlik Şehri</label>
                 <select
                   name="EventCity"
@@ -242,17 +268,19 @@
           </h3>
           <table style="width: 100%">
             <tr>
-              <th>Etkinlik Çıkar</th>
+              <th>Etkinlik Çıkar/Güncelle</th>
               <th>Etkinlik No</th>
               <th>Etkinlik Adı</th>
               <th>Etkinlik Tarihi</th>
               <th>Etkinlik Yeri</th>
               <th>Etkinlik Fiyatı</th>
+              <th>Etkinlik Vip Fiyatı</th>
               <th>Etkinlik Arkaplan</th>
               <th>Etkinlik Resmi</th>
               <th>Sanatçı</th>
               <th>Etkinlik Kategorisi</th>
               <th>Etkinlik Kapasitesi</th>
+              <th>Etkinlik Vip Kapasitesi</th>
               <th>Etkinlik Adresi</th>
               <th>Etkinlik Şehri</th>
             </tr>
@@ -274,11 +302,13 @@
               <td><%=ownerEvent.EventDate%></td>
               <td><%=ownerEvent.EventPlace%></td>
               <td><%=ownerEvent.EventPrice%></td>
+              <td><%=ownerEvent.EventVipPrice%></td>
               <td><%=ownerEvent.EventPhotoBackground%></td>
               <td><%=ownerEvent.EventPhotoUrl%></td>
               <td><%=ownerEvent.PerformerName%></td>
               <td><%=ownerEvent.EventCategory%></td>
               <td><%=ownerEvent.EventCapacity%></td>
+              <td><%=ownerEvent.EventVipCapacity%></td>
               <td style="word-break: break-all; max-width: 30rem">
                 <%=ownerEvent.EventAddress%>
               </td>
@@ -293,11 +323,13 @@
               <td><%=pEvent.EventDate%></td>
               <td><%=pEvent.EventPlace%></td>
               <td><%=pEvent.EventPrice%></td>
+              <td><%=pEvent.EventVipPrice%></td>
               <td><%=pEvent.EventPhotoBackground%></td>
               <td><%=pEvent.EventPhotoUrl%></td>
               <td><%=pEvent.PerformerName%></td>
               <td><%=pEvent.EventCategory%></td>
               <td><%=pEvent.EventCapacity%></td>
+              <td><%=pEvent.EventVipCapacity%></td>
               <td style="word-break: break-all; max-width: 30rem">
                 <%=pEvent.EventAddress%>
               </td>
@@ -329,11 +361,13 @@
               <th>Etkinlik Tarihi</th>
               <th>Etkinlik Yeri</th>
               <th>Etkinlik Fiyatı</th>
+              <th>Etkinlik Vip Fiyatı</th>
               <th>Etkinlik Arkaplan</th>
               <th>Etkinlik Resmi</th>
               <th>Sanatçı</th>
               <th>Etkinlik Kategorisi</th>
               <th>Etkinlik Kapasitesi</th>
+              <th>Etkinlik Vip Kapasitesi</th>
               <th>Etkinlik Adresi</th>
               <th>Etkinlik Şehri</th>
             </tr>
@@ -344,11 +378,13 @@
               <td><%=events.EventDate%></td>
               <td><%=events.EventPlace%></td>
               <td><%=events.EventPrice%></td>
+              <td><%=events.EventVipPrice%></td>
               <td><%=events.EventPhotoBackground%></td>
               <td><%=events.EventPhotoUrl%></td>
               <td><%=events.PerformerName%></td>
               <td><%=events.EventCategory%></td>
               <td><%=events.EventCapacity%></td>
+              <td><%=events.EventVipCapacity%></td>
               <td style="word-break: break-all; max-width: 30rem">
                 <%=events.EventAddress%>
               </td>
@@ -362,11 +398,13 @@
               <td><%=pownerEvent.EventDate%></td>
               <td><%=pownerEvent.EventPlace%></td>
               <td><%=pownerEvent.EventPrice%></td>
+              <td><%=pownerEvent.EventVipPrice%></td>
               <td><%=pownerEvent.EventPhotoBackground%></td>
               <td><%=pownerEvent.EventPhotoUrl%></td>
               <td><%=pownerEvent.PerformerName%></td>
               <td><%=pownerEvent.EventCategory%></td>
               <td><%=pownerEvent.EventCapacity%></td>
+              <td><%=pownerEvent.EventVipCapacity%></td>
               <td style="word-break: break-all; max-width: 30rem">
                 <%=pownerEvent.EventAddress%>
               </td>

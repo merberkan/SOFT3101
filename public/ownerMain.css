@@ -55,8 +55,9 @@ button:hover {
   border-radius: 1.175rem;
   border: 1px solid;
   padding: 1px 0 35px 0;
-  margin-right: 5rem;
+  margin-right: 2rem;
   margin-bottom: 20rem;
+  margin-left: 3rem;
 }
 .contain {
   display: flex;

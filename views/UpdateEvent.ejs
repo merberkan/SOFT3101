@@ -77,7 +77,7 @@
           </h3>
           <form action="/ownerPanel/update/<%=event.EventNo%>" method="POST">
             <div class="event-text">
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventName">Etkinlik Adı</label>
                 <input
                   type="text"
@@ -87,7 +87,7 @@
                   required
                 />
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventDate">Etkinlik Tarihi</label>
                 <input
                   type="date"
@@ -97,7 +97,7 @@
                   required
                 />
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventPlace">Etkinlik Yeri</label>
                 <input
                   type="text"
@@ -107,7 +107,7 @@
                   required
                 />
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventPrice">Etkinlik Fiyatı</label>
                 <input
                   type="text"
@@ -117,6 +117,20 @@
                   name="EventPrice"
                   style="margin-top: 5rem"
                   required
+                  size="4"
+                />
+              </div>
+              <div class="event-top" style="justify-content: space-between">
+                <label for="EventVipPrice">Etkinlik Vip Fiyatı</label>
+                <input
+                  type="text"
+                  pattern="[0-9]+"
+                  title="lütfen sadece pozitif sayılar girin"
+                  id="EventVipPrice"
+                  name="EventVipPrice"
+                  style="margin-top: 5rem"
+                  required
+                  size="4"
                 />
               </div>
               <div class="event-top" style="justify-content: space-between">
@@ -139,7 +153,7 @@
                   required
                 ></textarea>
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="PerformerName">Sanatçı</label>
                 <input
                   type="text"
@@ -149,7 +163,7 @@
                   required
                 />
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventCategory">Etkinlik Kategorisi</label>
                 <select
                   name="EventCategory"
@@ -164,10 +178,8 @@
                   <option>Teknoloji</option>
                 </select>
               </div>
-              <div class="event-top">
-                <label for="EventCapacity" style="margin-top: 2.7rem"
-                  >Etkinlik Kapasitesi</label
-                >
+              <div class="event-top" style="justify-content: space-between">
+                <label for="EventCapacity">Etkinlik Kapasitesi</label>
                 <input
                   type="text"
                   pattern="[0-9]+"
@@ -176,6 +188,20 @@
                   name="EventCapacity"
                   style="margin-top: 2.3rem"
                   required
+                  size="4"
+                />
+              </div>
+              <div class="event-top" style="justify-content: space-between">
+                <label for="EventVipCapacity">Etkinlik Vip Kapasitesi</label>
+                <input
+                  type="text"
+                  pattern="[0-9]+"
+                  title="lütfen sadece pozitif sayılar girin"
+                  id="EventVipCapacity"
+                  name="EventVipCapacity"
+                  style="margin-top: 2.3rem"
+                  required
+                  size="4"
                 />
               </div>
               <div class="event-top" style="justify-content: space-between">
@@ -188,7 +214,7 @@
                   required
                 ></textarea>
               </div>
-              <div class="event-top">
+              <div class="event-top" style="justify-content: space-between">
                 <label for="EventCity">Etkinlik Şehri</label>
                 <select
                   name="EventCity"
@@ -254,11 +280,13 @@
               <th>Etkinlik Tarihi</th>
               <th>Etkinlik Yeri</th>
               <th>Etkinlik Fiyatı</th>
+              <th>Etkinlik Vip Fiyatı</th>
               <th>Etkinlik Arkaplan</th>
               <th>Etkinlik Resmi</th>
               <th>Sanatçı</th>
               <th>Etkinlik Kategorisi</th>
               <th>Etkinlik Kapasitesi</th>
+              <th>Etkinlik Vip Kapasitesi</th>
               <th>Etkinlik Adresi</th>
               <th>Etkinlik Şehri</th>
             </tr>
@@ -269,11 +297,13 @@
               <td><%=events.EventDate%></td>
               <td><%=events.EventPlace%></td>
               <td><%=events.EventPrice%></td>
+              <td><%=events.EventVipPrice%></td>
               <td><%=events.EventPhotoBackground%></td>
               <td><%=events.EventPhotoUrl%></td>
               <td><%=events.PerformerName%></td>
               <td><%=events.EventCategory%></td>
               <td><%=events.EventCapacity%></td>
+              <td><%=events.EventVipCapacity%></td>
               <td style="word-break: break-all; max-width: 30rem">
                 <%=events.EventAddress%>
               </td>

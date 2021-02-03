@@ -15,8 +15,8 @@ const db = mysql.createConnection({
 
 exports.event = (req,res) => {
     try {
-    const { EventNo, EventName, EventDate, EventPlace, EventPrice, EventPhotoBackground,
-    EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventAddress, EventCity,owner_email} = req.body;
+    const { EventNo, EventName, EventDate, EventPlace, EventPrice,EventVipPrice, EventPhotoBackground,
+    EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventVipCapacity,EventAddress, EventCity,owner_email} = req.body;
     db.query('INSERT INTO Events SET ?',
     {
         EventNo: EventNo,
@@ -24,11 +24,13 @@ exports.event = (req,res) => {
         EventDate: EventDate,
         EventPlace: EventPlace,
         EventPrice: EventPrice,
+        EventVipPrice:EventVipPrice,
         EventPhotoBackground: EventPhotoBackground,
         EventPhotoUrl: EventPhotoUrl,
         PerformerName: PerformerName,
         EventCategory: EventCategory,
         EventCapacity: EventCapacity,
+        EventVipCapacity:EventVipCapacity,
         EventAddress: EventAddress,
         EventCity: EventCity,
         owner_email:req.session.emailAddress,
@@ -63,11 +65,11 @@ exports.event = (req,res) => {
 
 exports.update = (req, res) => {
     const eventno = req.params.eventno;
-    const {EventName, EventDate, EventPlace, EventPrice, EventPhotoBackground,
-            EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventAddress, EventCity} = req.body;
+    const {EventName, EventDate, EventPlace, EventPrice,EventVipPrice, EventPhotoBackground,
+            EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventVipCapacity,EventAddress, EventCity} = req.body;
 
-        db.query("UPDATE Snoll.Events SET EventName = ?, EventDate = ?, EventPlace = ?, EventPrice = ?, EventPhotoBackground = ?, EventPhotoUrl = ?, PerformerName = ?, EventCategory = ?, EventCapacity = ?, EventAddress = ?, EventCity = ? WHERE EventNo = ?",
-        [EventName,EventDate, EventPlace, EventPrice, EventPhotoBackground,EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventAddress, EventCity, eventno],
+        db.query("UPDATE Snoll.Events SET EventName = ?, EventDate = ?, EventPlace = ?, EventPrice = ?,EventVipPrice=?, EventPhotoBackground = ?, EventPhotoUrl = ?, PerformerName = ?, EventCategory = ?, EventCapacity = ?,EventVipCapacity=?, EventAddress = ?, EventCity = ? WHERE EventNo = ?",
+        [EventName,EventDate, EventPlace, EventPrice,EventVipPrice, EventPhotoBackground,EventPhotoUrl, PerformerName, EventCategory, EventCapacity,EventVipCapacity,EventAddress, EventCity, eventno],
         (err) => {
             if(err){
                 console.log(err);
