@@ -1565,7 +1565,7 @@ router.post("/addcart/:no", (req, res) => {
         console.log(err);
       } else {
         if(result2[0].EventVipCapacity == 0){
-          res.redirect("/noCapacity");
+          res.redirect("/categoryControl");
         }else{
           db.query(
             "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
@@ -1625,7 +1625,7 @@ router.post("/addcart/:no", (req, res) => {
           console.log(err);
         } else {
           if(result3[0].EventCapacity == 0){
-            res.redirect("/noCapacity");
+            res.redirect("/categoryControl");
           }else{
             db.query(
               "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
@@ -1729,5 +1729,12 @@ router.get("/control", (req, res) => {
   const decryptedString = cryptr.decrypt(encryptedString);
   console.log(decryptedString);
   res.redirect("/");
+});
+router.get("/categoryControl", (req, res) => {
+  res.render("categoryControl", {
+    email: req.session.emailAddress,
+    loginn: req.session.loggedinUser,
+    message: req.session.message,
+  });
 });
 module.exports = router;
