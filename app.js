@@ -12,10 +12,12 @@ dotenv.config({path : './.env'})
 const app = express();
 
 const db = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "Snoll",
+    socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
+    port: "8889" 
 });
 const publicDirectory = path.join(__dirname , './public'); //css veya js dosyalarımın konnumunu gösteriyorum
 app.use(express.static(publicDirectory)); // dosyamı servera kullanması için veriyorum
