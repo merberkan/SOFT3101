@@ -205,14 +205,13 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
               EventName: result[0].EventName,
               EventC: result[0].EventCapacity,
               EventVipC: result[0].EventVipCapacity,
-              EventPrice:result[0].EventPrice,
+              EventPrice: result[0].EventPrice,
               EventVipPrice: result[0].EventVipPrice,
               EventAddress: result[0].EventAddress,
               EventDate: result[0].EventDate,
             },
           ];
           console.log("EVENT: " + Event[0].EventC);
-          if (Event[0].EventC > 0) {
             db.query(
               "INSERT INTO Ticket SET ?",
               {
@@ -235,118 +234,124 @@ router.get("/paymentsuccessfull/:id", (req, res) => {
                 }
               }
             );
-            if(req.session.secim=="normal"){
+            if (req.session.secim == "normal") {
               var denememail = req.session.emailAddress;
               console.log("Normal çalıştı");
               db.query(
-                "UPDATE ticket SET ticketPrice = ? where user_email = ?",[Event[0].EventPrice, req.session.emailAddress],
+                "UPDATE ticket SET ticketPrice = ? where user_email = ?",
+                [Event[0].EventPrice, req.session.emailAddress],
                 (error, result2) => {
                   if (error) {
                     console.log(error);
                   }
-                
-            db.query(
-              `UPDATE Events SET EventCapacity = ${
-                Event[0].EventC - 1
-              } where EventNo = ${Event[0].EventNo}`,
-              (error, result) => {
-                if (error) {
-                  console.log(error);
-                } else {
-                  var transporter = nodemailer.createTransport({
-                    service: "gmail",
-                    auth: {
-                      user: "snolldestek@gmail.com",
-                      pass: "snoll123",
-                    },
-                    tls: {
-                      rejectUnauthorized: false,
-                    },
-                  });
-                  var mailOptions = {
-                    from: "snolldestek@gmail.com",
-                    to: req.session.emailAddress,
-                    subject: "Biletiniz",
-                    text:
-                      "Merhabalar,bilet alma işleminizi başarıyla gerçekleştirdiniz bilet bilgilerinizi burada bulabilirsiniz bizi seçtiğiniz için teşekkür ederiz ." +
-                      " Etkinlik adı  :" +
-                      Event[0].EventName +
-                      "  Etkinlik adresi : " +
-                      Event[0].EventAddress +
-                      "  Etkinlik tarihi :  " +
-                      Event[0].EventDate,
-                  };
-                  transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                      console.log(error);
-                    } else {
-                      console.log("Email sent: " + info.response);
-                    }
-                  });
-                  res.redirect("/ticketSuccess");
-                }
-              }
-            );
-          }
-          );
-            }else if(req.session.secim == "vip"){
-              var denememail =req.session.emailAddress;
-              console.log("Vip çalıştı");
-              db.query(
-                "UPDATE ticket SET ticketPrice = ? where user_email = ?",[Event[0].EventVipPrice, req.session.emailAddress],
-                (error, result2) => {
-                  if (error) {
-                    console.log(error);
-                  }
-                
-              db.query(
-                `UPDATE Events SET EventVipCapacity = ${
-                  Event[0].EventVipC - 1
-                } where EventNo = ${Event[0].EventNo}`,
-                (error, result) => {
-                  if (error) {
-                    console.log(error);
-                  } else {
-                    var transporter = nodemailer.createTransport({
-                      service: "gmail",
-                      auth: {
-                        user: "snolldestek@gmail.com",
-                        pass: "snoll123",
-                      },
-                      tls: {
-                        rejectUnauthorized: false,
-                      },
-                    });
-                    var mailOptions = {
-                      from: "snolldestek@gmail.com",
-                      to: req.session.emailAddress,
-                      subject: "Biletiniz",
-                      text:
-                        "Merhabalar,bilet alma işleminizi başarıyla gerçekleştirdiniz bilet bilgilerinizi burada bulabilirsiniz bizi seçtiğiniz için teşekkür ederiz ." +
-                        " Etkinlik adı  :" +
-                        Event[0].EventName +
-                        "  Etkinlik adresi : " +
-                        Event[0].EventAddress +
-                        "  Etkinlik tarihi :  " +
-                        Event[0].EventDate,
-                    };
-                    transporter.sendMail(mailOptions, function (error, info) {
+
+                  db.query(
+                    `UPDATE Events SET EventCapacity = ${
+                      Event[0].EventC - 1
+                    } where EventNo = ${Event[0].EventNo}`,
+                    (error, result) => {
                       if (error) {
                         console.log(error);
                       } else {
-                        console.log("Email sent: " + info.response);
+                        var transporter = nodemailer.createTransport({
+                          service: "gmail",
+                          auth: {
+                            user: "snolldestek@gmail.com",
+                            pass: "snoll123",
+                          },
+                          tls: {
+                            rejectUnauthorized: false,
+                          },
+                        });
+                        var mailOptions = {
+                          from: "snolldestek@gmail.com",
+                          to: req.session.emailAddress,
+                          subject: "Biletiniz",
+                          text:
+                            "Merhabalar,bilet alma işleminizi başarıyla gerçekleştirdiniz bilet bilgilerinizi burada bulabilirsiniz bizi seçtiğiniz için teşekkür ederiz ." +
+                            " Etkinlik adı  :" +
+                            Event[0].EventName +
+                            "  Etkinlik adresi : " +
+                            Event[0].EventAddress +
+                            "  Etkinlik tarihi :  " +
+                            Event[0].EventDate,
+                        };
+                        transporter.sendMail(
+                          mailOptions,
+                          function (error, info) {
+                            if (error) {
+                              console.log(error);
+                            } else {
+                              console.log("Email sent: " + info.response);
+                            }
+                          }
+                        );
+                        res.redirect("/ticketSuccess");
                       }
-                    });
-                    res.redirect("/ticketSuccess");
+                    }
+                  );
+                }
+              );
+            } else if (req.session.secim == "vip") {
+              var denememail = req.session.emailAddress;
+              console.log("Vip çalıştı");
+              db.query(
+                "UPDATE ticket SET ticketPrice = ? where user_email = ?",
+                [Event[0].EventVipPrice, req.session.emailAddress],
+                (error, result2) => {
+                  if (error) {
+                    console.log(error);
                   }
+
+                  db.query(
+                    `UPDATE Events SET EventVipCapacity = ${
+                      Event[0].EventVipC - 1
+                    } where EventNo = ${Event[0].EventNo}`,
+                    (error, result) => {
+                      if (error) {
+                        console.log(error);
+                      } else {
+                        var transporter = nodemailer.createTransport({
+                          service: "gmail",
+                          auth: {
+                            user: "snolldestek@gmail.com",
+                            pass: "snoll123",
+                          },
+                          tls: {
+                            rejectUnauthorized: false,
+                          },
+                        });
+                        var mailOptions = {
+                          from: "snolldestek@gmail.com",
+                          to: req.session.emailAddress,
+                          subject: "Biletiniz",
+                          text:
+                            "Merhabalar,bilet alma işleminizi başarıyla gerçekleştirdiniz bilet bilgilerinizi burada bulabilirsiniz bizi seçtiğiniz için teşekkür ederiz ." +
+                            " Etkinlik adı  :" +
+                            Event[0].EventName +
+                            "  Etkinlik adresi : " +
+                            Event[0].EventAddress +
+                            "  Etkinlik tarihi :  " +
+                            Event[0].EventDate,
+                        };
+                        transporter.sendMail(
+                          mailOptions,
+                          function (error, info) {
+                            if (error) {
+                              console.log(error);
+                            } else {
+                              console.log("Email sent: " + info.response);
+                            }
+                          }
+                        );
+                        res.redirect("/ticketSuccess");
+                      }
+                    }
+                  );
                 }
               );
             }
-            );
-            }
-          } else {
-            res.redirect("/noCapacity");
-          }
+          
         }
       }
     );
@@ -456,18 +461,18 @@ router.get("/cancelticket/:id", (req, res) => {
                   EventVipCapacity: result2[0].EventVipCapacity,
                 },
               ];
-              if(Ticket[0].ticketType == "normal"){
-              db.query(
-                `UPDATE Snoll.Events SET EventCapacity = ${
-                  Event[0].EventC + 1
-                } WHERE EventNo = ${Event[0].EventNo}`,
-                (err, result3) => {
-                  if (err) {
-                    console.log(err);
+              if (Ticket[0].ticketType == "normal") {
+                db.query(
+                  `UPDATE Snoll.Events SET EventCapacity = ${
+                    Event[0].EventC + 1
+                  } WHERE EventNo = ${Event[0].EventNo}`,
+                  (err, result3) => {
+                    if (err) {
+                      console.log(err);
+                    }
                   }
-                }
-              );
-              }else{
+                );
+              } else {
                 db.query(
                   `UPDATE Snoll.Events SET EventVipCapacity = ${
                     Event[0].EventVipCapacity + 1
@@ -788,7 +793,7 @@ router.get("/EventPanel", (req, res) => {
           loginn: req.session.loggedinUser,
           email: req.session.emailAddress,
           adminn: req.session.adminUser,
-            ownerr: req.session.ownerUser,
+          ownerr: req.session.ownerUser,
         });
       }
       res.render("EventPanel", {
@@ -796,7 +801,7 @@ router.get("/EventPanel", (req, res) => {
         loginn: req.session.loggedinUser,
         email: req.session.emailAddress,
         adminn: req.session.adminUser,
-            ownerr: req.session.ownerUser,
+        ownerr: req.session.ownerUser,
       });
     });
   } else {
@@ -1555,80 +1560,20 @@ router.post("/addcart/:no", (req, res) => {
   var path = req.params.no;
   const { secim } = req.body;
   req.session.secim = secim;
-  console.log("-----------------")
+  console.log("-----------------");
   console.log(req.session.secim);
-  console.log("-------------------------------")
-  if(secim == "vip"){
-  db.query(
-    "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
-    [path],
-    (err, result2) => {
-      if (err) {
-        console.log(err);
-      } else {
-        if(result2[0].EventVipCapacity == 0){
-          res.redirect("/categoryControl");
-        }else{
-          db.query(
-            "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
-            [path],
-            (err, result) => {
-              if (err) {
-                console.log(err);
-              } else {
-                const Event = [
-                  {
-                    EventName: result[0].EventName,
-                    EventDate: result[0].EventDate,
-                    EventPrice: result[0].EventPrice,
-                    EventVipPrice : result[0].EventVipPrice,
-                    PerformerName: result[0].PerformerName,
-                    EventCategory: result[0].EventCategory,
-                    EventCapacity: result[0].EventCapacity,
-                    EventVipCapacity : result[0].EventVipCapacity,
-                    EventAddress: result[0].EventAddress,
-                    EventCity: result[0].EventCity,
-                    EventPlace: result[0].EventPlace,
-                    EventPhotoUrl: result[0].EventPhotoUrl,
-                    EventPhotoBackground: result[0].EventPhotoBackground,
-                    EventNo: result[0].EventNo,
-                  },
-                ];
-                db.query(
-                  "INSERT INTO Cart SET ?",
-                  {
-                    EventName: Event[0].EventName,
-                    UserEmail: req.session.emailAddress,
-                    EventPrice: Event[0].EventVipPrice,
-                    EventNo: Event[0].EventNo,
-                  },
-                  (error, result2) => {
-                    if (error) {
-                      console.log(error);
-                      res.redirect("/addCartError");
-                    } else {
-                      res.redirect("/myCart");
-                    }
-                  }
-                );
-              }
-            }
-          );
-        }
-      }
-    }
-  );
-  }else{
+  console.log("-------------------------------");
+  if (secim == "vip") {
     db.query(
       "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
       [path],
-      (err, result3) => {
+      (err, result2) => {
         if (err) {
           console.log(err);
         } else {
-          if(result3[0].EventCapacity == 0){
+          if (result2[0].EventVipCapacity == 0) {
             res.redirect("/categoryControl");
-          }else{
+          } else {
             db.query(
               "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
               [path],
@@ -1641,11 +1586,71 @@ router.post("/addcart/:no", (req, res) => {
                       EventName: result[0].EventName,
                       EventDate: result[0].EventDate,
                       EventPrice: result[0].EventPrice,
-                      EventVipPrice : result[0].EventVipPrice,
+                      EventVipPrice: result[0].EventVipPrice,
                       PerformerName: result[0].PerformerName,
                       EventCategory: result[0].EventCategory,
                       EventCapacity: result[0].EventCapacity,
-                      EventVipCapacity : result[0].EventVipCapacity,
+                      EventVipCapacity: result[0].EventVipCapacity,
+                      EventAddress: result[0].EventAddress,
+                      EventCity: result[0].EventCity,
+                      EventPlace: result[0].EventPlace,
+                      EventPhotoUrl: result[0].EventPhotoUrl,
+                      EventPhotoBackground: result[0].EventPhotoBackground,
+                      EventNo: result[0].EventNo,
+                    },
+                  ];
+                  db.query(
+                    "INSERT INTO Cart SET ?",
+                    {
+                      EventName: Event[0].EventName,
+                      UserEmail: req.session.emailAddress,
+                      EventPrice: Event[0].EventVipPrice,
+                      EventNo: Event[0].EventNo,
+                    },
+                    (error, result2) => {
+                      if (error) {
+                        console.log(error);
+                        res.redirect("/addCartError");
+                      } else {
+                        res.redirect("/myCart");
+                      }
+                    }
+                  );
+                }
+              }
+            );
+          }
+        }
+      }
+    );
+  } else {
+    db.query(
+      "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
+      [path],
+      (err, result3) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if (result3[0].EventCapacity == 0) {
+            res.redirect("/categoryControl");
+          } else {
+            db.query(
+              "SELECT * FROM Snoll.Events WHERE Snoll.Events.EventNo= ? ",
+              [path],
+              (err, result) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  const Event = [
+                    {
+                      EventName: result[0].EventName,
+                      EventDate: result[0].EventDate,
+                      EventPrice: result[0].EventPrice,
+                      EventVipPrice: result[0].EventVipPrice,
+                      PerformerName: result[0].PerformerName,
+                      EventCategory: result[0].EventCategory,
+                      EventCapacity: result[0].EventCapacity,
+                      EventVipCapacity: result[0].EventVipCapacity,
                       EventAddress: result[0].EventAddress,
                       EventCity: result[0].EventCity,
                       EventPlace: result[0].EventPlace,
