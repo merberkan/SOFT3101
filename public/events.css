@@ -1,0 +1,111 @@
+#mid-part{
+  display: flex;
+  flex-direction: column;
+  background-image: url(./images/soft.jpg);
+  max-width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+
+}
+.event-part{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 5%;
+  min-height: 100vh;
+}
+
+.title{
+  display: flex;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 40px;
+}
+
+.events{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
+  grid-gap: 20px 20px;
+  margin: 3% 10% 2% 5%;
+}
+.flex{
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+}
+
+.event{
+  display: flex;
+  flex-direction: column;
+}
+
+.event-image{
+  display: flex;
+}
+
+.event-image a{
+  max-height: 30rem;
+}
+
+.event-text{
+  display: flex;
+  font-size: 30px;
+  justify-content: center;
+}
+
+.img-event{
+  width: 100%;
+  object-fit: cover;
+  height: 15rem;
+}
+
+.link-text{
+  color: #22395c;
+}
+.fae{
+  display: flex;
+}
+.filter{
+  margin-left: 50px;
+  display: flex;
+  flex: 1;
+}
+.etkinlik-arama{
+  display: flex;
+  flex-direction: column;
+  padding-top: 5px;
+}
+.sehir-secme{
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
+}
+.tarih-secme{
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
+}
+.kategori-secme{
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
+}
+.filter form {
+  border: solid 2px #d2d2d2;
+  border-radius: 40px;
+  height: 25rem;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.scroll{
+  overflow: scroll;
+}
+
+@media screen and (max-width: 800px) {
+  .events{grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));}
+  }

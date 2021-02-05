@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="footernavbarwotransition.css" />
+    <link rel="stylesheet" href="adminPanel.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <section id="header">
+      <div class="header container">
+        <div class="navbar">
+          <div class="logo">
+            <a href="/">
+              <h1><span>S</span>noll</h1>
+            </a>
+          </div>
+          <div class="searchbar">
+            <form method="POST" action="/filterEvent/searchbar">
+              <input
+                type="search"
+                name="EventName"
+                placeholder="Etkinlik Ara"
+              />
+            </form>
+          </div>
+          <div class="navlist">
+            <div class="hb">
+              <div class="bar"></div>
+            </div>
+            <ul>
+              <li style="padding: 8px"><a href="/">Anasayfa</a></li>
+              <li style="padding: 8px"><a href="/events">Etkinlikler</a></li>
+              <li style="padding: 8px"><a href="/category">Kategoriler</a></li>
+              <li style="padding: 8px"><a href="/cityguide">Şehir Turu</a></li>
+              <li style="padding: 20px"><a href="/aboutus">Hakkımızda</a></li>
+              <% if(loginn){ %> <% if(adminn){ %>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/adminMain">Admin</a>
+              </li>
+              <% } if(ownerr){ %>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/ownerMain">Owner</a>
+              </li>
+              <% } %>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/myCart"
+                  ><i class="fas fa-shopping-cart"> Sepetim</i></a
+                >
+              </li>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/profile">Profilim</a>
+              </li>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/logout">Çıkış Yap</a>
+              </li>
+              <% } else{ %>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/login">Giriş Yap</a>
+              </li>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/register">Üye Ol</a>
+              </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Header -->
+
+    <!-- Admin Panel -->
+    <section id="adminPanel">
+      <div class="back">
+        <div class="userpart">
+          <h3 style="font-size: 24px; margin: 10px; color: white">
+            Kullanıcılar
+          </h3>
+          <div class="buttonpart"></div>
+          <div class="showpart">
+            <table style="width: 100%">
+              <tr>
+                <th>Fonksiyon:Rol Belirle</th>
+                <th>Fonksyion:Kullanıcı Sil</th>
+                <th>Kullanıcı Adı</th>
+                <th>Kullanıcı Rolü</th>
+              </tr>
+              <% if(Users.length >0){%> <%Users.forEach(user => { %>
+              <tr>
+                <td>
+                  <a href="/setAdmin/<%=user.email%>"
+                    ><button class="button" type="submit">Admin Yap</button></a
+                  >
+                  <a href="/setOwner/<%=user.email%>"
+                    ><button class="button" type="submit">Owner Yap</button></a
+                  >
+                  <a href="/setUser/<%=user.email%>"
+                    ><button class="button" type="submit">Üye Yap</button></a
+                  >
+                </td>
+
+                <td>
+                  <a href="/userdelete/<%=user.email%>"
+                    ><button class="button" type="submit">
+                      Kullanıcıyı Sil
+                    </button></a
+                  >
+                </td>
+                <td><%=user.email%></td>
+                <td><%=user.role%></td>
+              </tr>
+              <% }) %> <% } %>
+
+              <tr></tr>
+            </table>
+          </div>
+        </div>
+        <div
+          class="b"
+          style="display: flex; justify-content: end; align-items: center"
+        >
+          <a href="/adminMain">
+            <button
+              style="
+                padding: 5px;
+                border-radius: 1.175rem;
+                border: 1px black solid;
+                cursor: pointer;
+                background-color: #5481b3;
+                font-size: 16px;
+                color: white;
+              "
+            >
+              Ana Sayfana Dön
+            </button></a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- End Admin Panel -->
+    <!-- Footer -->
+    <section id="footer">
+      <div class="footerleft">
+        <a href="/">
+          <h1 style="color: white; font-size: 3rem">
+            <span style="color: rgb(73, 89, 230); font-size: 4rem">S</span>noll
+          </h1>
+        </a>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
+          distinctio pariatur placeat consequuntur vel laborum molestiae, eos
+          incidunt est! Doloremque ea illo ratione sunt porro, earum voluptas
+          eum quaerat est. Velit, nostrum quae officia odio veniam animi
+          exercitationem. Nobis, hic. Praesentium provident eaque, dolorum
+          dolore rem ullam id delectus quae?
+        </p>
+        <div class="socialmedia">
+          <div class="socialitem">
+            <a href="https://tr-tr.facebook.com"
+              ><img
+                src="https://img.icons8.com/plasticine/48/000000/facebook-new.png"
+            /></a>
+          </div>
+          <div class="socialitem">
+            <a href="https://twitter.com"
+              ><img
+                src="https://img.icons8.com/doodle/48/000000/twitter--v1.png"
+            /></a>
+          </div>
+          <div class="socialitem">
+            <a href="https://www.instagram.com/?hl=tr"
+              ><img
+                src="https://img.icons8.com/plasticine/50/000000/instagram-new.png"
+            /></a>
+          </div>
+        </div>
+      </div>
+      <ul class="footerright">
+        <li>
+          <h2>Kurumsal</h2>
+          <ul class="box">
+            <li><a href="aboutus.html">Hakkımızda</a></li>
+            <li><a href="privacypolicy.html">Gizlilik Politikası</a></li>
+            <li><a href="Useragreement.html">Kullanıcı Sözleşmesi</a></li>
+            <li><a href="contactus.html">İletişim&Kariyer</a></li>
+          </ul>
+        </li>
+        <li class="Find">
+          <h2>Keşfet</h2>
+          <ul class="box hbox">
+            <li><a href="events.html">Etkinlikler</a></li>
+            <li><a href="category.html">Kategoriler</a></li>
+            <li><a href="cityguide.html">Şehirler</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="footerbottom">
+        <p>Copyright © 2020 Snoll</p>
+      </div>
+    </section>
+    <!-- End Footer Section -->
+    <script src="/hb.js"></script>
+  </body>
+</html>

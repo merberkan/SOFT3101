@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="footernavbarwotransition.css" />
+    <link rel="stylesheet" href="AdminMain.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <section id="header">
+      <div class="header container">
+        <div class="navbar">
+          <div class="logo">
+            <a href="/">
+              <h1><span>S</span>noll</h1>
+            </a>
+          </div>
+          <div class="searchbar">
+            <form method="POST" action="/filterEvent/searchbar">
+              <input
+                type="search"
+                name="EventName"
+                placeholder="Etkinlik Ara"
+              />
+            </form>
+          </div>
+          <div class="navlist">
+            <div class="hb">
+              <div class="bar"></div>
+            </div>
+            <ul>
+              <li style="padding: 8px"><a href="/">Anasayfa</a></li>
+              <li style="padding: 8px"><a href="/events">Etkinlikler</a></li>
+              <li style="padding: 8px"><a href="/category">Kategoriler</a></li>
+              <li style="padding: 8px"><a href="/cityguide">Şehir Turu</a></li>
+              <li style="padding: 20px"><a href="/aboutus">Hakkımızda</a></li>
+              <% if(loginn){ %> <% if(adminn){ %>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/adminMain">Admin</a>
+              </li>
+              <% } if(ownerr){ %>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/ownerMain">Owner</a>
+              </li>
+              <% } %>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/myCart"
+                  ><i class="fas fa-shopping-cart"> Sepetim</i></a
+                >
+              </li>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/profile">Profilim</a>
+              </li>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/logout">Çıkış Yap</a>
+              </li>
+              <% } else{ %>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/login">Giriş Yap</a>
+              </li>
+              <li class="entrance" style="margin-right: 20px">
+                <a href="/register">Üye Ol</a>
+              </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Header -->
+    <section id="bodyadmin">
+      <div class="contain">
+        <div class="profilepart">
+          <div class="profileimage">
+            <img
+              src="https://img.icons8.com/ios/200/000000/gender-neutral-user.png"
+            />
+          </div>
+          <div class="information">
+            <% if(User.length >0){%> <%User.forEach(user => { %>
+            <div class="boxp">
+              <h3>İsim</h3>
+              <h4><%= user[0].firstname %></h4>
+            </div>
+            <div class="boxp">
+              <h3>Email</h3>
+              <h4><%= email %></h4>
+            </div>
+            <div class="boxp">
+              <h3>Rol</h3>
+              <h4><%= user[0].role %></h4>
+            </div>
+            <% }) %> <% } %>
+          </div>
+        </div>
+        <div class="conainters">
+          <div class="mainpart">
+            <div class="mm">
+              <div class="namep">
+                <h3>Admin Paneline Hoşgeldiniz</h3>
+              </div>
+              <div class="welcomebutton" style="margin-bottom: 3rem">
+                <a href="/"><button>Anasayfaya Git</button></a>
+              </div>
+
+              <div class="welcomep">
+                <a href="/EventPanel"><button>Etkinlik Paneline Git</button></a>
+                <a href="/UserPanel"><button>Kullanıcı Paneline Git</button></a>
+                <a href="/CityPanel"><button>Şehirler Paneline Git</button></a>
+              </div>
+            </div>
+          </div>
+          <div class="myEvents">
+            <table style="width: 100%">
+              <tr>
+                <th>Etkinlik Adı</th>
+                <th>Etkinlik Tarihi</th>
+                <th>Etkinlik Yeri</th>
+                <th>Etkinlik Fiyatı</th>
+                <th>Etkinlik Vip Fiyatı</th>
+                <th>Etkinlik Arkaplan</th>
+                <th>Etkinlik Resmi</th>
+                <th>Sanatçı</th>
+                <th>Etkinlik Kategorisi</th>
+                <th>Etkinlik Kapasitesi</th>
+                <th>Etkinlik Vip Kapasitesi</th>
+                <th>Etkinlik Adresi</th>
+                <th>Etkinlik Şehri</th>
+              </tr>
+              <% if(Event.length >0){%> <%Event.forEach(Event => { %>
+              <tr>
+                <td><%=Event.EventName%></td>
+                <td><%=Event.EventDate%></td>
+                <td><%=Event.EventPlace%></td>
+                <td><%=Event.EventPrice%></td>
+                <td><%=Event.EventVipPrice%></td>
+                <td><%=Event.EventPhotoBackground%></td>
+                <td><%=Event.EventPhotoUrl%></td>
+                <td><%=Event.PerformerName%></td>
+                <td><%=Event.EventCategory%></td>
+                <td><%=Event.EventCapacity%></td>
+                <td><%=Event.EventVipCapacity%></td>
+                <td><%=Event.EventAddress%></td>
+                <td><%=Event.EventCity%></td>
+              </tr>
+              <% }) %> <% } %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <section id="footer">
+      <div class="footerleft">
+        <a href="/">
+          <h1 style="color: white; font-size: 3rem">
+            <span style="color: rgb(73, 89, 230); font-size: 4rem">S</span>noll
+          </h1>
+        </a>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
+          distinctio pariatur placeat consequuntur vel laborum molestiae, eos
+          incidunt est! Doloremque ea illo ratione sunt porro, earum voluptas
+          eum quaerat est. Velit, nostrum quae officia odio veniam animi
+          exercitationem. Nobis, hic. Praesentium provident eaque, dolorum
+          dolore rem ullam id delectus quae?
+        </p>
+        <div class="socialmedia">
+          <div class="socialitem">
+            <a href="https://tr-tr.facebook.com"
+              ><img
+                src="https://img.icons8.com/plasticine/48/000000/facebook-new.png"
+            /></a>
+          </div>
+          <div class="socialitem">
+            <a href="https://twitter.com"
+              ><img
+                src="https://img.icons8.com/doodle/48/000000/twitter--v1.png"
+            /></a>
+          </div>
+          <div class="socialitem">
+            <a href="https://www.instagram.com/?hl=tr"
+              ><img
+                src="https://img.icons8.com/plasticine/50/000000/instagram-new.png"
+            /></a>
+          </div>
+        </div>
+      </div>
+      <ul class="footerright">
+        <li>
+          <h2>Kurumsal</h2>
+          <ul class="box">
+            <li><a href="/aboutus">Hakkımızda</a></li>
+            <li><a href="/privacypolicy">Gizlilik Politikası</a></li>
+            <li><a href="/Useragreement">Kullanıcı Sözleşmesi</a></li>
+            <li><a href="/contactus">İletişim&Kariyer</a></li>
+          </ul>
+        </li>
+        <li class="Find">
+          <h2>Keşfet</h2>
+          <ul class="box hbox">
+            <li><a href="/events">Etkinlikler</a></li>
+            <li><a href="/category">Kategoriler</a></li>
+            <li><a href="/cityguide">Şehirler</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="footerbottom">
+        <p>Copyright © 2020 Snoll</p>
+      </div>
+    </section>
+    <!-- End Footer Section -->
+    <script src="/hb.js"></script>
+  </body>
+</html>

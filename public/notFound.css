@@ -1,0 +1,30 @@
+.mid-part {
+    display: flex;
+    flex-direction: column;
+}
+.error-image{
+    display: flex;
+    width: 100%;
+}
+.error-image-fix{
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+}
+.button{
+    position: absolute;
+    cursor: pointer;
+    background-color: black;
+    width: 14rem;
+    height: 7rem;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 22px;
+    padding: 12px 17px;
+    border: none;
+    border-radius: 10px;
+}
